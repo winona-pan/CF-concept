@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公司理財 期末複習 · Corporate Finance Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<style>
+:root{
+  --ink:#16202A; --ink-2:#22303D; --paper:#FBF9F4; --paper-2:#F2EEE4;
+  --teal:#1F6F5C; --teal-d:#185647; --gold:#C9A227; --gold-soft:#E7CF7E;
+  --red:#B23A48; --green-ok:#2E7D5B;
+  --line:#DED7C7; --muted:#6B7480; --rail-line:#2C3A47;
+  --shadow:0 1px 0 rgba(0,0,0,.04), 0 6px 24px -12px rgba(22,32,42,.28);
+  --r:14px; --rail-w:248px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  line-height:1.55;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,.disp{font-family:Fraunces,Georgia,"Noto Serif TC",serif;}
+.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;}
+a{color:var(--teal-d)}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2.5px solid var(--gold);outline-offset:2px;border-radius:6px}
+
+/* layout */
+.app{display:flex;min-height:100vh}
+.rail{width:var(--rail-w);flex:0 0 var(--rail-w);background:var(--ink);color:#E9EEF2;
+  position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;}
+.brand{padding:22px 20px 16px;border-bottom:1px solid var(--rail-line)}
+.brand .kk{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);font-weight:600}
+.brand h1{font-size:21px;margin:6px 0 2px;font-weight:600;color:#fff;line-height:1.2}
+.brand .sub{font-size:12px;color:#9DAAB6}
+.navsec{padding:14px 12px 6px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7E8B97}
+.nav{list-style:none;margin:0;padding:0 10px}
+.nav li{margin:2px 0}
+.nav button{width:100%;text-align:left;background:none;border:0;color:#CBD5DE;padding:9px 12px;border-radius:10px;
+  font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;transition:background .15s,color .15s}
+.nav button .ic{width:20px;text-align:center;font-size:15px;opacity:.85}
+.nav button:hover{background:#1E2B36;color:#fff}
+.nav button.on{background:var(--teal);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.nav .badge{margin-left:auto;font-size:11px;background:#26333F;color:#AFC4BD;border-radius:20px;padding:1px 8px;font-weight:600}
+.nav button.on .badge{background:rgba(255,255,255,.18);color:#fff}
+.unitnums{padding:6px 10px 18px}
+.unitnums .ti{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7E8B97;padding:10px 12px 6px}
+.unitnums button{width:100%;text-align:left;background:none;border:0;color:#C3D0DA;padding:7px 12px;border-radius:9px;
+  display:flex;gap:10px;align-items:baseline;font-size:13px}
+.unitnums button:hover{background:#1E2B36;color:#fff}
+.unitnums button.on{background:#16323B;color:#fff}
+.unitnums .n{font-family:"IBM Plex Mono",monospace;color:var(--gold-soft);font-size:12px;min-width:34px}
+.railfoot{margin-top:auto;padding:14px 16px;border-top:1px solid var(--rail-line);font-size:11px;color:#7E8B97}
+
+/* main */
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{display:none}
+.wrap{max-width:980px;width:100%;margin:0 auto;padding:34px 30px 90px}
+.pagehead{margin-bottom:22px}
+.pagehead .ey{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);font-weight:600}
+.pagehead h2{font-size:30px;margin:6px 0 4px;font-weight:600}
+.pagehead p{margin:0;color:var(--muted);font-size:14.5px;max-width:62ch}
+
+/* cards */
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin:14px 0;box-shadow:var(--shadow)}
+.card .tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:2px 9px;border-radius:20px;margin-bottom:10px}
+.tag.def{background:#EAF3EF;color:var(--teal-d)}
+.tag.concept{background:#FBF1D8;color:#876C13}
+.tag.formula{background:#E7EDF2;color:#2E4456}
+.card h3{margin:0 0 2px;font-size:18px;font-weight:600}
+.card .zhterm{font-size:14px;color:var(--muted);font-weight:500;margin-bottom:8px}
+.lang{display:grid;grid-template-columns:1fr;gap:10px}
+.lang .en,.lang .zh{font-size:14.5px}
+.lang .lab{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;display:block;margin-bottom:2px}
+.lang .zh{padding-top:10px;border-top:1px dashed var(--line)}
+.badge-pin{float:right;font-size:11px;color:var(--gold);font-weight:700}
+.formula-slip{background:var(--ink);color:#EAF0F4;border-radius:10px;padding:14px 16px;margin:10px 0;overflow-x:auto}
+.formula-slip .katex{font-size:1.15em;color:#fff}
+.formula-raw{font-family:"IBM Plex Mono",monospace;color:#EAF0F4;font-size:14px}
+.vars{font-size:12.5px;color:var(--muted);margin-top:8px}
+.vars .mono{color:var(--ink-2)}
+.unit-intro{background:linear-gradient(180deg,#fff, #FCFAF5);border:1px solid var(--line);border-left:4px solid var(--teal);
+  border-radius:var(--r);padding:18px 22px;margin-bottom:6px}
+.unit-intro .lec{font-size:12px;color:var(--teal);font-weight:600;letter-spacing:.05em}
+.unit-intro h2{font-size:24px;margin:6px 0 8px}
+.unit-intro .ti-zh{color:var(--muted);font-weight:500;font-size:16px}
+.unit-intro p{font-size:14px;margin:8px 0 0}
+.unit-intro p.zh{color:#3c4650}
+
+/* generic ui bits */
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--teal);background:var(--teal);color:#fff;border-radius:10px;padding:10px 18px;font-size:14px;font-weight:600;transition:filter .15s,transform .05s}
+.btn:hover{filter:brightness(1.06)} .btn:active{transform:translateY(1px)}
+.btn.ghost{background:#fff;color:var(--teal-d);border-color:var(--line)}
+.btn.ghost:hover{background:var(--paper-2)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#3a2f06}
+.btn.danger{background:#fff;color:var(--red);border-color:#E4C2C6}
+.btn.sm{padding:6px 12px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.seg button{background:none;border:0;padding:8px 14px;font-size:13.5px;font-weight:600;color:var(--muted)}
+.seg button.on{background:var(--teal);color:#fff}
+.field{margin:14px 0}
+.field>.lab{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px}
+select{font-family:inherit;font-size:14px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);min-width:220px}
+
+/* quiz */
+.quizcard{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.quizcard .qhead{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--line);background:#FCFAF5}
+.qhead .meta{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.04em}
+.qhead .diffpill{font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.06em}
+.diffpill.basic{background:#EAF3EF;color:var(--teal-d)} .diffpill.hard{background:#F6E6E8;color:var(--red)}
+.qhead .star{margin-left:auto;background:none;border:0;font-size:22px;line-height:1;color:#CDB979;padding:2px 4px}
+.qhead .star.on{color:var(--gold)}
+.qbody{padding:20px}
+.qtext{font-size:17px;font-weight:600;margin:0 0 16px;line-height:1.45}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;background:#fff;border:1.5px solid var(--line);
+  border-radius:12px;padding:13px 15px;font-size:15px;color:var(--ink);transition:border-color .12s,background .12s}
+.opt:hover:not(:disabled){border-color:var(--teal);background:#FAFCFB}
+.opt .key{font-family:"IBM Plex Mono",monospace;font-weight:600;color:var(--muted);min-width:18px}
+.opt.correct{border-color:var(--green-ok);background:#EDF7F0}
+.opt.correct .key{color:var(--green-ok)}
+.opt.wrong{border-color:var(--red);background:#FBEFF0}
+.opt.wrong .key{color:var(--red)}
+.opt.dim{opacity:.6}
+.explain{margin-top:16px;border-radius:12px;padding:14px 16px;font-size:14.5px;line-height:1.6}
+.explain.ok{background:#EDF7F0;border:1px solid #BFE0CC}
+.explain.no{background:#FBEFF0;border:1px solid #EBC9CD}
+.explain .verdict{font-weight:700;font-family:Fraunces,serif;font-size:16px;margin-bottom:4px;display:flex;gap:8px;align-items:center}
+.explain.ok .verdict{color:var(--green-ok)} .explain.no .verdict{color:var(--red)}
+.explain .lab{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.quizfoot{display:flex;gap:10px;align-items:center;padding:16px 20px;border-top:1px solid var(--line);background:#FCFAF5}
+.progressbar{height:7px;background:var(--paper-2);border-radius:20px;overflow:hidden;margin:0 0 18px}
+.progressbar>i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:20px;transition:width .3s}
+.countline{font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:600}
+
+/* stat tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:8px 0 24px}
+.tile{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.tile .n{font-family:Fraunces,serif;font-size:30px;font-weight:600;line-height:1}
+.tile .l{font-size:12.5px;color:var(--muted);margin-top:6px;font-weight:500}
+.tile.accent{background:var(--ink);color:#fff} .tile.accent .l{color:#A9B7C2}
+.tile.accent .n{color:#fff}
+.uprog{margin:10px 0}
+.uprog .top{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;margin-bottom:5px}
+.uprog .top .pct{color:var(--muted);font-weight:600;font-family:"IBM Plex Mono",monospace;font-size:12.5px}
+.bar{height:9px;background:var(--paper-2);border-radius:20px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--teal);border-radius:20px}
+
+/* empty / notice */
+.empty{text-align:center;padding:46px 20px;color:var(--muted)}
+.empty .big{font-size:40px;margin-bottom:8px}
+.empty h3{font-size:19px;color:var(--ink);margin:0 0 6px}
+.notice{background:#FBF1D8;border:1px solid #E8D49A;border-radius:12px;padding:12px 16px;font-size:13.5px;color:#6E5710;margin:12px 0}
+.reviewlist{display:flex;flex-direction:column;gap:10px}
+.revitem{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 15px;text-align:left;width:100%}
+.revitem:hover{border-color:var(--teal)}
+.revitem .ix{font-family:"IBM Plex Mono",monospace;color:var(--muted);font-size:12px;min-width:38px}
+.revitem .qt{flex:1;font-size:14px;font-weight:500}
+.revitem .mk{font-size:18px}
+.scrim{display:none}
+
+/* mobile */
+@media (max-width:860px){
+  .rail{position:fixed;left:0;top:0;transform:translateX(-100%);transition:transform .25s;z-index:40;width:84%;max-width:300px}
+  .rail.open{transform:none}
+  .scrim{display:none;position:fixed;inset:0;background:rgba(10,16,22,.5);z-index:30}
+  .scrim.show{display:block}
+  .topbar{display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:20;background:var(--ink);color:#fff;padding:12px 16px}
+  .topbar .hamb{background:none;border:1px solid #38444F;color:#fff;border-radius:9px;padding:6px 11px;font-size:17px}
+  .topbar .tt{font-family:Fraunces,serif;font-weight:600;font-size:16px}
+  .wrap{padding:22px 18px 90px}
+  .pagehead h2{font-size:25px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="rail" id="rail">
+    <div class="brand">
+      <div class="kk">Final Review</div>
+      <h1>公司理財</h1>
+      <div class="sub">Corporate Finance · 期末地毯式複習</div>
+    </div>
+    <div class="navsec">功能</div>
+    <ul class="nav" id="mainnav">
+      <li><button data-view="learn" class="on"><span class="ic">📖</span>學習</button></li>
+      <li><button data-view="quiz"><span class="ic">✏️</span>測驗</button></li>
+      <li><button data-view="review"><span class="ic">⭐</span>錯題複習<span class="badge" id="bdg-review">0</span></button></li>
+      <li><button data-view="todo"><span class="ic">📝</span>未作答<span class="badge" id="bdg-todo">200</span></button></li>
+      <li><button data-view="progress"><span class="ic">📊</span>進度</button></li>
+    </ul>
+    <div class="unitnums" id="unitnav"></div>
+    <div class="railfoot">共 8 單元 · 200 題（基本 100 / 中上 100）</div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <button class="hamb" id="hamb" aria-label="開啟選單">☰</button>
+      <span class="tt" id="topTitle">學習</span>
+    </div>
+    <div class="wrap" id="view"></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+"use strict";
+/* ---------- state / persistence ---------- */
+var SKEY='corpfin_review_v1';
+var state=load();
+function load(){
+  try{var s=JSON.parse(localStorage.getItem(SKEY));if(s&&s.attempts)return s;}catch(e){}
+  return {attempts:{}, starred:{}};
+}
+function save(){try{localStorage.setItem(SKEY,JSON.stringify(state));}catch(e){}}
+
+var LESSONS=window.LESSONS||[], QUESTIONS=window.QUESTIONS||[];
+var Q_BY_ID={}; QUESTIONS.forEach(function(q){Q_BY_ID[q.id]=q;});
+var UNIT_TITLE={}; LESSONS.forEach(function(u){UNIT_TITLE[u.key]={code:u.code,zh:u.title_zh,en:u.title_en};});
+
+/* ---------- derived sets ---------- */
+function isAnswered(id){return !!state.attempts[id];}
+function isWrong(id){var a=state.attempts[id];return a&&a.correct===false;}
+function isStarred(id){return !!state.starred[id];}
+function unansweredIds(filterFn){return QUESTIONS.filter(function(q){return !isAnswered(q.id)&&(!filterFn||filterFn(q));}).map(function(q){return q.id;});}
+function wrongIds(){return QUESTIONS.filter(function(q){return isWrong(q.id);}).map(function(q){return q.id;});}
+function starredIds(){return QUESTIONS.filter(function(q){return isStarred(q.id);}).map(function(q){return q.id;});}
+
+/* ---------- helpers ---------- */
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function renderTeX(root){
+  if(!window.katex)return;
+  root.querySelectorAll('[data-latex]').forEach(function(n){
+    try{katex.render(n.getAttribute('data-latex'),n,{throwOnError:false,displayMode:true});}
+    catch(e){n.textContent=n.getAttribute('data-latex');}
+  });
+}
+var DIFF_ZH={basic:'基本題',hard:'中上'};
+
+/* ---------- navigation ---------- */
+var current='learn', currentUnit=null;
+function setView(v,unit){
+  current=v; if(unit!==undefined)currentUnit=unit;
+  document.querySelectorAll('#mainnav button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-view')===v);});
+  var titles={learn:'學習',quiz:'測驗',review:'錯題複習',todo:'未作答',progress:'進度'};
+  document.getElementById('topTitle').textContent=titles[v]||'';
+  closeRail();
+  refreshBadges();
+  var fn={learn:viewLearn,quiz:viewQuiz,review:viewReview,todo:viewTodo,progress:viewProgress}[v];
+  var host=document.getElementById('view'); host.innerHTML=''; fn(host);
+  host.scrollIntoView({block:'start'}); window.scrollTo(0,0);
+}
+function refreshBadges(){
+  document.getElementById('bdg-review').textContent=wrongIds().length+starredIds().length;
+  document.getElementById('bdg-todo').textContent=unansweredIds().length;
+}
+document.getElementById('mainnav').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-view]'); if(b)setView(b.getAttribute('data-view'));
+});
+/* unit quick-nav */
+(function(){
+  var host=document.getElementById('unitnav');
+  host.appendChild(el('div','ti','單元 Units'));
+  LESSONS.forEach(function(u,i){
+    var b=el('button',null,'<span class="n">'+(i+1<10?'0':'')+(i+1)+'</span><span>'+esc(u.title_zh)+'</span>');
+    b.setAttribute('data-unit',u.key);
+    b.addEventListener('click',function(){setView('learn',u.key);
+      document.querySelectorAll('#unitnav button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');});
+    host.appendChild(b);
+  });
+})();
+function markUnitNav(key){document.querySelectorAll('#unitnav button').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-unit')===key);});}
+
+/* rail toggle (mobile) */
+function openRail(){document.getElementById('rail').classList.add('open');document.getElementById('scrim').classList.add('show');}
+function closeRail(){document.getElementById('rail').classList.remove('open');document.getElementById('scrim').classList.remove('show');}
+document.getElementById('hamb').addEventListener('click',openRail);
+document.getElementById('scrim').addEventListener('click',closeRail);
+
+/* ---------- LEARN ---------- */
+function viewLearn(host){
+  if(!currentUnit)currentUnit=LESSONS[0].key;
+  markUnitNav(currentUnit);
+  var u=LESSONS.filter(function(x){return x.key===currentUnit;})[0];
+  host.appendChild(el('div','pagehead','<div class="ey">學習 · Learn</div><h2>單元教學</h2><p>每個單元整理「定義、觀念、公式」，中英對照、逐項說明。左側可切換單元。</p>'));
+
+  var intro=el('div','unit-intro');
+  intro.innerHTML='<div class="lec">'+esc(u.code)+' · '+esc(u.lecture)+'</div>'+
+    '<h2>'+esc(u.title_en)+'</h2><div class="ti-zh">'+esc(u.title_zh)+'</div>'+
+    '<p class="en">'+esc(u.intro_en)+'</p><p class="zh">'+esc(u.intro_zh)+'</p>';
+  host.appendChild(intro);
+
+  u.cards.forEach(function(c){host.appendChild(cardEl(c));});
+
+  // unit switch buttons
+  var idx=LESSONS.map(function(x){return x.key;}).indexOf(currentUnit);
+  var nav=el('div','row');nav.style.marginTop='26px';
+  if(idx>0){var p=el('button','btn ghost','← '+esc(LESSONS[idx-1].title_zh));p.onclick=function(){setView('learn',LESSONS[idx-1].key);};nav.appendChild(p);}
+  if(idx<LESSONS.length-1){var n=el('button','btn',esc(LESSONS[idx+1].title_zh)+' →');n.onclick=function(){setView('learn',LESSONS[idx+1].key);};n.style.marginLeft='auto';nav.appendChild(n);}
+  host.appendChild(nav);
+  renderTeX(host);
+}
+function cardEl(c){
+  var t=c.t||'concept';
+  var card=el('div','card');
+  var label={def:'定義 Definition',concept:'觀念 Concept',formula:'公式 Formula'}[t]||'觀念';
+  card.appendChild(el('span','tag '+t,label));
+  if(c.badge)card.appendChild(el('span','badge-pin','★ '+esc(c.badge)));
+  if(t==='formula'){
+    card.appendChild(el('h3',null,esc(c.name_en||'')));
+    if(c.name_zh)card.appendChild(el('div','zhterm',esc(c.name_zh)));
+    var slip=el('div','formula-slip');
+    var f=el('div',null,'');f.setAttribute('data-latex',c.latex||'');f.appendChild(el('span','formula-raw',esc(c.latex||'')));
+    slip.appendChild(f);card.appendChild(slip);
+  }else{
+    card.appendChild(el('h3',null,esc(c.term_en||'')));
+    if(c.term_zh)card.appendChild(el('div','zhterm',esc(c.term_zh)));
+  }
+  var lang=el('div','lang');
+  if(c.en)lang.appendChild(el('div','en','<span class="lab">EN</span>'+esc(c.en)));
+  if(c.zh)lang.appendChild(el('div','zh','<span class="lab">中文</span>'+esc(c.zh)));
+  card.appendChild(lang);
+  if(c.vars_en||c.vars_zh){
+    var v=el('div','vars');
+    if(c.vars_en)v.innerHTML+='<div><span class="mono">vars</span> · '+esc(c.vars_en)+'</div>';
+    if(c.vars_zh)v.innerHTML+='<div style="margin-top:3px">'+esc(c.vars_zh)+'</div>';
+    card.appendChild(v);
+  }
+  return card;
+}
+
+/* ---------- QUIZ session engine ---------- */
+var session=null; // {ids, i, mode:'practice'|'review', recordFresh:bool}
+function startSession(ids,opts){
+  opts=opts||{};
+  session={ids:ids,i:0,mode:opts.mode||'practice',answeredThis:0,correctThis:0};
+  setView(current);
+  renderSession();
+}
+function renderSession(){
+  var host=document.getElementById('view');host.innerHTML='';
+  var total=session.ids.length;
+  if(total===0){host.appendChild(sessionEmpty());return;}
+  if(session.i>=total){host.appendChild(sessionDone());return;}
+  var id=session.ids[session.i], q=Q_BY_ID[id];
+  var ut=UNIT_TITLE[q.unit];
+
+  var pb=el('div','progressbar','<i style="width:'+Math.round(session.i/total*100)+'%"></i>');
+  host.appendChild(el('div','countline','第 '+(session.i+1)+' / '+total+' 題　·　本回合答對 '+session.correctThis+'／'+session.answeredThis));
+  host.appendChild(pb);
+
+  var qc=el('div','quizcard');
+  var head=el('div','qhead');
+  head.innerHTML='<span class="meta">'+esc(ut.code)+' · '+esc(ut.zh)+'</span>'+
+    '<span class="diffpill '+q.diff+'">'+DIFF_ZH[q.diff]+'</span>';
+  var star=el('button','star'+(isStarred(id)?' on':''),'★');
+  star.title='標記星號';
+  star.onclick=function(){state.starred[id]=isStarred(id)?undefined:true;if(!state.starred[id])delete state.starred[id];save();star.classList.toggle('on');refreshBadges();};
+  head.appendChild(star);
+  qc.appendChild(head);
+
+  var body=el('div','qbody');
+  body.appendChild(el('p','qtext',esc(q.q)));
+  var opts=el('div','opts');
+  var keys=['A','B','C','D'];
+  q.opts.forEach(function(o,k){
+    var b=el('button','opt','<span class="key">'+keys[k]+'</span><span>'+esc(o)+'</span>');
+    b.onclick=function(){answer(id,k,qc,opts,body);};
+    opts.appendChild(b);
+  });
+  body.appendChild(opts);
+  qc.appendChild(body);
+
+  var foot=el('div','quizfoot');
+  var skip=el('button','btn ghost sm','跳過');
+  skip.onclick=function(){session.i++;renderSession();};
+  foot.appendChild(skip);
+  qc.appendChild(foot);
+  host.appendChild(qc);
+}
+function answer(id,chosen,qc,optsWrap,body){
+  var q=Q_BY_ID[id], correct=(chosen===q.ans);
+  // record attempt (fresh practice + review both update correctness)
+  var prev=state.attempts[id];
+  state.attempts[id]={chosen:chosen,correct:correct,count:(prev?prev.count:0)+1,ts:Date.now()};
+  save();refreshBadges();
+  session.answeredThis++; if(correct)session.correctThis++;
+  // lock options + colorize
+  var btns=optsWrap.querySelectorAll('.opt');
+  btns.forEach(function(b,k){
+    b.disabled=true;
+    if(k===q.ans)b.classList.add('correct');
+    else if(k===chosen)b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+  // explanation
+  var ex=el('div','explain '+(correct?'ok':'no'));
+  ex.innerHTML='<div class="verdict">'+(correct?'✓ 答對了':'✗ 答錯了')+'</div>'+
+    '<div><span class="lab">詳解</span></div><div style="margin-top:4px">'+esc(q.exp)+'</div>';
+  body.appendChild(ex);
+  // footer -> next
+  var foot=qc.querySelector('.quizfoot');foot.innerHTML='';
+  var more=session.i<session.ids.length-1;
+  var nx=el('button','btn',more?'下一題 →':'完成本回合 ✓');
+  nx.onclick=function(){session.i++;renderSession();};
+  foot.appendChild(nx);
+  var note=el('span',null,'');note.style.cssText='font-size:12.5px;color:var(--muted);margin-left:auto';
+  note.textContent=isStarred(id)?'已加星號':'';
+  foot.appendChild(note);
+}
+function sessionDone(){
+  var d=el('div','empty');
+  var pct=session.answeredThis?Math.round(session.correctThis/session.answeredThis*100):0;
+  d.innerHTML='<div class="big">🎉</div><h3>本回合完成</h3>'+
+    '<p>作答 '+session.answeredThis+' 題，答對 '+session.correctThis+' 題（'+pct+'%）。</p>';
+  var row=el('div','row');row.style.justifyContent='center';row.style.marginTop='14px';
+  var again=el('button','btn ghost','返回設定');again.onclick=function(){session=null;setView(current);};
+  row.appendChild(again);
+  d.appendChild(row);return d;
+}
+function sessionEmpty(){
+  var d=el('div','empty');
+  d.innerHTML='<div class="big">📭</div><h3>沒有可作答的題目</h3><p>換個單元或難度，或到「未作答／錯題複習」看看。</p>';
+  return d;
+}
+
+/* ---------- QUIZ (config) ---------- */
+var quizCfg={unit:'all',diff:'all'};
+function viewQuiz(host){
+  if(session){renderSession();return;}
+  host.appendChild(el('div','pagehead','<div class="ey">測驗 · Quiz</div><h2>開始測驗</h2><p>選擇單元與難度後開始。預設只出「尚未作答」的題目，因此寫過的不會重複；作答時可按 ★ 標記題目供日後複習。</p>'));
+
+  var box=el('div','card');
+  // unit select
+  var fu=el('div','field');fu.appendChild(el('span','lab','單元 Unit'));
+  var sel=el('select');sel.appendChild(new Option('全部單元 All units','all'));
+  LESSONS.forEach(function(u){sel.appendChild(new Option(u.title_zh+'  ('+u.code+')',u.key));});
+  sel.value=quizCfg.unit;sel.onchange=function(){quizCfg.unit=sel.value;updateAvail();};
+  fu.appendChild(sel);box.appendChild(fu);
+  // diff seg
+  var fd=el('div','field');fd.appendChild(el('span','lab','難度 Difficulty'));
+  var seg=el('div','seg');
+  [['all','全部'],['basic','基本題'],['hard','中上']].forEach(function(p){
+    var b=el('button',quizCfg.diff===p[0]?'on':null,p[1]);
+    b.onclick=function(){quizCfg.diff=p[0];seg.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');updateAvail();};
+    seg.appendChild(b);
+  });
+  fd.appendChild(seg);box.appendChild(fd);
+
+  var avail=el('div','countline','');box.appendChild(avail);
+  var inclWrap=el('label',null,'');inclWrap.style.cssText='display:flex;gap:8px;align-items:center;font-size:13.5px;color:var(--muted);margin:6px 0 14px';
+  var incl=el('input');incl.type='checkbox';incl.id='inclDone';
+  inclWrap.appendChild(incl);inclWrap.appendChild(document.createTextNode('包含已作答過的題目（重新練習）'));
+  box.appendChild(inclWrap);
+
+  var go=el('button','btn','開始作答');
+  go.onclick=function(){
+    var ids=poolFor(quizCfg,incl.checked);
+    if(!ids.length){return;}
+    startSession(shuffle(ids),{mode:'practice'});
+  };
+  box.appendChild(go);
+  host.appendChild(box);
+
+  function matchFn(q){return (quizCfg.unit==='all'||q.unit===quizCfg.unit)&&(quizCfg.diff==='all'||q.diff===quizCfg.diff);}
+  function poolFor(cfg,includeDone){
+    return QUESTIONS.filter(function(q){
+      if(!matchFn(q))return false;
+      if(!includeDone&&isAnswered(q.id))return false;
+      return true;
+    }).map(function(q){return q.id;});
+  }
+  function updateAvail(){
+    var fresh=poolFor(quizCfg,false).length, all=QUESTIONS.filter(matchFn).length;
+    avail.textContent='可作答（未寫過）：'+fresh+' 題　·　符合條件共 '+all+' 題';
+    go.disabled=fresh===0&&!incl.checked;
+  }
+  incl.onchange=function(){updateAvail();};
+  updateAvail();
+}
+
+/* ---------- TODO (unanswered) ---------- */
+function viewTodo(host){
+  if(session){renderSession();return;}
+  host.appendChild(el('div','pagehead','<div class="ey">未作答 · To-do</div><h2>未作答題庫</h2><p>這裡只收尚未作答的題目。開始練習後，寫過的題目就會離開這一區，下次不再重複。</p>'));
+  var left=unansweredIds();
+  if(!left.length){
+    var d=el('div','empty');d.innerHTML='<div class="big">✅</div><h3>全部題目都寫過了！</h3><p>200 題已全數作答。可到「錯題複習」鞏固，或在「測驗」勾選重練。</p>';
+    host.appendChild(d);return;
+  }
+  // per-unit remaining
+  host.appendChild(el('div','countline','尚餘 '+left.length+' 題未作答'));
+  LESSONS.forEach(function(u){
+    var rem=QUESTIONS.filter(function(q){return q.unit===u.key&&!isAnswered(q.id);});
+    var tot=QUESTIONS.filter(function(q){return q.unit===u.key;}).length;
+    if(!rem.length)return;
+    var c=el('div','uprog');
+    c.innerHTML='<div class="top"><span>'+esc(u.title_zh)+' <span style="color:var(--muted);font-weight:500">'+esc(u.code)+'</span></span>'+
+      '<span class="pct">'+rem.length+' / '+tot+' 未寫</span></div>'+
+      '<div class="bar"><i style="width:'+Math.round((tot-rem.length)/tot*100)+'%"></i></div>';
+    host.appendChild(c);
+  });
+  var row=el('div','row');row.style.marginTop='20px';
+  var allb=el('button','btn','開始練習全部未作答（'+left.length+'）');
+  allb.onclick=function(){startSession(shuffle(left),{mode:'practice'});};
+  row.appendChild(allb);
+  host.appendChild(row);
+}
+
+/* ---------- REVIEW (wrong + starred) ---------- */
+var reviewTab='wrong';
+function viewReview(host){
+  if(session){renderSession();return;}
+  host.appendChild(el('div','pagehead','<div class="ey">錯題複習 · Review</div><h2>錯題與星號題</h2><p>把答錯的題目和你標記 ★ 的題目集中在這裡，可以重新作答。答對後該題會自動離開錯題清單。</p>'));
+  var seg=el('div','seg');seg.style.marginBottom='6px';
+  var wN=wrongIds().length, sN=starredIds().length;
+  [['wrong','錯題 ('+wN+')'],['starred','星號 ('+sN+')']].forEach(function(p){
+    var b=el('button',reviewTab===p[0]?'on':null,p[1]);
+    b.onclick=function(){reviewTab=p[0];setView('review');};
+    seg.appendChild(b);
+  });
+  host.appendChild(seg);
+
+  var ids=reviewTab==='wrong'?wrongIds():starredIds();
+  if(!ids.length){
+    var d=el('div','empty');
+    if(reviewTab==='wrong')d.innerHTML='<div class="big">👍</div><h3>目前沒有錯題</h3><p>答錯的題目會出現在這裡，方便你重練。</p>';
+    else d.innerHTML='<div class="big">⭐</div><h3>還沒有星號題</h3><p>作答時按右上角 ★ 即可把重要題目收藏到這裡。</p>';
+    host.appendChild(d);return;
+  }
+  var row=el('div','row');row.style.margin='10px 0 16px';
+  var pb=el('button','btn','重新作答這 '+ids.length+' 題');
+  pb.onclick=function(){startSession(shuffle(ids),{mode:'review'});};
+  row.appendChild(pb);
+  if(reviewTab==='starred'){
+    var clr=el('button','btn ghost sm','清除全部星號');
+    clr.onclick=function(){if(confirm('確定清除所有星號標記？')){state.starred={};save();setView('review');}};
+    row.appendChild(clr);
+  }
+  host.appendChild(row);
+
+  var list=el('div','reviewlist');
+  ids.forEach(function(id){
+    var q=Q_BY_ID[id],ut=UNIT_TITLE[q.unit];
+    var it=el('button','revitem');
+    it.innerHTML='<span class="ix">'+ut.code.replace('Ch ','Ch')+'</span>'+
+      '<span class="qt">'+esc(q.q)+'</span>'+
+      '<span class="mk">'+(isStarred(id)?'⭐':'✗')+'</span>';
+    it.onclick=function(){startSession([id],{mode:'review'});};
+    list.appendChild(it);
+  });
+  host.appendChild(list);
+}
+
+/* ---------- PROGRESS ---------- */
+function viewProgress(host){
+  host.appendChild(el('div','pagehead','<div class="ey">進度 · Progress</div><h2>學習進度</h2><p>整體與各單元的作答狀況。資料儲存在這台裝置的瀏覽器中。</p>'));
+  var ansIds=Object.keys(state.attempts);
+  var answered=ansIds.length;
+  var correct=ansIds.filter(function(id){return state.attempts[id].correct;}).length;
+  var rate=answered?Math.round(correct/answered*100):0;
+  var tiles=el('div','tiles');
+  function tile(n,l,acc){var t=el('div','tile'+(acc?' accent':''));t.innerHTML='<div class="n">'+n+'</div><div class="l">'+l+'</div>';return t;}
+  tiles.appendChild(tile(answered+'<span style="font-size:16px;color:var(--muted)"> / 200</span>','已作答題數',true));
+  tiles.appendChild(tile(rate+'%','正確率'));
+  tiles.appendChild(tile(wrongIds().length,'待複習錯題'));
+  tiles.appendChild(tile(starredIds().length,'星號題'));
+  host.appendChild(tiles);
+
+  host.appendChild(el('div',null,'<h3 style="font-size:17px;margin:18px 0 6px">各單元進度</h3>'));
+  LESSONS.forEach(function(u){
+    var qs=QUESTIONS.filter(function(q){return q.unit===u.key;});
+    var done=qs.filter(function(q){return isAnswered(q.id);}).length;
+    var cor=qs.filter(function(q){return state.attempts[q.id]&&state.attempts[q.id].correct;}).length;
+    var c=el('div','uprog');
+    var pct=qs.length?Math.round(done/qs.length*100):0;
+    c.innerHTML='<div class="top"><span>'+esc(u.title_zh)+' <span style="color:var(--muted);font-weight:500">'+esc(u.code)+'</span></span>'+
+      '<span class="pct">'+done+'/'+qs.length+'　正確 '+cor+'</span></div>'+
+      '<div class="bar"><i style="width:'+pct+'%"></i></div>';
+    host.appendChild(c);
+  });
+
+  var foot=el('div','row');foot.style.marginTop='26px';
+  var reset=el('button','btn danger','清除全部進度');
+  reset.onclick=function(){
+    if(confirm('確定要清除所有作答紀錄、錯題與星號嗎？此動作無法復原。')){
+      state={attempts:{},starred:{}};save();refreshBadges();setView('progress');
+    }
+  };
+  foot.appendChild(reset);
+  host.appendChild(foot);
+  host.appendChild(el('div','notice','提示：紀錄存放於本機瀏覽器 localStorage。換裝置、清除瀏覽器資料或使用無痕模式時，進度不會保留。'));
+}
+
+/* ---------- boot ---------- */
+refreshBadges();
+setView('learn',LESSONS[0].key);
+// re-render KaTeX once the script finishes loading (defer)
+window.addEventListener('load',function(){if(current==='learn')renderTeX(document.getElementById('view'));});
+</script>
+</body>
+</html>
