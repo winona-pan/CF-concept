@@ -78,6 +78,14 @@ button{font-family:inherit;cursor:pointer}
 .lang .en,.lang .zh{font-size:14.5px}
 .lang .lab{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;display:block;margin-bottom:2px}
 .lang .zh{padding-top:10px;border-top:1px dashed var(--line)}
+.lang .en p,.lang .zh p{margin:0 0 8px}
+.lang .en p:last-child,.lang .zh p:last-child{margin-bottom:0}
+.lang .zh{line-height:1.72}
+.unit-intro .en p,.unit-intro .zh p{margin:8px 0 0}
+.example{margin-top:14px;background:#FBF1D8;border:1px solid #E8D49A;border-left:4px solid var(--gold);border-radius:10px;padding:12px 16px}
+.example .exlab{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#876C13;font-weight:700;margin-bottom:6px}
+.example p{margin:0 0 7px;font-size:13.8px;line-height:1.7;color:#4a3d12}
+.example p:last-child{margin-bottom:0}
 .badge-pin{float:right;font-size:11px;color:var(--gold);font-weight:700}
 .formula-slip{background:var(--ink);color:#EAF0F4;border-radius:10px;padding:14px 16px;margin:10px 0;overflow-x:auto}
 .formula-slip .katex{font-size:1.15em;color:#fff}
@@ -240,6 +248,12 @@ function starredIds(){return QUESTIONS.filter(function(q){return isStarred(q.id)
 /* ---------- helpers ---------- */
 function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function para(s){ // \n\n -> paragraphs, \n -> line break, escaped
+  if(s==null)return '';
+  return String(s).split(/\n\s*\n/).map(function(blk){
+    return '<p>'+esc(blk).replace(/\n/g,'<br>')+'</p>';
+  }).join('');
+}
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 function renderTeX(root){
   if(!window.katex)return;
@@ -300,7 +314,7 @@ function viewLearn(host){
   var intro=el('div','unit-intro');
   intro.innerHTML='<div class="lec">'+esc(u.code)+' · '+esc(u.lecture)+'</div>'+
     '<h2>'+esc(u.title_en)+'</h2><div class="ti-zh">'+esc(u.title_zh)+'</div>'+
-    '<p class="en">'+esc(u.intro_en)+'</p><p class="zh">'+esc(u.intro_zh)+'</p>';
+    '<div class="en">'+para(u.intro_en)+'</div><div class="zh">'+para(u.intro_zh)+'</div>';
   host.appendChild(intro);
 
   u.cards.forEach(function(c){host.appendChild(cardEl(c));});
@@ -330,14 +344,19 @@ function cardEl(c){
     if(c.term_zh)card.appendChild(el('div','zhterm',esc(c.term_zh)));
   }
   var lang=el('div','lang');
-  if(c.en)lang.appendChild(el('div','en','<span class="lab">EN</span>'+esc(c.en)));
-  if(c.zh)lang.appendChild(el('div','zh','<span class="lab">中文</span>'+esc(c.zh)));
+  if(c.en)lang.appendChild(el('div','en','<span class="lab">EN</span>'+para(c.en)));
+  if(c.zh)lang.appendChild(el('div','zh','<span class="lab">中文 詳細說明</span>'+para(c.zh)));
   card.appendChild(lang);
   if(c.vars_en||c.vars_zh){
     var v=el('div','vars');
     if(c.vars_en)v.innerHTML+='<div><span class="mono">vars</span> · '+esc(c.vars_en)+'</div>';
     if(c.vars_zh)v.innerHTML+='<div style="margin-top:3px">'+esc(c.vars_zh)+'</div>';
     card.appendChild(v);
+  }
+  if(c.ex_zh){
+    var ex=el('div','example');
+    ex.innerHTML='<div class="exlab">舉例說明</div>'+para(c.ex_zh);
+    card.appendChild(ex);
   }
   return card;
 }
