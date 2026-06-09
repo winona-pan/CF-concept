@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公司理財 期末複習 · Corporate Finance Final Review</title>
+
+<!-- KaTeX for formula rendering -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#14283D;
+    --ink-soft:#2A3F54;
+    --paper:#F4F2EA;
+    --surface:#FCFBF6;
+    --teal:#0F766E;
+    --teal-deep:#0B5853;
+    --amber:#B7791F;
+    --amber-soft:#FBF3DF;
+    --rose:#B0473F;
+    --slate:#5C6B7A;
+    --line:#E3DFD2;
+    --line-strong:#D2CCBB;
+    --shadow:0 1px 2px rgba(20,40,61,.04), 0 6px 24px rgba(20,40,61,.05);
+    --zh:"Noto Sans TC", system-ui, sans-serif;
+    --en:"Inter", system-ui, sans-serif;
+    --disp:"Space Grotesk", "Noto Sans TC", sans-serif;
+    --mono:"JetBrains Mono", monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--zh); line-height:1.7; font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--teal); text-decoration:none;}
+
+  /* ---------- Layout ---------- */
+  .shell{display:flex; max-width:1280px; margin:0 auto; align-items:flex-start;}
+  .main{flex:1; min-width:0; padding:0 clamp(18px,4vw,56px) 120px;}
+
+  /* ---------- Sidebar ---------- */
+  .side{
+    position:sticky; top:0; height:100vh; width:268px; flex-shrink:0;
+    border-right:1px solid var(--line); padding:26px 22px;
+    overflow-y:auto; background:var(--paper);
+  }
+  .brand{font-family:var(--disp); font-weight:700; font-size:15px; letter-spacing:.02em; color:var(--ink);}
+  .brand small{display:block; font-family:var(--en); font-weight:500; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal); margin-top:3px;}
+  .search-wrap{margin:22px 0 16px; position:relative;}
+  #search{
+    width:100%; padding:9px 12px 9px 32px; border:1px solid var(--line-strong);
+    border-radius:9px; background:var(--surface); font-family:var(--zh); font-size:13.5px; color:var(--ink);
+  }
+  #search:focus{outline:2px solid var(--teal); outline-offset:-1px; border-color:transparent;}
+  .search-wrap svg{position:absolute; left:10px; top:50%; transform:translateY(-50%); width:14px; height:14px; stroke:var(--slate);}
+  .filter-toggle{
+    display:flex; align-items:center; gap:8px; font-size:13px; color:var(--slate);
+    cursor:pointer; padding:7px 4px; user-select:none; margin-bottom:6px;
+  }
+  .filter-toggle input{accent-color:var(--amber); width:15px; height:15px;}
+  .filter-toggle .cnt{margin-left:auto; font-family:var(--mono); font-size:11px; background:var(--amber-soft); color:var(--amber); padding:1px 7px; border-radius:20px;}
+  nav.toc{margin-top:10px;}
+  nav.toc a{
+    display:flex; gap:10px; align-items:baseline; padding:7px 10px; border-radius:8px;
+    color:var(--ink-soft); font-size:13.5px; line-height:1.35; transition:background .15s, color .15s;
+  }
+  nav.toc a .n{font-family:var(--mono); font-size:11px; color:var(--slate); flex-shrink:0; width:18px;}
+  nav.toc a:hover{background:#ECE9DD;}
+  nav.toc a.active{background:var(--ink); color:#fff;}
+  nav.toc a.active .n{color:#9FC7C1;}
+  .side-foot{margin-top:22px; padding-top:16px; border-top:1px solid var(--line); font-size:11px; color:var(--slate); line-height:1.6;}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:64px 0 46px; border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:var(--en); font-size:11.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--teal); font-weight:600;}
+  .hero h1{font-family:var(--disp); font-weight:700; font-size:clamp(30px,5vw,48px); line-height:1.08; margin:14px 0 6px; letter-spacing:-.01em;}
+  .hero .sub-en{font-family:var(--en); color:var(--slate); font-size:clamp(15px,2vw,18px); font-weight:500;}
+  .thesis{display:flex; flex-wrap:wrap; gap:28px; align-items:center; margin-top:30px;}
+  .thesis .eq{
+    background:var(--ink); color:#fff; border-radius:14px; padding:22px 30px; box-shadow:var(--shadow);
+  }
+  .thesis .eq .katex{color:#fff; font-size:1.25em;}
+  .thesis .gloss{flex:1; min-width:240px; color:var(--ink-soft); font-size:15px; max-width:440px;}
+  .thesis .gloss b{color:var(--teal-deep);}
+  .stat-row{display:flex; gap:30px; margin-top:34px; flex-wrap:wrap;}
+  .stat .num{font-family:var(--disp); font-weight:700; font-size:30px; color:var(--teal-deep); line-height:1;}
+  .stat .lab{font-size:12px; color:var(--slate); margin-top:5px;}
+  .howto{margin-top:30px; font-size:13.5px; color:var(--slate); background:var(--surface); border:1px dashed var(--line-strong); border-radius:12px; padding:14px 18px;}
+  .howto b{color:var(--amber);}
+
+  /* ---------- Section ---------- */
+  section.topic{padding:54px 0 10px; scroll-margin-top:20px;}
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:6px;}
+  .sec-head .sn{font-family:var(--disp); font-weight:700; font-size:20px; color:var(--amber); flex-shrink:0;}
+  .sec-head h2{font-family:var(--disp); font-weight:600; font-size:clamp(22px,3vw,28px); margin:0; letter-spacing:-.01em;}
+  .sec-head .en{font-family:var(--en); color:var(--slate); font-weight:500; font-size:15px; align-self:center;}
+  .sec-intro{color:var(--ink-soft); font-size:15px; max-width:760px; margin:8px 0 30px; border-left:3px solid var(--teal); padding-left:16px;}
+  .sec-intro .en{display:block; color:var(--slate); font-family:var(--en); font-size:13.5px; margin-top:6px;}
+
+  /* ---------- Card ---------- */
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:22px 24px; margin-bottom:18px; box-shadow:var(--shadow); position:relative;
+    transition:box-shadow .18s, border-color .18s;
+  }
+  .card:hover{box-shadow:0 2px 4px rgba(20,40,61,.05),0 10px 30px rgba(20,40,61,.07);}
+  .card.starred{border-color:var(--amber); background:linear-gradient(#FFFDF7,var(--surface));}
+  .card-top{display:flex; align-items:flex-start; gap:12px;}
+  .term{flex:1; min-width:0;}
+  .term .zh{font-family:var(--zh); font-weight:700; font-size:19px; color:var(--ink); line-height:1.3;}
+  .term .en{font-family:var(--en); font-weight:600; font-size:13px; letter-spacing:.04em; color:var(--teal); text-transform:none; margin-top:2px;}
+  .badge{font-family:var(--mono); font-size:10px; padding:3px 9px; border-radius:20px; font-weight:500; flex-shrink:0; letter-spacing:.03em;}
+  .lv1{background:#E2F0EE; color:var(--teal-deep);}
+  .lv2{background:var(--amber-soft); color:var(--amber);}
+  .lv3{background:#F6E4E2; color:var(--rose);}
+  .star{
+    flex-shrink:0; background:none; border:1px solid var(--line-strong); width:34px; height:34px;
+    border-radius:9px; cursor:pointer; color:var(--slate); display:grid; place-items:center;
+    transition:all .15s; font-size:16px; line-height:1;
+  }
+  .star:hover{border-color:var(--amber); color:var(--amber);}
+  .star.on{background:var(--amber); border-color:var(--amber); color:#fff;}
+
+  .def{margin:14px 0 2px; font-size:15px; color:var(--ink-soft);}
+  .def .en{display:block; font-family:var(--en); font-size:13.5px; color:var(--slate); margin-top:6px; line-height:1.6;}
+
+  /* formula slip */
+  .fbox{
+    background:#fff; border:1px solid var(--line-strong); border-left:4px solid var(--amber);
+    border-radius:10px; padding:16px 18px; margin:16px 0; overflow-x:auto;
+  }
+  .fbox .katex-display{margin:0;}
+  .fbox .katex{font-size:1.15em;}
+  .legend{display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:12px;}
+  .legend li{list-style:none; font-size:12.5px; color:var(--slate);}
+  .legend li b{font-family:var(--mono); color:var(--ink); font-weight:500; margin-right:5px;}
+  ul.legend{padding:0; margin:14px 0 0;}
+
+  .note{display:flex; gap:9px; font-size:13.5px; margin-top:12px; padding:11px 14px; border-radius:9px;}
+  .note .tag{font-family:var(--mono); font-size:10px; padding:2px 7px; border-radius:5px; height:fit-content; flex-shrink:0; font-weight:600;}
+  .ex{background:#F0F5F4;}
+  .ex .tag{background:var(--teal); color:#fff;}
+  .ex .body{color:var(--ink-soft);}
+  .tip{background:var(--amber-soft);}
+  .tip .tag{background:var(--amber); color:#fff;}
+  .tip .body{color:#6B5414;}
+
+  .mono{font-family:var(--mono); font-size:.92em; background:#EEEBDF; padding:1px 5px; border-radius:4px;}
+
+  .no-results{display:none; text-align:center; color:var(--slate); padding:60px 0; font-size:15px;}
+
+  /* mobile */
+  .menu-btn{display:none;}
+  @media(max-width:900px){
+    .side{
+      position:fixed; left:0; top:0; transform:translateX(-100%); z-index:50;
+      width:280px; box-shadow:0 0 40px rgba(0,0,0,.25); transition:transform .25s;
+    }
+    .side.open{transform:translateX(0);}
+    .menu-btn{
+      display:flex; position:fixed; top:14px; right:14px; z-index:40; align-items:center; gap:7px;
+      background:var(--ink); color:#fff; border:none; padding:10px 14px; border-radius:10px;
+      font-family:var(--disp); font-weight:600; font-size:13px; cursor:pointer; box-shadow:var(--shadow);
+    }
+    .scrim{display:none; position:fixed; inset:0; background:rgba(20,40,61,.4); z-index:45;}
+    .scrim.show{display:block;}
+    .hero{padding-top:40px;}
+  }
+
+  @media print{
+    .side,.menu-btn,.star,.scrim{display:none!important;}
+    .card{break-inside:avoid; box-shadow:none; border-color:#ccc;}
+    body{background:#fff;}
+  }
+</style>
+</head>
+<body>
+
+<button class="menu-btn" id="menuBtn">☰ 目錄</button>
+<div class="scrim" id="scrim"></div>
+
+<div class="shell">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="side" id="side">
+    <div class="brand">公司理財 · 期末複習
+      <small>Corporate Finance</small>
+    </div>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="text" placeholder="搜尋公式或名詞… search">
+    </div>
+    <label class="filter-toggle">
+      <input type="checkbox" id="starOnly">
+      <span>只看星標重點</span>
+      <span class="cnt" id="starCnt">0</span>
+    </label>
+    <nav class="toc" id="toc"></nav>
+    <div class="side-foot">
+      點右上角 <b>★</b> 把不熟的觀念加星標，複習時用「只看星標」快速回顧。星標會自動存在這台裝置。
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+    <header class="hero">
+      <div class="eyebrow">Final Exam Review · 一頁讀懂</div>
+      <h1>公司理財<br>定義 · 觀念 · 公式</h1>
+      <div class="sub-en">Definitions, intuition &amp; formulas — all explained in plain language, 中英對照</div>
+
+      <div class="thesis">
+        <div class="eq" id="heroEq"></div>
+        <div class="gloss">
+          整門公司理財，核心只有一句話：<b>錢有時間價值</b>。今天的一塊錢，比明年的一塊錢更值錢，因為它能拿去投資生利息。<br>
+          所有評價（債券、股票、專案）都是同一招——把<b>未來的現金流「折現」回今天</b>，再做決策。
+          <span style="display:block; font-family:var(--en); font-size:13px; color:var(--slate); margin-top:8px;">Everything here is one idea: a dollar today is worth more than a dollar tomorrow. Valuation = discounting future cash flows back to today.</span>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><div class="num" id="stTopics">–</div><div class="lab">主題 Topics</div></div>
+        <div class="stat"><div class="num" id="stCards">–</div><div class="lab">觀念卡 Concept cards</div></div>
+        <div class="stat"><div class="num" id="stFormulas">–</div><div class="lab">公式 Formulas</div></div>
+      </div>
+
+      <div class="howto">
+        <b>用法：</b>左側目錄可跳章，搜尋框可找關鍵字（中英都行）。每張卡片有 <b>白話解釋</b> + <b>變數說明</b> + <b>小例子</b>。難度標籤：<span class="badge lv1">基礎</span> <span class="badge lv2">核心</span> <span class="badge lv3">進階</span>。
+      </div>
+    </header>
+
+    <div id="content"></div>
+    <div class="no-results" id="noResults">找不到符合的卡片，換個關鍵字試試。</div>
+  </main>
+</div>
+
+<script>
+/* =========================================================
+   CONTENT DATA
+   每個 section: {id, sn, zh, en, intro, introEn, cards:[...] }
+   card: {q(中文名), e(英文名), lv(1/2/3), def(白話定義),
+          defEn(英文一句), f(LaTeX公式,可省), leg([[符號,說明]]),
+          ex(例子,可省), tip(提醒,可省) }
+   ========================================================= */
+const DATA = [
+{
+  id:"tvm", sn:"01", zh:"貨幣的時間價值", en:"Time Value of Money",
+  intro:"這是整門課的地基。把未來的錢換算成「今天的價值」叫折現（discount），把今天的錢換算成未來叫複利（compound）。後面所有評價都建立在這上面。",
+  introEn:"The foundation of the whole course. Moving money forward in time = compounding; moving it back = discounting.",
+  cards:[
+    { q:"終值（單筆）", e:"Future Value (FV)", lv:1,
+      def:"一筆錢放著生利息，n 期後會長成多少。利滾利就是複利。",
+      defEn:"What a single sum grows to after n periods of compound interest.",
+      f:"FV = PV\\,(1+r)^{n}",
+      leg:[["PV","現值（今天的金額）"],["r","每期利率"],["n","期數"]],
+      ex:"今天存 100，年利率 5%、放 3 年：FV = 100×1.05³ ≈ 115.76。" },
+    { q:"現值（單筆）", e:"Present Value (PV)", lv:1,
+      def:"未來會拿到的一筆錢，換算成今天值多少。把終值公式倒過來除即可。",
+      defEn:"Today's worth of a single future amount — just FV discounted back.",
+      f:"PV = \\dfrac{FV}{(1+r)^{n}}",
+      leg:[["FV","未來金額"],["r","折現率"],["n","期數"]],
+      ex:"3 年後會拿到 115.76，折現率 5%：PV = 115.76 / 1.05³ ≈ 100。" },
+    { q:"單利 vs 複利", e:"Simple vs Compound Interest", lv:1,
+      def:"單利只對本金算利息；複利連「之前賺到的利息」也一起算利息。期數越長，複利的威力越驚人。",
+      defEn:"Simple interest is earned only on principal; compound interest is earned on principal + accumulated interest.",
+      f:"\\text{單利}:\\ FV = PV(1+rn)\\qquad \\text{複利}:\\ FV = PV(1+r)^{n}",
+      leg:[["r","每期利率"],["n","期數"]],
+      tip:"考試幾乎都用複利，看到「年複利、半年複利」要注意 r 與 n 的調整。" },
+    { q:"名目利率 vs 有效年利率", e:"APR vs EAR", lv:2,
+      def:"APR 是「報價利率」（如年利率 12%、月複利）；EAR 是把複利效果算進去後，一年實際的報酬率。複利越頻繁，EAR 越高於 APR。",
+      defEn:"APR is the quoted rate; EAR (Effective Annual Rate) reflects actual yearly return once compounding frequency is counted in.",
+      f:"EAR = \\left(1+\\dfrac{APR}{m}\\right)^{m}-1",
+      leg:[["APR","年報價利率"],["m","一年複利次數"]],
+      ex:"APR 12%、月複利（m=12）：EAR = (1+0.12/12)¹² − 1 ≈ 12.68%。",
+      tip:"連續複利時 EAR = e^{APR} − 1。比較不同方案要用 EAR，才公平。" },
+    { q:"普通年金（現值）", e:"Ordinary Annuity – PV", lv:1,
+      def:"每期固定金額、期末給付、共 n 期，全部折現回今天的總值。房貸、車貸、定額還款都是這型。",
+      defEn:"PV of equal end-of-period payments for n periods.",
+      f:"PV = C\\cdot\\dfrac{1-(1+r)^{-n}}{r}",
+      leg:[["C","每期現金流"],["r","每期利率"],["n","期數"]],
+      ex:"每年領 1,000、共 5 年、利率 8%：PV = 1000×[1−1.08⁻⁵]/0.08 ≈ 3,993。" },
+    { q:"普通年金（終值）", e:"Ordinary Annuity – FV", lv:1,
+      def:"每期固定存一筆、期末存入，到第 n 期會累積多少。定期定額存款、退休金累積就是這個。",
+      defEn:"FV of equal end-of-period deposits after n periods.",
+      f:"FV = C\\cdot\\dfrac{(1+r)^{n}-1}{r}",
+      leg:[["C","每期存入金額"],["r","每期利率"],["n","期數"]],
+      ex:"每年底存 1,000、利率 8%、5 年後：FV = 1000×[1.08⁵−1]/0.08 ≈ 5,867。" },
+    { q:"期初年金", e:"Annuity Due", lv:2,
+      def:"付款時間從「期末」改成「期初」（如租金月初繳）。因為每筆錢都早一期，整體價值多乘一個 (1+r)。",
+      defEn:"Payments occur at the start of each period — worth (1+r) times the ordinary annuity.",
+      f:"PV_{due}=PV_{ord}\\times(1+r)",
+      leg:[["PV_{ord}","同條件普通年金現值"],["r","每期利率"]],
+      tip:"計算機要切到 BGN 模式；EBIT 題型常用期末（普通年金），租賃常用期初。" },
+    { q:"永續年金", e:"Perpetuity", lv:2,
+      def:"每期領固定金額、永遠領下去（沒有到期日）。例如特別股固定股利。雖然是無限期，現值卻是個有限的簡單公式。",
+      defEn:"A stream of equal payments forever — e.g. fixed-dividend preferred stock.",
+      f:"PV = \\dfrac{C}{r}",
+      leg:[["C","每期現金流"],["r","折現率"]],
+      ex:"每年永遠領 100、折現率 5%：PV = 100/0.05 = 2,000。" },
+    { q:"成長型永續年金", e:"Growing Perpetuity", lv:2,
+      def:"現金流每期以固定成長率 g 永遠成長。這就是股票「固定成長股利模型」的數學本體。要求 r > g 才有意義。",
+      defEn:"A perpetuity whose cash flow grows at constant rate g forever (basis of the Gordon model). Requires r > g.",
+      f:"PV = \\dfrac{C_{1}}{r-g}",
+      leg:[["C_1","下一期（第一期）現金流"],["r","折現率"],["g","成長率"]],
+      ex:"明年現金流 100、每年成長 2%、折現率 7%：PV = 100/(0.07−0.02) = 2,000。" },
+    { q:"成長型年金", e:"Growing Annuity", lv:3,
+      def:"和上面一樣會成長，但只領 n 期（有到期）。用在薪資成長、有限年限的成長現金流。",
+      defEn:"Equal-growth cash flows for a finite n periods.",
+      f:"PV = \\dfrac{C_{1}}{r-g}\\left[1-\\left(\\dfrac{1+g}{1+r}\\right)^{n}\\right]",
+      leg:[["C_1","第一期現金流"],["r","折現率"],["g","成長率"],["n","期數"]] }
+  ]
+},
+{
+  id:"bond", sn:"02", zh:"債券評價", en:"Bond Valuation",
+  intro:"債券價格 = 把所有未來票息（年金）+ 到期面額（單筆），用市場殖利率折現。觀念上就是 TVM 的直接應用。",
+  introEn:"A bond's price = PV of its coupon stream (annuity) + PV of face value, discounted at the market yield.",
+  cards:[
+    { q:"債券四要素", e:"Bond Basics", lv:1,
+      def:"面額（到期還的本金，常為 1,000）、票面利率（決定每期票息）、到期期數、殖利率 YTM（市場要求的報酬率，也是折現率）。票息=面額×票面利率。",
+      defEn:"Face/par value, coupon rate (sets the coupon), maturity, and YTM (the market discount rate). Coupon = face × coupon rate.",
+      tip:"票面利率是「合約固定的」；殖利率 YTM 是「市場每天變動的」。兩者不同！" },
+    { q:"債券價格", e:"Bond Price", lv:1,
+      def:"票息部分是年金、面額是單筆，分別折現再相加。利率上升→價格下跌（反向關係）。",
+      defEn:"Price = PV of coupons (annuity) + PV of face value. Price moves inversely to yield.",
+      f:"P = C\\cdot\\dfrac{1-(1+r)^{-n}}{r}+\\dfrac{F}{(1+r)^{n}}",
+      leg:[["C","每期票息"],["F","面額"],["r","每期殖利率"],["n","剩餘期數"]],
+      ex:"面額1000、票面8%（年付80）、3年、YTM 10%：P = 80×[1−1.1⁻³]/0.1 + 1000/1.1³ ≈ 950。" },
+    { q:"折價 / 平價 / 溢價", e:"Discount / Par / Premium", lv:2,
+      def:"比票面利率與殖利率：票面 > 殖利率 → 溢價（價 > 面額）；相等 → 平價；票面 < 殖利率 → 折價（價 < 面額）。",
+      defEn:"Coupon > yield → premium (price > par); equal → par; coupon < yield → discount (price < par).",
+      tip:"口訣：殖利率漲過票面利率，債券就『跌到折價』。" },
+    { q:"零息債券", e:"Zero-Coupon Bond", lv:2,
+      def:"完全不付票息，用折價發行、到期還面額。價格就是單筆現值，對利率最敏感。",
+      defEn:"Pays no coupons; sold at a discount, redeemed at face. Most sensitive to rate changes.",
+      f:"P = \\dfrac{F}{(1+r)^{n}}",
+      leg:[["F","面額"],["r","每期殖利率"],["n","期數"]] },
+    { q:"當期收益率", e:"Current Yield", lv:1,
+      def:"一年的票息相對目前價格的比率。只看票息、不含資本利得，所以不等於 YTM。",
+      defEn:"Annual coupon ÷ current price. Ignores capital gain/loss, so ≠ YTM.",
+      f:"\\text{當期收益率}=\\dfrac{\\text{年票息}}{P}",
+      leg:[["P","目前債券價格"]] },
+    { q:"利率風險 / 半年付息", e:"Interest-Rate Risk · Semiannual", lv:3,
+      def:"利率變動造成價格波動的風險：到期越長、票面利率越低 → 越敏感。多數公司債半年付息，要把利率÷2、期數×2、票息÷2。",
+      defEn:"Longer maturity & lower coupon → greater price sensitivity. For semiannual bonds: halve the rate & coupon, double the periods.",
+      tip:"半年付息：r→r/2、n→n×2、C→C/2。最常見的計算陷阱。" }
+  ]
+},
+{
+  id:"stock", sn:"03", zh:"股票評價", en:"Stock Valuation",
+  intro:"股票的價值 = 未來所有股利的現值。最常考的是「固定成長股利模型（Gordon Model）」，它其實就是成長型永續年金。",
+  introEn:"A stock is worth the PV of all future dividends. The star formula is the constant-growth (Gordon) model.",
+  cards:[
+    { q:"股利折現模型", e:"Dividend Discount Model (DDM)", lv:2,
+      def:"股價 = 把未來每一期股利折現加總。是所有股票評價的通則。",
+      defEn:"Price = sum of all future dividends discounted to today.",
+      f:"P_{0}=\\sum_{t=1}^{\\infty}\\dfrac{D_{t}}{(1+r)^{t}}",
+      leg:[["D_t","第 t 期股利"],["r","必要報酬率"]] },
+    { q:"零成長模型", e:"Zero-Growth Model", lv:1,
+      def:"股利每期都一樣、永遠不變（像永續年金）。常用於特別股評價。",
+      defEn:"Constant dividend forever — same as a perpetuity. Used for preferred stock.",
+      f:"P_{0}=\\dfrac{D}{r}",
+      leg:[["D","固定股利"],["r","必要報酬率"]],
+      ex:"特別股每年配 5 元、要求報酬 10%：P = 5/0.1 = 50。" },
+    { q:"固定成長模型（Gordon）", e:"Gordon Growth Model", lv:2,
+      def:"股利以固定成長率 g 永遠成長。注意公式用的是「明年」股利 D₁，且 r 必須 > g。",
+      defEn:"Dividends grow at a constant g forever. Uses next year's dividend D₁; requires r > g.",
+      f:"P_{0}=\\dfrac{D_{1}}{r-g},\\qquad D_{1}=D_{0}(1+g)",
+      leg:[["D_1","明年股利"],["D_0","今年（剛發）股利"],["r","必要報酬率"],["g","成長率"]],
+      ex:"今年剛配 D₀=2、成長 5%、要求報酬 12%：D₁=2.1，P=2.1/(0.12−0.05)=30。",
+      tip:"最常見錯誤：把 D₀ 直接代進去。要先乘 (1+g) 變 D₁！" },
+    { q:"必要報酬率拆解", e:"Required Return Decomposition", lv:2,
+      def:"把 Gordon 公式倒過來，報酬率 = 股利殖利率 + 資本利得率（也就是成長率 g）。",
+      defEn:"Rearranged Gordon model: total return = dividend yield + capital-gains (growth) yield.",
+      f:"r=\\dfrac{D_{1}}{P_{0}}+g",
+      leg:[["D_1/P_0","股利殖利率"],["g","資本利得率/成長率"]] },
+    { q:"非常態成長", e:"Supernormal Growth", lv:3,
+      def:"前幾年高速成長、之後轉為固定成長。做法：分段—前期股利逐筆折現，轉穩定後用 Gordon 求「該年的終值股價」再折現回來。",
+      defEn:"High growth for a few years, then constant growth. Discount early dividends individually, then use Gordon for the terminal price and discount it back.",
+      tip:"終值股價 P_n = D_{n+1}/(r−g)，記得它的時點在第 n 年，要再折 n 期回今天。" },
+    { q:"成長機會現值 / 本益比", e:"PVGO & P/E", lv:3,
+      def:"股價可拆成「不成長時的價值（EPS₁/r）」加上「未來成長機會的現值 PVGO」。本益比 P/E 則用同業倍數快速估價。",
+      defEn:"Price = value with no growth (EPS₁/r) + present value of growth opportunities (PVGO). P/E uses peer multiples for quick valuation.",
+      f:"P_{0}=\\dfrac{EPS_{1}}{r}+PVGO",
+      leg:[["EPS_1","明年每股盈餘"],["r","必要報酬率"],["PVGO","成長機會現值"]] }
+  ]
+},
+{
+  id:"capbud", sn:"04", zh:"資本預算", en:"Capital Budgeting",
+  intro:"公司要不要投資一個專案？把專案未來的現金流折現，用 NPV、IRR 等準則判斷。準則衝突時，NPV 永遠最可靠。",
+  introEn:"Should the firm take a project? Discount its cash flows and apply NPV / IRR rules. When rules conflict, trust NPV.",
+  cards:[
+    { q:"淨現值 NPV", e:"Net Present Value", lv:1,
+      def:"未來現金流現值總和 減去 期初投資。NPV>0 代表替股東創造價值 → 接受。它直接衡量「賺多少今天的錢」。",
+      defEn:"PV of future cash flows minus initial outlay. Accept if NPV > 0 — it creates value for shareholders.",
+      f:"NPV=-CF_{0}+\\sum_{t=1}^{n}\\dfrac{CF_{t}}{(1+r)^{t}}",
+      leg:[["CF_0","期初投資（正數）"],["CF_t","第 t 期淨現金流"],["r","折現率/必要報酬率"]],
+      tip:"NPV 法則是教科書的黃金標準，因為它符合「股東財富極大化」。" },
+    { q:"內部報酬率 IRR", e:"Internal Rate of Return", lv:2,
+      def:"讓 NPV 剛好等於 0 的折現率，也就是專案本身的「報酬率」。IRR > 必要報酬率 → 接受。",
+      defEn:"The discount rate that makes NPV = 0 — the project's own return. Accept if IRR > required return.",
+      f:"0=-CF_{0}+\\sum_{t=1}^{n}\\dfrac{CF_{t}}{(1+IRR)^{t}}",
+      leg:[["IRR","內部報酬率"]],
+      tip:"IRR 三大陷阱：①現金流正負多次變號 → 多重 IRR；②規模不同；③隱含『以 IRR 再投資』的假設不切實際。" },
+    { q:"NPV 與 IRR 的衝突", e:"NPV vs IRR Conflict", lv:3,
+      def:"互斥方案下，當規模或現金流時點差很大時，NPV 與 IRR 可能給出不同排名。此時以 NPV 為準（因為它衡量絕對價值）。",
+      defEn:"For mutually exclusive projects, scale or timing differences can make NPV and IRR disagree. Follow NPV.",
+      tip:"獨立方案兩者通常一致；互斥方案才會打架，記得選 NPV。" },
+    { q:"修正內部報酬率 MIRR", e:"Modified IRR", lv:3,
+      def:"修正 IRR『以 IRR 再投資』的不合理假設，改用資金成本把中間現金流複利到期末，再算報酬率。解決多重 IRR 問題。",
+      defEn:"Fixes IRR's reinvestment assumption by compounding interim cash flows at the cost of capital. Removes multiple-IRR issues.",
+      f:"MIRR=\\left(\\dfrac{\\text{現金流入終值}}{\\text{現金流出現值}}\\right)^{1/n}-1",
+      leg:[["n","期數"]] },
+    { q:"回收期間法", e:"(Discounted) Payback Period", lv:1,
+      def:"要幾年才能把期初投資「回本」。折現回收期間則先把現金流折現再回本。簡單但缺點多。",
+      defEn:"Years to recover the initial outlay; discounted payback first discounts the cash flows.",
+      tip:"缺點：忽略回收後的現金流、（普通版）忽略時間價值。只能當輔助指標。" },
+    { q:"獲利能力指數 PI", e:"Profitability Index", lv:2,
+      def:"每投入 1 元能創造多少現值。PI>1 等同 NPV>0 → 接受。資金有限時可用來排序。",
+      defEn:"PV created per dollar invested. PI > 1 ⇔ NPV > 0. Useful for ranking under capital rationing.",
+      f:"PI=\\dfrac{\\text{未來現金流現值}}{\\text{期初投資}}",
+      leg:[["",""]] },
+    { q:"增額現金流與折舊稅盾", e:"Incremental CF & Depreciation Tax Shield", lv:2,
+      def:"評估專案只看「有沒有它造成的差異」（增額）。沉沒成本不算、機會成本要算。折舊雖非現金支出，卻能少繳稅，產生『稅盾』。",
+      defEn:"Use only incremental cash flows: ignore sunk costs, include opportunity costs. Depreciation isn't cash but reduces taxes — a tax shield.",
+      f:"\\text{折舊稅盾}=\\text{折舊}\\times T_{c}",
+      leg:[["T_c","公司稅率"]],
+      ex:"折舊 100、稅率 20% → 省稅 20，等於多 20 的現金流。" }
+  ]
+},
+{
+  id:"risk", sn:"05", zh:"風險與報酬", en:"Risk and Return",
+  intro:"高風險要求高報酬。重點：風險可分散（非系統）與不可分散（系統，用 β 衡量）兩種；市場只補償『不可分散』的系統風險，這就是 CAPM。",
+  introEn:"More risk → demand more return. Risk splits into diversifiable (unsystematic) and non-diversifiable (systematic, measured by β). Markets only reward systematic risk — that's CAPM.",
+  cards:[
+    { q:"期望報酬率", e:"Expected Return", lv:1,
+      def:"各種可能報酬，用發生機率加權平均。",
+      defEn:"Probability-weighted average of possible returns.",
+      f:"E(R)=\\sum_{i} p_{i}\\,R_{i}",
+      leg:[["p_i","情境 i 機率"],["R_i","情境 i 報酬"]],
+      ex:"50% 機率賺 20%、50% 機率賠 0%：E(R)=0.5×20%+0.5×0%=10%。" },
+    { q:"變異數與標準差", e:"Variance & Standard Deviation", lv:2,
+      def:"衡量報酬「上下波動」的大小，也就是總風險。標準差是變異數開根號，單位和報酬一致較好解讀。",
+      defEn:"Measure total risk — how much returns swing around the mean. SD = √variance.",
+      f:"\\sigma^{2}=\\sum_{i}p_{i}\\,[R_{i}-E(R)]^{2}",
+      leg:[["σ²","變異數"],["σ","標準差"],["p_i","機率"]] },
+    { q:"投資組合報酬", e:"Portfolio Return", lv:1,
+      def:"組合的期望報酬 = 各資產報酬，用投資比重加權平均。",
+      defEn:"Weighted average of the assets' expected returns.",
+      f:"E(R_{p})=\\sum_{i} w_{i}\\,E(R_{i})",
+      leg:[["w_i","資產 i 權重（比重）"]] },
+    { q:"投資組合風險（兩資產）", e:"Two-Asset Portfolio Risk", lv:3,
+      def:"組合風險不是簡單加權平均！還要看兩資產『共同變動』的程度（相關係數 ρ）。ρ 越低，分散效果越好，風險越能被壓低。",
+      defEn:"Portfolio risk is NOT a weighted average — it depends on how assets co-move (correlation ρ). Lower ρ → more diversification benefit.",
+      f:"\\sigma_{p}^{2}=w_{1}^{2}\\sigma_{1}^{2}+w_{2}^{2}\\sigma_{2}^{2}+2w_{1}w_{2}\\,\\rho_{12}\\sigma_{1}\\sigma_{2}",
+      leg:[["w","權重"],["σ","個別標準差"],["ρ₁₂","兩資產相關係數"]],
+      tip:"共變異數 Cov₁₂ = ρ₁₂·σ₁·σ₂。ρ=−1 時甚至可把風險壓到接近 0。" },
+    { q:"分散與兩種風險", e:"Diversification: Systematic vs Unsystematic", lv:2,
+      def:"非系統風險（公司個別事件）可靠分散投資消除；系統風險（景氣、利率等整體市場）無法分散。市場只『付錢』補償系統風險。",
+      defEn:"Unsystematic (firm-specific) risk can be diversified away; systematic (market-wide) risk cannot. Only systematic risk earns a premium.",
+      tip:"持有 ~20–30 檔分散股票，幾乎就能消掉非系統風險，剩下的才是 β。" },
+    { q:"貝他係數 β", e:"Beta", lv:2,
+      def:"衡量個別資產的系統風險：相對於整體市場波動有多敏感。市場 β=1；β>1 比大盤更激烈、β<1 較溫和。",
+      defEn:"Measures an asset's systematic risk relative to the market. Market β = 1; β > 1 = more volatile than market.",
+      f:"\\beta_{i}=\\dfrac{Cov(R_{i},R_{m})}{\\sigma_{m}^{2}}",
+      leg:[["R_m","市場報酬"],["σ_m²","市場變異數"]] },
+    { q:"CAPM / 證券市場線", e:"CAPM / Security Market Line", lv:2,
+      def:"把『該要求多少報酬』和系統風險 β 連起來：無風險利率 + β × 市場風險溢酬。畫成圖就是證券市場線 SML。",
+      defEn:"Links required return to systematic risk: risk-free rate + β × market risk premium. Plotted = the SML.",
+      f:"E(R_{i})=R_{f}+\\beta_{i}\\,[E(R_{m})-R_{f}]",
+      leg:[["R_f","無風險利率"],["β_i","資產 β"],["E(R_m)−R_f","市場風險溢酬"]],
+      ex:"R_f=3%、β=1.2、市場溢酬 6%：E(R)=3%+1.2×6%=10.2%。" }
+  ]
+},
+{
+  id:"wacc", sn:"06", zh:"資金成本", en:"Cost of Capital",
+  intro:"公司用『股權＋負債＋特別股』籌錢，各有成本。把它們按市值比重加權，就是 WACC——折現專案時最常用的折現率。",
+  introEn:"Firms raise money via equity, debt and preferred stock, each with a cost. Weight them by market value to get WACC — the usual project discount rate.",
+  cards:[
+    { q:"權益成本（CAPM）", e:"Cost of Equity (CAPM)", lv:2,
+      def:"股東要求的報酬率，最常用 CAPM 估。",
+      defEn:"Return demanded by shareholders, usually estimated with CAPM.",
+      f:"R_{e}=R_{f}+\\beta\\,[E(R_{m})-R_{f}]",
+      leg:[["R_f","無風險利率"],["β","公司股票 β"]] },
+    { q:"權益成本（股利模型）", e:"Cost of Equity (DDM)", lv:2,
+      def:"另一種估法：用固定成長股利模型倒推。",
+      defEn:"Alternative estimate via the Gordon model.",
+      f:"R_{e}=\\dfrac{D_{1}}{P_{0}}+g",
+      leg:[["D_1","明年股利"],["P_0","目前股價"],["g","成長率"]] },
+    { q:"稅後負債成本", e:"After-Tax Cost of Debt", lv:1,
+      def:"借錢的利率就是負債成本（用 YTM）。但利息可抵稅，所以實際負擔要乘 (1−稅率)。",
+      defEn:"The borrowing rate (YTM). Since interest is tax-deductible, the effective cost is Rd × (1−Tc).",
+      f:"R_{d}\\,(1-T_{c})",
+      leg:[["R_d","負債利率(YTM)"],["T_c","公司稅率"]],
+      ex:"借款利率 6%、稅率 20%：稅後 = 6%×0.8 = 4.8%。" },
+    { q:"特別股成本", e:"Cost of Preferred Stock", lv:1,
+      def:"特別股股利固定（像永續年金），成本 = 股利 ÷ 目前價格。沒有稅盾。",
+      defEn:"Fixed dividend / current price (a perpetuity). No tax shield.",
+      f:"R_{p}=\\dfrac{D_{p}}{P_{p}}",
+      leg:[["D_p","特別股股利"],["P_p","特別股價格"]] },
+    { q:"加權平均資金成本 WACC", e:"WACC", lv:2,
+      def:"把三種資金來源按『市值』比重加權。它代表公司整體的最低必要報酬，用來折現風險相當的專案。",
+      defEn:"Market-value weighted average of all financing costs — the firm's overall hurdle rate.",
+      f:"WACC=\\dfrac{E}{V}R_{e}+\\dfrac{D}{V}R_{d}(1-T_{c})+\\dfrac{P}{V}R_{p}",
+      leg:[["E,D,P","股權/負債/特別股市值"],["V","E+D+P 總市值"],["T_c","稅率"]],
+      tip:"權重一律用『市值』不是帳面值；只有負債要乘 (1−Tc)。" }
+  ]
+},
+{
+  id:"capstruct", sn:"07", zh:"資本結構", en:"Capital Structure",
+  intro:"公司該借多少債、發多少股？MM 理論說：無稅世界裡比例不影響公司價值；有稅後因為利息稅盾，舉債能增值——但債太多又有財務危機成本，於是有『抵換理論』的最適結構。",
+  introEn:"How much debt vs equity? MM says capital structure is irrelevant without taxes; with taxes the interest tax shield adds value — but distress costs cap it (trade-off theory).",
+  cards:[
+    { q:"營運槓桿 DOL", e:"Degree of Operating Leverage", lv:2,
+      def:"固定成本造成的放大效果：銷售變動 1%，EBIT 變動幾 %。固定成本越高，DOL 越大、營業風險越高。",
+      defEn:"How much a 1% change in sales magnifies EBIT. More fixed costs → higher DOL.",
+      f:"DOL=\\dfrac{\\%\\,\\Delta EBIT}{\\%\\,\\Delta \\text{銷售}}",
+      leg:[["EBIT","息前稅前淨利"]] },
+    { q:"財務槓桿 DFL", e:"Degree of Financial Leverage", lv:2,
+      def:"利息（固定財務成本）造成的放大：EBIT 變動 1%，EPS 變動幾 %。借越多債，DFL 越大、財務風險越高。",
+      defEn:"How much a 1% change in EBIT magnifies EPS. More debt → higher DFL.",
+      f:"DFL=\\dfrac{\\%\\,\\Delta EPS}{\\%\\,\\Delta EBIT}",
+      leg:[["EPS","每股盈餘"]] },
+    { q:"總槓桿 DTL", e:"Degree of Total Leverage", lv:2,
+      def:"營運與財務槓桿的乘積：銷售變動 1%，EPS 最終變動幾 %。",
+      defEn:"Combined effect: DOL × DFL.",
+      f:"DTL=DOL\\times DFL",
+      leg:[["",""]] },
+    { q:"MM 命題 I（無稅）", e:"MM Proposition I (No Tax)", lv:3,
+      def:"在完美市場、無稅下，公司價值只看『資產賺錢能力』，和怎麼籌資（負債比例）完全無關。有負債公司價值 = 無負債公司價值。",
+      defEn:"In a perfect, tax-free world, firm value depends only on its assets, not on its debt-equity mix. V(levered) = V(unlevered).",
+      f:"V_{L}=V_{U}",
+      leg:[["V_L","有負債公司價值"],["V_U","無負債公司價值"]] },
+    { q:"MM 命題 II（無稅）", e:"MM Proposition II (No Tax)", lv:3,
+      def:"舉債看似便宜，但會推高股東要求的權益報酬（風險變大），剛好抵銷，WACC 維持不變。",
+      defEn:"Cheap debt raises the required return on equity (more risk), exactly offsetting it — WACC stays constant.",
+      f:"R_{e}=R_{0}+\\dfrac{D}{E}(R_{0}-R_{d})",
+      leg:[["R_0","無負債時資金成本"],["D/E","負債權益比"],["R_d","負債成本"]] },
+    { q:"MM 含稅模型", e:"MM with Corporate Taxes", lv:3,
+      def:"加入公司稅後，利息可抵稅產生『稅盾』，所以舉債會增加公司價值，理論上 100% 負債最好（現實當然不是）。",
+      defEn:"With taxes, interest creates a tax shield, so debt adds value — theoretically pushing toward all-debt.",
+      f:"V_{L}=V_{U}+T_{c}\\,D",
+      leg:[["T_c","公司稅率"],["D","負債金額"]],
+      ex:"無負債價值 1000、舉債 400、稅率 20%：V_L = 1000 + 0.2×400 = 1080。" },
+    { q:"抵換理論與融資順位", e:"Trade-off & Pecking Order", lv:3,
+      def:"抵換理論：在『稅盾好處』與『財務危機成本』間取捨，存在一個讓公司價值最大的最適負債比。融資順位理論：因資訊不對稱，公司偏好先用保留盈餘 → 再舉債 → 最後才發新股。",
+      defEn:"Trade-off theory: balance tax-shield benefits against financial-distress costs → an optimal debt ratio. Pecking order: prefer internal funds → debt → new equity last.",
+      tip:"抵換理論解釋『為何不 100% 負債』；融資順位解釋『發新股常被市場視為壞消息』。" }
+  ]
+},
+{
+  id:"div", sn:"08", zh:"股利政策", en:"Dividend Policy",
+  intro:"公司賺的錢，要發給股東還是留下來再投資？理論上（完美市場）發不發不影響價值，但現實有稅負、訊號、顧客效應等考量。",
+  introEn:"Pay out earnings or reinvest? In perfect markets it's irrelevant, but taxes, signalling and clientele effects matter in reality.",
+  cards:[
+    { q:"四個關鍵日期", e:"Key Dividend Dates", lv:1,
+      def:"宣告日（董事會宣布）→ 除息日（這天起買進已領不到股利，股價會扣掉股利）→ 登記日（確認股東名冊）→ 發放日（實際付款）。",
+      defEn:"Declaration → ex-dividend (price drops by the dividend) → record → payment date.",
+      tip:"關鍵是除息日（ex-date）：當天股價會大致下跌一個股利金額。" },
+    { q:"股利無關論（MM）", e:"Dividend Irrelevance (MM)", lv:3,
+      def:"完美市場無稅、無交易成本下，公司價值由投資決策決定，發不發股利不影響股東財富——想要現金的股東可『自製股利』（賣股）。",
+      defEn:"In perfect markets, dividend policy doesn't affect value — investors can create 'homemade dividends' by selling shares.",
+      tip:"前提很嚴格（無稅、無摩擦），現實中並不完全成立。" },
+    { q:"現金股利 vs 股票股利 vs 庫藏股", e:"Cash Dividend vs Stock Dividend vs Buyback", lv:2,
+      def:"現金股利直接發錢；股票股利／分割只改變股數不改變總價值；股票購回（庫藏股）用現金買回自家股票，常比配息更有稅務彈性，也常被當作低估訊號。",
+      defEn:"Cash dividends pay out money; stock dividends/splits only change share count; buybacks repurchase shares (often tax-friendlier and a signal of undervaluation).",
+      tip:"股票股利／分割：餅切更多片，但餅一樣大，每股價格按比例下降。" },
+    { q:"訊號與顧客效應", e:"Signalling & Clientele Effect", lv:3,
+      def:"訊號理論：提高股利常被解讀為『管理層對未來有信心』。顧客效應：不同稅率／需求的投資人會自我選擇偏好特定股利政策的公司。",
+      defEn:"Signalling: raising dividends signals management confidence. Clientele effect: investors self-select firms whose payout suits their tax/income needs.",
+      tip:"所以公司不輕易『減息』——市場會解讀為壞消息。" }
+  ]
+},
+{
+  id:"ratio", sn:"09", zh:"財務報表分析", en:"Financial Ratio Analysis",
+  intro:"用財務比率快速體檢公司：能不能還短期債（流動性）、債多不多（槓桿）、資產用得有沒有效率、賺不賺錢（獲利）。最後用杜邦分析把 ROE 拆開找原因。",
+  introEn:"Ratios are a quick health check: liquidity, leverage, efficiency, profitability — then DuPont decomposes ROE to find the drivers.",
+  cards:[
+    { q:"流動比率 / 速動比率", e:"Current & Quick Ratio", lv:1,
+      def:"流動性指標：能不能用短期資產還短期債。速動比率更嚴格，剔除最難變現的存貨。",
+      defEn:"Liquidity: can short-term assets cover short-term debts? Quick ratio excludes hard-to-sell inventory.",
+      f:"\\text{流動比率}=\\dfrac{\\text{流動資產}}{\\text{流動負債}}\\qquad \\text{速動比率}=\\dfrac{\\text{流動資產}-\\text{存貨}}{\\text{流動負債}}",
+      leg:[["",""]] },
+    { q:"負債比率 / 負債權益比", e:"Debt Ratio & D/E", lv:1,
+      def:"槓桿指標：公司有多依賴借款。比率越高、財務風險越大。",
+      defEn:"Leverage: how much the firm relies on debt. Higher = more financial risk.",
+      f:"\\text{負債比率}=\\dfrac{\\text{總負債}}{\\text{總資產}}\\qquad D/E=\\dfrac{\\text{總負債}}{\\text{股東權益}}",
+      leg:[["",""]] },
+    { q:"利息保障倍數", e:"Times Interest Earned", lv:2,
+      def:"營業利益是利息費用的幾倍——衡量還息能力。倍數越高越安全。",
+      defEn:"How many times EBIT covers interest expense — interest-paying ability.",
+      f:"TIE=\\dfrac{EBIT}{\\text{利息費用}}",
+      leg:[["EBIT","息前稅前淨利"]] },
+    { q:"周轉率（效率）", e:"Turnover Ratios", lv:2,
+      def:"衡量資產『用得多有效率』。存貨周轉率＝賣得多快；應收帳款周轉率＝收款多快；總資產周轉率＝每元資產創造多少營收。",
+      defEn:"Efficiency: inventory turnover (how fast goods sell), receivables turnover (how fast cash is collected), asset turnover (sales per asset dollar).",
+      f:"\\text{存貨周轉率}=\\dfrac{\\text{銷貨成本}}{\\text{平均存貨}}\\qquad \\text{總資產周轉率}=\\dfrac{\\text{銷貨}}{\\text{總資產}}",
+      leg:[["",""]] },
+    { q:"獲利能力（利潤率、ROA、ROE）", e:"Profitability: Margin, ROA, ROE", lv:1,
+      def:"淨利率＝每元營收賺多少；ROA＝資產創造利潤的效率；ROE＝股東每元投入賺多少（最受股東關注）。",
+      defEn:"Net margin (profit per sales $), ROA (profit per asset $), ROE (profit per equity $ — the shareholder's headline).",
+      f:"\\text{淨利率}=\\dfrac{\\text{淨利}}{\\text{銷貨}}\\quad ROA=\\dfrac{\\text{淨利}}{\\text{總資產}}\\quad ROE=\\dfrac{\\text{淨利}}{\\text{股東權益}}",
+      leg:[["",""]] },
+    { q:"杜邦分析", e:"DuPont Analysis", lv:3,
+      def:"把 ROE 拆成三塊，看高 ROE 是靠『賺得多、用得勤、還是借得兇』：淨利率（獲利）× 總資產周轉率（效率）× 權益乘數（槓桿）。",
+      defEn:"Decomposes ROE into profitability × efficiency × leverage, revealing what drives returns.",
+      f:"ROE=\\dfrac{NI}{\\text{銷貨}}\\times\\dfrac{\\text{銷貨}}{\\text{資產}}\\times\\dfrac{\\text{資產}}{\\text{權益}}",
+      leg:[["NI","淨利"],["資產/權益","權益乘數(槓桿)"]],
+      tip:"兩家 ROE 相同，杜邦能告訴你一家靠效率、另一家靠高槓桿（風險不同）。" }
+  ]
+}
+];
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+const STORE_KEY = "cf-review-stars-v1";
+let stars = new Set(JSON.parse(localStorage.getItem(STORE_KEY) || "[]"));
+
+function saveStars(){ localStorage.setItem(STORE_KEY, JSON.stringify([...stars])); updateStarCount(); }
+function updateStarCount(){ document.getElementById("starCnt").textContent = stars.size; }
+
+const LV = {1:["基礎","lv1"],2:["核心","lv2"],3:["進階","lv3"]};
+
+function cardHTML(c, cid){
+  const on = stars.has(cid) ? "on" : "";
+  const starred = stars.has(cid) ? "starred" : "";
+  const lv = LV[c.lv] || LV[2];
+  // searchable text
+  const search = [c.q, c.e, c.def, c.defEn||"", c.ex||"", c.tip||""].join(" ").toLowerCase();
+
+  let html = `<article class="card ${starred}" data-cid="${cid}" data-search="${search.replace(/"/g,'')}">`;
+  html += `<div class="card-top">`;
+  html += `<div class="term"><div class="zh">${c.q}</div><div class="en">${c.e}</div></div>`;
+  html += `<span class="badge ${lv[1]}">${lv[0]}</span>`;
+  html += `<button class="star ${on}" title="標記重點/不熟" aria-label="星標">${on?"★":"☆"}</button>`;
+  html += `</div>`;
+
+  html += `<div class="def">${c.def}`;
+  if(c.defEn) html += `<span class="en">${c.defEn}</span>`;
+  html += `</div>`;
+
+  if(c.f){
+    html += `<div class="fbox" data-tex="${encodeURIComponent(c.f)}"></div>`;
+    if(c.leg && c.leg.length && c.leg[0][0]!==""){
+      html += `<ul class="legend">`;
+      c.leg.forEach(([s,d])=>{ if(s||d) html += `<li><b>${s}</b>${d}</li>`; });
+      html += `</ul>`;
+    }
+  }
+  if(c.ex)  html += `<div class="note ex"><span class="tag">例</span><span class="body">${c.ex}</span></div>`;
+  if(c.tip) html += `<div class="note tip"><span class="tag">提醒</span><span class="body">${c.tip}</span></div>`;
+  html += `</article>`;
+  return html;
+}
+
+function build(){
+  const content = document.getElementById("content");
+  const toc = document.getElementById("toc");
+  let cardCount=0, formulaCount=0;
+  let cHTML="", tHTML="";
+
+  DATA.forEach(sec=>{
+    tHTML += `<a href="#${sec.id}" data-target="${sec.id}"><span class="n">${sec.sn}</span><span>${sec.zh}</span></a>`;
+    cHTML += `<section class="topic" id="${sec.id}">`;
+    cHTML += `<div class="sec-head"><span class="sn">${sec.sn}</span><h2>${sec.zh}</h2><span class="en">${sec.en}</span></div>`;
+    cHTML += `<p class="sec-intro">${sec.intro}<span class="en">${sec.introEn}</span></p>`;
+    sec.cards.forEach((c,i)=>{
+      cardCount++; if(c.f) formulaCount++;
+      cHTML += cardHTML(c, `${sec.id}-${i}`);
+    });
+    cHTML += `</section>`;
+  });
+
+  content.innerHTML = cHTML;
+  toc.innerHTML = tHTML;
+
+  document.getElementById("stTopics").textContent = DATA.length;
+  document.getElementById("stCards").textContent = cardCount;
+  document.getElementById("stFormulas").textContent = formulaCount;
+  updateStarCount();
+}
+
+function renderMath(){
+  if(typeof katex === "undefined"){ setTimeout(renderMath, 120); return; }
+  // hero equation
+  const hero = document.getElementById("heroEq");
+  try{ katex.render("PV=\\dfrac{CF}{(1+r)^{n}}", hero, {displayMode:true}); }catch(e){}
+  // all formula boxes
+  document.querySelectorAll(".fbox").forEach(box=>{
+    const tex = decodeURIComponent(box.dataset.tex||"");
+    try{ katex.render(tex, box, {displayMode:true, throwOnError:false}); }
+    catch(e){ box.textContent = tex; }
+  });
+}
+
+/* ---------- interactions ---------- */
+function wire(){
+  // star toggle
+  document.getElementById("content").addEventListener("click", e=>{
+    const btn = e.target.closest(".star");
+    if(!btn) return;
+    const card = btn.closest(".card");
+    const cid = card.dataset.cid;
+    if(stars.has(cid)){ stars.delete(cid); btn.classList.remove("on"); btn.textContent="☆"; card.classList.remove("starred"); }
+    else{ stars.add(cid); btn.classList.add("on"); btn.textContent="★"; card.classList.add("starred"); }
+    saveStars();
+    if(document.getElementById("starOnly").checked) applyFilter();
+  });
+
+  // search + star-only filter
+  document.getElementById("search").addEventListener("input", applyFilter);
+  document.getElementById("starOnly").addEventListener("change", applyFilter);
+
+  // scrollspy
+  const links = [...document.querySelectorAll("nav.toc a")];
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        links.forEach(l=>l.classList.toggle("active", l.dataset.target===en.target.id));
+      }
+    });
+  }, {rootMargin:"-15% 0px -70% 0px"});
+  document.querySelectorAll("section.topic").forEach(s=>obs.observe(s));
+
+  // mobile menu
+  const side=document.getElementById("side"), scrim=document.getElementById("scrim");
+  const toggle = ()=>{ side.classList.toggle("open"); scrim.classList.toggle("show"); };
+  document.getElementById("menuBtn").addEventListener("click", toggle);
+  scrim.addEventListener("click", toggle);
+  document.getElementById("toc").addEventListener("click", e=>{
+    if(e.target.closest("a") && window.innerWidth<=900) toggle();
+  });
+}
+
+function applyFilter(){
+  const q = document.getElementById("search").value.trim().toLowerCase();
+  const starOnly = document.getElementById("starOnly").checked;
+  let anyVisible=false;
+
+  document.querySelectorAll("section.topic").forEach(sec=>{
+    let secVisible=false;
+    sec.querySelectorAll(".card").forEach(card=>{
+      const matchText = !q || card.dataset.search.includes(q);
+      const matchStar = !starOnly || stars.has(card.dataset.cid);
+      const show = matchText && matchStar;
+      card.style.display = show ? "" : "none";
+      if(show){ secVisible=true; anyVisible=true; }
+    });
+    sec.style.display = secVisible ? "" : "none";
+  });
+  document.getElementById("noResults").style.display = anyVisible ? "none" : "block";
+}
+
+build();
+renderMath();
+wire();
+</script>
+</body>
+</html>
