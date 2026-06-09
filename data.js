@@ -14,7 +14,7 @@ window.LESSONS = [
     "term_en": "Why a cost of capital exists",
     "term_zh": "為什麼會有「資本成本」",
     "en": "A firm with excess cash can either pay a dividend or invest in a project. Because shareholders could reinvest that dividend in a financial asset of comparable risk, a project must be expected to return at least as much as that financial asset. That hurdle return is the cost of capital.",
-    "zh": "公司有多餘現金時，可以「發股利」或「投資計畫」。因為股東拿到股利後可以自己去買「同樣風險」的金融資產，所以公司的計畫至少要賺得跟那個金融資產一樣多才值得做。這個門檻報酬率就是『資本成本』。"
+    "zh": "「資本成本」就是公司投資一個專案時，最低應該賺到的報酬率，也常被叫做「門檻報酬率 (hurdle rate)」。\n\n為什麼會有這個門檻？想像公司手上有一筆閒錢，它有兩條路：一是把錢當股利發給股東，二是拿去投資專案。\n\n如果發股利，股東可以把這筆錢投到「風險相當」的金融資產上，賺到某個報酬。所以公司自己投資的專案，至少要賺得跟「股東自己投資同風險資產」一樣多，否則股東寧可拿股利自己投。\n\n結論：專案的期望報酬 ≥ 同風險金融資產的期望報酬，這個下限就是資本成本。低於它的專案會損害股東利益，應該被拒絕。"
    },
    {
     "t": "formula",
@@ -22,7 +22,7 @@ window.LESSONS = [
     "name_zh": "CAPM — 權益資本成本",
     "latex": "R_S = R_f + \\beta \\times (R_M - R_f)",
     "en": "The required return on equity equals the risk-free rate plus beta times the market risk premium.",
-    "zh": "權益要求報酬率 = 無風險利率 + beta × 市場風險溢酬。這是估計『股東要求報酬』最常用的方法。",
+    "zh": "CAPM（資本資產定價模型）是估計「權益資本成本」最常用的方法，也就是股東要求的報酬率 R_S。\n\n公式拆成兩塊：\n• R_f（無風險利率）：不冒風險也能拿到的報酬，例如國庫券利率。這是「基本盤」。\n• β × (R_M − R_f)：因為承擔了市場風險，額外要求的補償。β 越大、市場風險溢酬越高，要求的報酬就越多。\n\n例如：R_f = 3%，市場風險溢酬 (R_M − R_f) = 7%，某股票 β = 1.2，則\nR_S = 3% + 1.2 × 7% = 3% + 8.4% = 11.4%。\n\n直覺：β = 1 代表跟大盤一樣風險，要求報酬 = 市場報酬；β > 1 風險較大、要求更高；β < 1 較保守、要求較低。",
     "vars_en": "R_f = risk-free rate (proxy: Treasury bill rate); R_M − R_f = market risk premium; β = stock beta.",
     "vars_zh": "R_f＝無風險利率（常用國庫券利率代替）；R_M − R_f＝市場風險溢酬；β＝個股 beta。"
    },
@@ -31,7 +31,7 @@ window.LESSONS = [
     "term_en": "Three inputs the CAPM needs",
     "term_zh": "CAPM 需要的三個輸入值",
     "en": "To use the CAPM you need (1) the risk-free rate, (2) the market risk premium, and (3) the stock's beta. The market risk premium can be estimated from historical data or from the dividend model.",
-    "zh": "要用 CAPM 必須知道三件事：(1) 無風險利率、(2) 市場風險溢酬、(3) 個股 beta。市場風險溢酬可用『歷史資料』或『股利折現模型』來估。"
+    "zh": "要用 CAPM 算權益成本，必須先估出三個輸入值：\n\n1. 無風險利率 R_f：通常用國庫券利率當代理變數，例如一年期國庫券利率。\n\n2. 市場風險溢酬 (R_M − R_f)：兩種估法——\n   • 歷史資料法：用過去長期的市場平均報酬減去無風險利率。\n   • 股利折現模型 (DDM) 法：以整體市場的股利殖利率加上股利成長率推估市場報酬 R_M，再減 R_f。\n\n3. 個股的 β：衡量該股票對市場波動的敏感度（下一張卡片會講怎麼算）。\n\n三個都到位，代入 R_S = R_f + β(R_M − R_f) 即可。"
    },
    {
     "t": "formula",
@@ -39,14 +39,15 @@ window.LESSONS = [
     "name_zh": "個股 beta 定義",
     "latex": "\\beta_i = \\frac{\\mathrm{Cov}(R_i, R_M)}{\\mathrm{Var}(R_M)} = \\frac{\\sigma_{i,M}}{\\sigma_M^2}",
     "en": "Beta measures how much a stock's return co-moves with the market relative to the market's own variance. It is the systematic-risk measure.",
-    "zh": "beta 衡量『個股報酬隨市場一起變動的程度』，相對於市場本身的變異數。它衡量的是『系統性風險』。估法：把歷史報酬對市場報酬做迴歸，或直接用 Value Line 的產業 beta。"
+    "zh": "β（貝它）衡量「個股報酬跟著大盤一起波動的程度」，是系統性風險（無法靠分散消除的風險）的指標。\n\n公式是「個股與市場報酬的共變異數」除以「市場報酬的變異數」。可以想成：個股漲跌有多少是被大盤帶動的。\n\n怎麼取得 β？\n• 迴歸法：拿個股的歷史報酬對市場報酬做迴歸，斜率就是 β。\n• 產業 β：直接引用如 Value Line 提供的同業 β。\n\n解讀：β = 1 與大盤同步；β = 1.5 大盤漲 1%、個股平均漲 1.5%（也跌得更兇）；β = 0.5 波動只有大盤一半，相對抗跌。",
+    "vars_zh": "Cov(R_i, R_M) = 個股與市場報酬的共變異數；Var(R_M) = 市場報酬的變異數。"
    },
    {
     "t": "concept",
     "term_en": "Problems & fixes when estimating beta",
     "term_zh": "估 beta 的問題與解法",
     "en": "Betas vary over time, samples may be too small, and beta is affected by financial leverage and business risk. Fixes: better statistics, adjust for business/financial risk, and use the average beta of comparable industry firms.",
-    "zh": "估 beta 的困難：beta 會隨時間改變、樣本可能太小、且 beta 會受財務槓桿與營運風險影響。解法：用較好的統計方法、針對營運/財務風險調整、並參考同產業可比較公司的『平均 beta』。"
+    "zh": "用歷史資料估 β 會遇到三個問題：\n\n1. β 會隨時間改變——過去的 β 不一定代表未來。\n2. 樣本數可能不足——資料太少，估出來的 β 不可靠。\n3. β 受「財務槓桿」與「營運(商業)風險」影響——公司借更多錢、或本業風險改變，都會讓 β 跑掉。\n\n對應的解法：\n• 問題 1、2：用更精細的統計方法（例如調整、加權）來緩解。\n• 問題 3：依商業與財務風險的變化做調整。\n• 通用做法：參考「同產業多家可比公司」的平均 β，比單押一家公司穩定得多。"
    },
    {
     "t": "concept",
@@ -54,7 +55,7 @@ window.LESSONS = [
     "term_zh": "決定 beta 的因素",
     "badge": "重點",
     "en": "Beta is driven by firm characteristics: (1) Cyclicality of revenues — more cyclical → higher beta. (2) Operating leverage — high fixed / low variable costs → higher beta. (3) Financial leverage — more debt → higher equity beta.",
-    "zh": "beta 由公司特性決定：(1) 營收的景氣循環性——越受景氣影響→beta 越高；(2) 營運槓桿——固定成本高、變動成本低→beta 越高；(3) 財務槓桿——負債越多→權益 beta 越高。"
+    "zh": "β 由公司本身的三項特質決定，這也是考試最愛問的「β 的決定因素」：\n\n1. 營收的景氣循環性 (cyclicality)：產品銷售跟著景氣大起大落的公司（如航空、汽車、奢侈品），β 高；民生必需品（如水電、食品）需求穩定，β 低。\n\n2. 營運槓桿 (operating leverage)：固定成本高、變動成本低的公司營運槓桿高 → β 高。因為一旦營收下滑，固定成本照付，獲利會被放大地往下掉。\n\n3. 財務槓桿 (financial leverage)：負債越多，利息這種「財務固定成本」越重，會把股東報酬的波動放大 → 股東 β（權益 β）越高。\n\n一句話記：循環性高、固定成本高、借錢多 → β 高、風險大。"
    },
    {
     "t": "formula",
@@ -62,9 +63,9 @@ window.LESSONS = [
     "name_zh": "財務槓桿與權益 beta",
     "latex": "\\beta_{Equity} = \\beta_{Asset}\\left(1 + \\frac{B}{S}\\right)",
     "en": "With riskless debt (β_debt ≈ 0), the levered equity beta equals the asset beta scaled up by leverage. A levered firm's equity beta is always greater than an all-equity firm's beta.",
-    "zh": "當負債視為無風險(β_debt≈0)時，有舉債公司的權益 beta = 資產 beta ×(1+B/S)。因此『有舉債公司的權益 beta 一定大於全權益公司』。範例：資產 beta=0.8、D:E=1:2 → 權益 beta=0.8×(1+1/2)=1.2。",
+    "zh": "這條公式講「財務槓桿如何放大股東的 β」。\n\n先理解：整間公司（資產）的 β 是「股東 β」與「債權人 β」依市值權重的加權平均。當公司的負債近乎無風險時，債權人的 β ≈ 0，整理後就得到這條式子。\n\n意義：有借錢（有槓桿）公司的「權益 β」= 資產 β ×（1 + 負債/權益）。因為 (1 + B/S) 一定大於 1，所以——\n\n有槓桿公司的股東 β，永遠大於同樣資產但「全用股權、零負債」公司的 β。借越多錢，B/S 越大，股東承擔的風險被放大得越厲害。\n\n例如：資產 β = 0.8，B/S = 1（負債和權益一樣多），則權益 β = 0.8 × (1 + 1) = 1.6，整整放大一倍。",
     "vars_en": "B = market value of debt; S = market value of equity.",
-    "vars_zh": "B＝負債市值；S＝權益市值。"
+    "vars_zh": "β_Asset = 資產(未槓桿)β；B = 負債市值；S = 權益市值；B/S = 負債權益比。"
    },
    {
     "t": "formula",
@@ -72,16 +73,16 @@ window.LESSONS = [
     "name_zh": "股利折現模型(DDM)",
     "latex": "R_S = \\frac{Div_1}{P_0} + g",
     "en": "An alternative to CAPM: required equity return = next year's dividend yield + dividend growth rate. Growth g = retention ratio × ROE, or the historical dividend growth rate.",
-    "zh": "估權益成本的另一個方法：要求報酬率 = 明年股利殖利率 + 股利成長率。成長率 g＝保留盈餘比率×ROE，或用歷史股利成長率。",
+    "zh": "DDM（股利折現模型）是 CAPM 之外，估權益成本的另一種方法。\n\n公式：股東要求報酬 = 下一年的股利殖利率 (Div₁/P₀) + 股利成長率 g。\n\n成長率 g 怎麼來？兩種：\n• g = 保留盈餘比率 × ROE（公司把多少盈餘留下來再投資，乘上再投資的報酬率）。\n• 或直接用歷史的股利平均成長率。\n\n例如：目前股價 P₀ = $50，預期明年股利 Div₁ = $2，股利成長率 g = 5%，則\nR_S = 2/50 + 5% = 4% + 5% = 9%。\n\n直覺：股東報酬一部分來自每年領的股利（殖利率），一部分來自股利逐年成長（資本利得）。",
     "vars_en": "Div_1/P_0 = next-year dividend yield; g = dividend growth rate.",
-    "vars_zh": "Div_1/P_0＝明年股利殖利率；g＝股利成長率。"
+    "vars_zh": "Div₁ = 下一期(明年)股利；P₀ = 目前股價；g = 股利成長率。"
    },
    {
     "t": "concept",
     "term_en": "DDM vs CAPM",
     "term_zh": "DDM 與 CAPM 的比較",
     "en": "Both are internally consistent, but academics and companies tend to favor the CAPM. DDM suffers from measurement error in estimating growth, and cannot handle low- or no-dividend stocks.",
-    "zh": "兩者邏輯一致，但學界與公司比較偏好 CAPM。因為 DDM 在估『成長率』時誤差大，而且對於低股利或不發股利的股票不適用；CAPM 則可處理這類股票。"
+    "zh": "DDM 和 CAPM 兩種方法在理論上都自洽，但實務與學界較偏好 CAPM，原因在於 DDM 有兩個明顯弱點：\n\n1. 成長率 g 很難估準，估錯一點點，算出的報酬就差很多（測量誤差大）。\n\n2. DDM 無法處理「低股利或不發股利」的公司——分母邏輯整個失效，例如很多成長型科技股。\n\n相對地，CAPM 只要有 β 與市場參數就能用，適用範圍更廣，因此成為主流。但兩者可互相參照、交叉驗證。"
    },
    {
     "t": "formula",
@@ -89,9 +90,9 @@ window.LESSONS = [
     "name_zh": "負債與特別股成本",
     "latex": "R_B(1-t_c)\\quad;\\quad R_P = \\frac{D}{PV}",
     "en": "Interest is tax-deductible, so the relevant cost of debt is the borrowing rate times (1 − tax rate). Cost of preferred stock = preferred dividend ÷ price (no tax adjustment, dividends are not deductible).",
-    "zh": "利息可抵稅，所以真正的負債成本＝借款利率×(1−稅率)。特別股成本＝特別股股利÷價格（特別股股利不可抵稅，故不調整）。",
+    "zh": "這張卡片講「債務」與「特別股」的資本成本。\n\n債務成本（稅後）：因為利息可以「抵稅」，公司實際負擔的成本要打折。\n稅後債務成本 = 借款利率 R_B × (1 − 稅率 t_c)。\n例如：借款利率 8%、公司稅率 25%，則稅後成本 = 8% × (1 − 0.25) = 6%。利息抵稅替公司省下了 2%。\n\n特別股成本：R_P = 特別股股利 D ÷ 特別股價格。注意特別股股利「不能抵稅」，所以沒有 (1 − t_c) 這一項。\n例如：每年固定股利 $5、市價 $50，則 R_P = 5/50 = 10%。\n\n重點對比：債務利息可抵稅（要乘 1 − t_c）；特別股與普通股的股利都不能抵稅。",
     "vars_en": "R_B = borrowing rate; t_c = corporate tax rate; D = preferred dividend; PV = price.",
-    "vars_zh": "R_B＝借款利率；t_c＝公司稅率；D＝特別股股利；PV＝價格。"
+    "vars_zh": "R_B = 稅前借款利率；t_c = 公司稅率；D = 特別股每股股利；PV = 特別股價格。"
    },
    {
     "t": "formula",
@@ -99,9 +100,9 @@ window.LESSONS = [
     "name_zh": "加權平均資本成本(WACC)",
     "latex": "R_{WACC} = \\frac{S}{S+B}R_S + \\frac{B}{S+B}R_B(1-t_c)",
     "en": "When a firm uses both debt and equity, its cost of capital is the market-value-weighted average of the cost of equity and the after-tax cost of debt. WACC is the discount rate for the firm's average-risk projects.",
-    "zh": "公司同時用負債與權益時，資本成本＝權益成本與『稅後』負債成本，依市值權重加權平均。WACC 是評估『公司平均風險計畫』時要用的折現率。範例：S/(S+B)=60%、R_S=14.4%、B/(S+B)=40%、R_B(1−t_c)=3.3% → WACC≈9.96%。",
+    "zh": "WACC（加權平均資本成本）是公司同時用「股權」和「債務」融資時的整體資本成本，用市值權重把兩者加權平均。\n\n公式兩部分：\n• S/(S+B) × R_S：權益佔比 × 權益成本。\n• B/(S+B) × R_B(1−t_c)：債務佔比 × 稅後債務成本。\n\n例如：權益市值 S = 600、債務市值 B = 400（總值 1000），R_S = 12%、R_B = 8%、稅率 25%。\nWACC = (600/1000)×12% + (400/1000)×8%×(1−0.25)\n     = 0.6×12% + 0.4×6% = 7.2% + 2.4% = 9.6%。\n\n用途：WACC 是評估「公司平均風險專案」時的折現率。若專案風險與公司整體不同，就要另外調整，不能直接套 WACC。",
     "vars_en": "Weights use market values; only debt gets the (1 − t_c) tax shield.",
-    "vars_zh": "權重用『市值』；只有負債乘上(1−t_c)享受抵稅。"
+    "vars_zh": "S = 權益市值；B = 債務市值；R_S = 權益成本；R_B = 稅前債務成本；t_c = 稅率。權重一定用『市值』而非帳面值。"
    }
   ],
   "key": "ch13"
@@ -121,9 +122,9 @@ window.LESSONS = [
     "name_zh": "調整現值法 APV",
     "latex": "APV = NPV + NPVF",
     "en": "Value the project as if all-equity (NPV), then add the present value of financing side effects (NPVF). Side effects: the debt tax subsidy, issue costs of new securities, costs of financial distress, and subsidies to debt financing.",
-    "zh": "先把計畫當成『全權益』來算 NPV，再加上『融資副作用的現值』(NPVF)。副作用包含：負債抵稅利益、發行新證券成本、財務困境成本、以及政府/補貼性負債。",
+    "zh": "APV（調整現值法）是評估「有舉債公司」專案的三大方法之一。\n\n核心想法：把專案先當成「完全用股權、沒有負債」來評價，算出基本 NPV；再把「融資帶來的副作用現值 (NPVF)」加回去。\n\nAPV = 全股權的 NPV + 融資副作用的現值。\n\n融資副作用有哪些？\n• 負債的利息「稅盾」（正面，增加價值）。\n• 發行新證券的發行成本（負面）。\n• 財務危機/破產成本（負面）。\n• 政府給的補貼性貸款（正面）。\n\n精神：把「本業價值」和「融資怎麼安排帶來的好壞」分開算，再相加，邏輯很清楚。",
     "vars_en": "NPV = all-equity value; NPVF = PV of financing side effects.",
-    "vars_zh": "NPV＝全權益價值；NPVF＝融資副作用現值。"
+    "vars_zh": "NPV = 假設全用股權的專案淨現值；NPVF = 融資副作用（稅盾、發行成本、危機成本等）的淨現值。"
    },
    {
     "t": "formula",
@@ -131,16 +132,16 @@ window.LESSONS = [
     "name_zh": "APV（含抵稅）",
     "latex": "APV = NPV + t_c \\times B",
     "en": "For perpetual debt, the present value of the interest tax shield is simply the tax rate times the amount of debt. A project rejected on NPV alone may be accepted once the tax benefit of debt is added.",
-    "zh": "若為永續負債，利息抵稅的現值＝稅率×負債金額(t_c×B)。所以用 NPV 看會被否決的計畫，加上負債抵稅後可能變成可接受。範例：NPV=−$13,000、t_c=21%、B=$121,900 → APV=−13,000+0.21×121,900=+$12,599。",
+    "zh": "這是 APV 最常用的簡化版：當公司舉借「永久債務」時，利息稅盾的現值剛好等於「稅率 × 負債金額」。\n\nAPV = 全股權 NPV + t_c × B。\n\n例如：某專案全股權 NPV = −$50 萬（單看本業是虧的），但為它舉借了 $400 萬永久債、稅率 25%。\n稅盾現值 = 0.25 × 400 = $100 萬。\nAPV = −50 + 100 = +$50 萬 > 0 → 改為「接受」。\n\n重點觀念：一個只看 NPV 會被否決的專案，加進「借錢的抵稅好處」後，可能反而值得做。這就是 APV 想凸顯的——融資安排本身會創造價值。",
     "vars_en": "t_c = tax rate; B = amount of debt.",
-    "vars_zh": "t_c＝稅率；B＝負債金額。"
+    "vars_zh": "t_c = 公司稅率；B = 負債金額。此式假設『永久債務』，稅盾每年固定、可永續折現。"
    },
    {
     "t": "concept",
     "term_en": "Flow-to-Equity (FTE) — idea",
     "term_zh": "權益現金流量法 FTE—概念",
     "en": "Discount only the cash flow that belongs to equity holders (levered cash flow, LCF) at the cost of levered equity R_S. Steps: (1) compute LCF, (2) compute R_S, (3) discount LCF at R_S and subtract the equity portion of the investment.",
-    "zh": "只折現『屬於股東的現金流量』(舉債後現金流量 LCF)，用『有舉債權益成本 R_S』折現。三步驟：(1) 算 LCF、(2) 算 R_S、(3) 用 R_S 折現 LCF，並只扣掉『股東出資部分』的投資額。"
+    "zh": "FTE（股權現金流量法）只關注「真正流到股東口袋」的現金流。\n\n做法分三步：\n1. 算出「槓桿後現金流 (LCF)」：扣掉付給債權人的稅後利息後，剩給股東的現金。\n2. 算出「槓桿後權益成本 R_S」：因為有負債，股東要求的報酬會比較高。\n3. 把 LCF 用 R_S 折現，再「只」扣掉股東出的那部分投資（不是全部投資，因為有一部分是借來的）。\n\n與另兩法的差別：APV、WACC 折現的是「全公司的未槓桿現金流」並扣全部投資；FTE 是「站在股東角度」，折現股東現金流、只扣股東投入。三者算對的話答案會一致。"
    },
    {
     "t": "formula",
@@ -148,9 +149,9 @@ window.LESSONS = [
     "name_zh": "舉債後現金流量",
     "latex": "LCF = UCF - (1-t_c)\\,R_B B",
     "en": "Levered cash flow equals the unlevered cash flow minus the after-tax interest payment to debt holders.",
-    "zh": "LCF＝全權益現金流量(UCF) − 稅後利息支出。即把要付給債權人的稅後利息從 UCF 扣掉。",
+    "zh": "LCF（槓桿後現金流）就是「先還完債權人，剩下給股東」的現金流。\n\nLCF = 未槓桿現金流 UCF − 稅後利息 (1 − t_c)×R_B×B。\n\n為什麼利息要乘 (1 − t_c)？因為利息可抵稅，公司實際付出的利息負擔是稅後的。\n\n例如：UCF = $100、負債 B = $500、利率 R_B = 8%、稅率 25%。\n稅後利息 = (1 − 0.25) × 8% × 500 = 0.75 × 40 = $30。\nLCF = 100 − 30 = $70，這 $70 才是股東能分到的現金流。",
     "vars_en": "UCF = unlevered cash flow; R_B B = interest payment.",
-    "vars_zh": "UCF＝全權益現金流量；R_B·B＝利息支出。"
+    "vars_zh": "UCF = 未槓桿(全股權)現金流；t_c = 稅率；R_B = 利率；B = 負債。乘 (1−t_c) 是因利息可抵稅。"
    },
    {
     "t": "formula",
@@ -158,9 +159,9 @@ window.LESSONS = [
     "name_zh": "有舉債權益成本",
     "latex": "R_S = R_0 + \\frac{B}{S}(1-t_c)(R_0 - R_B)",
     "en": "The cost of levered equity rises with leverage. R_0 is the all-equity (unlevered) cost of capital. This is MM Proposition II with corporate taxes.",
-    "zh": "有舉債的權益成本會隨槓桿上升。R_0 是全權益(無舉債)的資本成本。這就是『有稅版的 MM 第二定理』。",
+    "zh": "這是「MM 第二命題（含公司稅）」：槓桿後的權益成本 R_S 會隨著借錢變多而上升。\n\nR_S = R₀ + (B/S)(1 − t_c)(R₀ − R_B)。\n\n直覺：R₀ 是「完全不借錢」時的資本成本（基準）。一旦開始借錢，股東承擔的風險變大，因此要求更高的報酬，多出來的部分就是 (B/S)(1−t_c)(R₀−R_B)。\n\n例如：R₀ = 12%、R_B = 8%、稅率 25%、B/S = 0.5。\nR_S = 12% + 0.5 × 0.75 × (12% − 8%) = 12% + 0.5 × 0.75 × 4% = 12% + 1.5% = 13.5%。\n\n重點：借越多錢 (B/S 越大)，R_S 越高——股東要承擔的財務風險被放大。",
     "vars_en": "R_0 = unlevered cost of capital; R_B = cost of debt; B/S = debt-equity ratio.",
-    "vars_zh": "R_0＝無舉債資本成本；R_B＝負債成本；B/S＝負債權益比。"
+    "vars_zh": "R₀ = 全股權(未槓桿)資本成本；B/S = 負債權益比；t_c = 稅率；R_B = 債務成本。"
    },
    {
     "t": "formula",
@@ -168,9 +169,9 @@ window.LESSONS = [
     "name_zh": "WACC 法",
     "latex": "NPV = \\sum_{t=1}^{\\infty}\\frac{UCF_t}{(1+R_{WACC})^t} - \\text{Initial investment}",
     "en": "Discount the project's unlevered cash flows at the WACC and subtract the full initial investment. The debt benefit is already inside the (1 − t_c) term of the WACC.",
-    "zh": "用 WACC 折現『全權益現金流量(UCF)』，再扣掉『全部』投資額。負債的好處已經藏在 WACC 公式裡的(1−t_c)。",
+    "zh": "WACC 法是實務上最常用的評價方式：直接把專案的「未槓桿現金流 (UCF)」用 WACC 折現，再扣掉「全部」的期初投資。\n\nNPV = Σ UCF_t /(1+WACC)^t − 期初投資。\n\n關鍵：借錢的好處（利息抵稅）已經藏在 WACC 公式裡的 (1 − t_c) 那一項了，所以這裡不用再另外加稅盾，否則會重複計算。\n\n例如：某永續專案每年 UCF = $120 萬，WACC = 10%，期初投資 $1000 萬。\n專案現值 = 120 / 0.10 = $1200 萬，NPV = 1200 − 1000 = +$200 萬。\n\n與 APV 的差異：APV 把稅盾「另外加」；WACC 法把稅盾「內含在折現率」裡。",
     "vars_en": "UCF discounted at WACC; subtract total initial investment.",
-    "vars_zh": "UCF 以 WACC 折現；扣全部投資額。"
+    "vars_zh": "UCF = 未槓桿現金流；R_WACC = 加權平均資本成本（已含利息抵稅效果）。"
    },
    {
     "t": "concept",
@@ -178,14 +179,14 @@ window.LESSONS = [
     "term_zh": "三種方法怎麼選？",
     "badge": "重點",
     "en": "Use WACC or FTE when the firm holds a constant target debt-to-VALUE ratio over the project's life. Use APV when the LEVEL (dollar amount) of debt is known/constant. In practice WACC is by far the most widely used; FTE suits highly levered firms.",
-    "zh": "當公司維持『固定的負債/價值比』時，用 WACC 或 FTE；當『負債金額(固定)』已知時，用 APV。實務上 WACC 最常用；FTE 適合高度舉債的公司。"
+    "zh": "三種方法（APV、FTE、WACC）什麼時候用？關鍵看「負債目標是固定金額還是固定比例」：\n\n• 當公司維持「固定的目標負債/價值比例」（負債占公司價值的%固定）→ 用 WACC 或 FTE。\n• 當公司的負債「金額(水準)」是已知、固定的（例如就借這 $500 萬）→ 用 APV。\n\n實務上 WACC 法用得最廣，因為多數公司是按目標比例調整負債；FTE 則特別適合「高度槓桿」的公司（如 LBO），因為它直接從股東現金流出發。\n\n口訣：比例固定用 WACC/FTE，金額固定用 APV。"
    },
    {
     "t": "concept",
     "term_en": "Summary table of the three methods",
     "term_zh": "三法整理表",
     "en": "APV: discounts UCF at R_0, subtracts full investment, adds PV of financing effects. FTE: discounts LCF at R_S, subtracts only the equity portion, no separate financing PV. WACC: discounts UCF at R_WACC, subtracts full investment, no separate financing PV.",
-    "zh": "APV：折 UCF、用 R_0、扣全部投資、另外加融資效果現值。FTE：折 LCF、用 R_S、只扣股東出資部分、不另計融資現值。WACC：折 UCF、用 R_WACC、扣全部投資、不另計融資現值。三者算出的價值會一致。"
+    "zh": "三種方法的對照整理（很適合做考前速記）：\n\nAPV：折現「未槓桿現金流 UCF」用 R₀（全股權成本）→ 扣「全部」投資 → 再「另外加」融資副作用的現值。\n\nFTE：折現「槓桿後現金流 LCF」用 R_S（槓桿後權益成本）→ 只扣「股東出的那部分」投資 → 不另外算融資現值（因為已反映在現金流與折現率中）。\n\nWACC：折現「未槓桿現金流 UCF」用 R_WACC → 扣「全部」投資 → 不另外算融資現值（稅盾已含在 WACC 裡）。\n\n記憶法：折現率搭配的現金流要「一致」——R₀/WACC 配 UCF，R_S 配 LCF。"
    },
    {
     "t": "formula",
@@ -193,9 +194,9 @@ window.LESSONS = [
     "name_zh": "beta 與槓桿（無稅）",
     "latex": "\\beta_{Equity} = \\beta_{Unlevered}\\left(1 + \\frac{B}{S}\\right)",
     "en": "Without taxes and with riskless debt, equity beta equals the unlevered (asset) beta scaled up by the debt-equity ratio.",
-    "zh": "在無稅、且負債無風險的世界，權益 beta＝無舉債(資產)beta×(1+B/S)。槓桿放大了權益的風險。",
+    "zh": "這是「無稅」情況下，財務槓桿對股東 β 的影響。\n\nβ_Equity = β_Unlevered × (1 + B/S)。\n\n意思：在沒有稅、且負債無風險的假設下，股東的權益 β = 資產（未槓桿）β，再乘上 (1 + 負債權益比) 放大。\n\n例如：資產 β = 0.9，B/S = 0.5，則\nβ_Equity = 0.9 × (1 + 0.5) = 0.9 × 1.5 = 1.35。\n\n借錢讓股東承擔更多風險，所以權益 β 被往上放大。這條式子和 Ch13 那條本質相同（無稅版本）。",
     "vars_en": "B/S = debt-equity ratio.",
-    "vars_zh": "B/S＝負債權益比。"
+    "vars_zh": "β_Unlevered = 資產(未槓桿)β；B/S = 負債權益比。無稅、負債無風險的假設下成立。"
    },
    {
     "t": "formula",
@@ -203,9 +204,9 @@ window.LESSONS = [
     "name_zh": "beta 與槓桿（有稅）",
     "latex": "\\beta_{Equity} = \\left[1 + (1-t_c)\\frac{B}{S}\\right]\\beta_{Unlevered}",
     "en": "With corporate taxes and riskless debt, the (1 − t_c) factor reduces the leverage effect. Because the bracket exceeds 1 for a levered firm, equity beta still exceeds the unlevered beta. Unlevering: β_U = [S /(S + (1 − t_c)B)] × β_Equity.",
-    "zh": "在有公司稅、負債無風險時，(1−t_c)會減弱槓桿效果。但因括號值仍>1，權益 beta 仍大於無舉債 beta。反推(unlever)：β_U＝[S/(S+(1−t_c)B)]×β_Equity。",
+    "zh": "這是「有公司稅」版本的槓桿對 β 的影響，比無稅版多了一個 (1 − t_c) 折減項。\n\nβ_Equity = [1 + (1 − t_c) × B/S] × β_Unlevered。\n\n因為利息抵稅減輕了部分風險衝擊，所以槓桿放大的效果被 (1 − t_c) 打了折，比無稅版「溫和」一些。但對有借錢的公司來說，中括號仍 > 1，所以權益 β 還是大於資產 β。\n\n例如：β_Unlevered = 0.9、稅率 25%、B/S = 0.5。\nβ_Equity = [1 + 0.75 × 0.5] × 0.9 = (1 + 0.375) × 0.9 = 1.375 × 0.9 ≈ 1.24。\n（對照無稅版的 1.35，可見抵稅讓放大效果變小。）\n\n反推（去槓桿）：β_U = [S / (S + (1 − t_c)B)] × β_Equity，用來把市場上觀察到的權益 β 還原成資產 β。",
     "vars_en": "t_c = corporate tax rate.",
-    "vars_zh": "t_c＝公司稅率。"
+    "vars_zh": "t_c = 稅率；B/S = 負債權益比；β_Unlevered = 資產 β。去槓桿公式：β_U = [S/(S+(1−t_c)B)]×β_Equity。"
    }
   ],
   "key": "ch18"
@@ -224,7 +225,7 @@ window.LESSONS = [
     "term_en": "Types of payouts",
     "term_zh": "發放的種類",
     "en": "Cash payouts: regular cash dividends, extra dividends, and stock repurchases. Stock payouts: stock dividends and stock splits (these pay shares, not cash).",
-    "zh": "現金發放：經常性現金股利、額外股利、買回庫藏股。股票發放：股票股利、股票分割（發股票不是發現金）。"
+    "zh": "公司把錢「發還給股東」的方式分兩大類：\n\n現金發放（真的給現金）：\n• 一般現金股利：定期固定發放。\n• 額外股利：景氣好時臨時多發的。\n• 股票回購 (repurchase)：公司買回自家股票，也等於把現金還給股東。\n\n股票發放（給股票，不是現金）：\n• 股票股利 (stock dividend)：配發額外股數。\n• 股票分割 (stock split)：把股票拆細，例如一股拆兩股。\n\n重點：前者是「真現金」出去；後者只是股數變多、不涉及現金流出。"
    },
    {
     "t": "def",
@@ -232,14 +233,14 @@ window.LESSONS = [
     "term_zh": "股利四大日期",
     "badge": "必背",
     "en": "Declaration date (board announces), Date of record (who is on the books gets paid), Ex-dividend date (buy on/after this date → no dividend; the cum-dividend day is the last day to buy WITH the dividend), Payment date.",
-    "zh": "宣告日(董事會宣布)、股東名冊登記日(名冊上的人才領得到)、除息/權日(當天或之後買→沒股利；前一天 cum-dividend 是最後含息可買日)、付息/權日。"
+    "zh": "股利有四個關鍵日期，順序一定要記熟：\n\n1. 宣告日 (Declaration date)：董事會正式宣布要發多少股利。\n\n2. 除息日 (Ex-dividend date)：分界線！「當天(含)以後」才買進的人，領不到這次股利；想領股利，最晚要在除息日「前一天」（即附息日 cum-dividend）買進。\n\n3. 登記基準日 (Date of record)：以這天股東名冊上的人為準發放。\n\n4. 發放日 (Payment date)：實際把股利匯給股東。\n\n考點：除息日是「能不能領到股利」的界線，記住「除息日當天買→沒得領」。"
    },
    {
     "t": "concept",
     "term_en": "Price drop on the ex-dividend date",
     "term_zh": "除息日的股價下跌",
     "en": "In a world without taxes/transaction costs, on the ex-dividend date the stock price falls by exactly the amount of the dividend. If the dividend is $1, a stock priced at $(P+1) before becomes $P on the ex-date.",
-    "zh": "在無稅、無交易成本的世界，除息日當天股價會剛好下跌『等於股利』的金額。若股利$1，除息前$(P+1)的股票，除息日會變成$P。"
+    "zh": "在「沒有稅、沒有交易成本」的理想世界裡，除息日當天股價會「正好下跌一個股利的金額」。\n\n道理：除息日前買股票，你買到的是「股票本身 + 即將領到的股利」；除息日後買，只買到「股票本身」，少了股利那塊價值，所以股價要扣掉股利。\n\n例如：除息前股價 $51，這次發 $1 股利。除息日當天，股價會掉到 $50（= 51 − 1）。\n\n對股東而言其實沒賺沒賠：原本手上是價值 $51 的股票；除息後變成 $50 股票 + $1 股利 = 還是 $51。錢只是從「股價」換到「現金股利」的口袋而已。"
    },
    {
     "t": "concept",
@@ -247,42 +248,42 @@ window.LESSONS = [
     "term_zh": "股利無關論(MM)",
     "badge": "核心",
     "en": "Miller & Modigliani: in a perfect market, dividend policy does not change firm value, because investors can manufacture any cash-flow pattern they want using 'homemade dividends' (reinvesting unwanted dividends, or selling shares to create dividends).",
-    "zh": "Miller 與 Modigliani：在完美市場中，股利政策不會改變公司價值，因為投資人可用『自製股利』(homemade dividends) 自己調出想要的現金流——多的股利再投資、或賣股票自製現金。"
+    "zh": "MM（Miller & Modigliani）的「股利無關論」：在完美市場中，公司的股利政策「不會改變公司價值」。\n\n為什麼？因為投資人可以自己用「自製股利 (homemade dividends)」做出任何想要的現金流型態：\n• 想要更多現金 → 賣掉一些股票，自己「製造」股利。\n• 不想要這麼多股利 → 把領到的股利再買回股票。\n\n既然投資人能自己調整，公司發多發少就不重要了——真正決定價值的是公司的「投資與獲利能力」，不是股利怎麼發。\n\n注意：這是在「沒有稅、沒有交易成本、資訊對稱」的完美市場假設下才成立。"
    },
    {
     "t": "concept",
     "term_en": "Homemade dividends",
     "term_zh": "自製股利",
     "en": "If a firm pays more (or less) than an investor wants, the investor reinvests the surplus or sells some shares to restore the preferred pattern. So no specific dividend policy is needed to satisfy investors.",
-    "zh": "如果公司發的股利比投資人想要的多(或少)，投資人可把多的再投資、或賣掉部分股票來補足，調回自己想要的現金流。所以公司不需要為了迎合股東而採用特定股利政策。"
+    "zh": "「自製股利」是 MM 無關論的關鍵機制：投資人不必依賴公司的股利政策，自己就能調出想要的現金流。\n\n兩種操作：\n• 公司發太多股利、你不需要 → 把多餘的股利「再投資買回股票」。\n• 公司發太少、你需要現金 → 「賣掉一部分持股」自己生出現金。\n\n例如：你想每年要 $1000 現金，但公司只發 $600。你可以再賣 $400 的股票補足；反之公司發 $1400，你可把多的 $400 買回股票。\n\n結論：因為人人都能自製股利，公司根本不需要為了「討好某種股利偏好」而特意設計股利政策。"
    },
    {
     "t": "concept",
     "term_en": "Dividends & investment policy",
     "term_zh": "股利與投資政策",
     "en": "Since dividends are irrelevant to value, a firm should NEVER cut positive-NPV projects (capital expenditure) just to raise or start a dividend.",
-    "zh": "既然股利對價值無關，公司就『絕不該』為了發股利(或第一次發股利)而砍掉正 NPV 的投資計畫。"
+    "zh": "既然股利政策對公司價值無關緊要，那就推出一個重要原則：\n\n公司「絕對不該」為了發股利或提高股利，而砍掉「正 NPV 的投資專案（資本支出）」。\n\n因為正 NPV 專案才是真正創造價值的來源；為了發現金而放棄好專案，等於用「會增值的東西」去換「只是換口袋的現金」，得不償失。\n\n正確順序：先把所有正 NPV 專案做好，真的有「多餘的錢」再考慮發股利或回購。投資決策優先於股利決策。"
    },
    {
     "t": "def",
     "term_en": "Stock repurchase methods",
     "term_zh": "買回庫藏股的方式",
     "en": "Three ways: open-market purchase, tender offer, and targeted repurchase. In a perfect market the firm is indifferent between paying a dividend and repurchasing stock.",
-    "zh": "三種方式：公開市場買回、公開收購(tender offer)、針對性買回。在完美市場中，發股利與買回庫藏股對公司而言『無差異』。"
+    "zh": "公司回購（買回）自家股票有三種方式：\n\n1. 公開市場買回 (open-market)：像一般投資人一樣，在市場上慢慢買回自家股。\n\n2. 公開收購 (tender offer)：公開宣布以某個（通常溢價的）價格，向全體股東收購一定數量的股票。\n\n3. 標定回購 (targeted repurchase)：向「特定股東」買回，常見於趕走想併購的人（即綠郵）。\n\n重點觀念：在完美市場下，公司「發現金股利」與「回購股票」對股東而言是「無差異」的——兩者都是把現金還給股東，只是形式不同。"
    },
    {
     "t": "concept",
     "term_en": "Why personal taxes favor LOW dividends",
     "term_zh": "為何個人稅偏好『低股利』",
     "en": "For a firm that must issue stock to fund a dividend, paying $100 in dividends triggers dividend taxes (e.g. lose $15). With personal taxes, firms have an incentive to reduce dividends. But for a firm with excess cash, the payout decision depends on comparing personal vs corporate tax rates.",
-    "zh": "若公司必須『發新股』才能發股利，發$100股利會被課股利稅(例如損失$15)。所以考慮個人稅後，公司有動機『減少股利』。但對於有多餘現金的公司，發不發股利要看『個人稅率 vs 公司稅率』的高低比較。"
+    "zh": "從「個人所得稅」角度看，常會偏好「低股利」：\n\n對一家「必須發新股才能發股利」的公司來說，發 $100 股利會讓股東被課股利稅（例如稅率 15%，就被吃掉 $15）。既然發股利要繳稅、又要發新股募資，倒不如少發。\n\n所以在有個人稅的世界，公司有「降低股利」的誘因。\n\n但要注意：對一家「手上本來就有多餘現金」的公司，要不要發、發多少，取決於「個人稅率 vs 公司稅率」的比較——如果公司留著錢去投資反而被課更重的稅，那發給股東可能更好。所以結論並非一面倒。"
    },
    {
     "t": "concept",
     "term_en": "Real-world factors favoring HIGH dividends",
     "term_zh": "偏好『高股利』的現實因素",
     "en": "Desire for current income (e.g. retirees), behavioral self-control issues, and agency costs (free-cash-flow problem — dividends reduce cash managers could waste).",
-    "zh": "對當期收入的需求(例如退休族)、行為財務的自制力問題、以及代理成本(自由現金流量假說——發股利可減少經理人可亂花的現金)。"
+    "zh": "現實世界中，也有不少因素「偏好高股利」：\n\n1. 想要當期收入：例如退休族、需要穩定現金流的人，偏好定期領股利。\n\n2. 行為面的自制問題：有些人怕自己亂花本金，靠「只花股利、不動本金」來管住自己。\n\n3. 代理成本（自由現金流問題）：公司留太多閒錢，經理人可能拿去亂投資、揮霍或建立個人帝國。把現金以股利發出去，能減少經理人浪費的空間，保護股東。\n\n所以股利政策在現實中是「偏好低股利的力量」與「偏好高股利的力量」拉扯後的平衡。"
    },
    {
     "t": "concept",
@@ -290,28 +291,29 @@ window.LESSONS = [
     "term_zh": "資訊內涵與股利訊號",
     "badge": "重點",
     "en": "Stock prices generally RISE on a dividend increase and FALL on a dividend decrease. The market infers higher future earnings/cash flow from a dividend rise — this is the information content (signaling) effect.",
-    "zh": "宣布『增加股利』股價通常上漲，『減少股利』股價通常下跌。市場由股利增加推測未來盈餘/現金流更好——這就是『資訊內涵(訊號)效果』。注意：因 現金流＝資本支出＋股利，是當期與未來的取捨，經理人不必然要靠加股利傳遞訊號。"
+    "zh": "「資訊內涵 / 股利訊號」效果：股利的變動會傳遞公司未來的訊息。\n\n實證觀察：\n• 公司「提高股利」→ 股價通常「上漲」。\n• 公司「調降股利」→ 股價通常「下跌」。\n\n為什麼？因為市場把「敢提高股利」解讀為「管理層對未來盈餘/現金流有信心」的訊號；反之減股利常被視為公司營運轉壞的警訊。\n\n所以股價反應的其實不是股利本身，而是股利「洩漏出來的未來資訊」。這就是訊號（signaling）效果。"
    },
    {
     "t": "concept",
     "term_en": "The clientele effect",
     "term_zh": "客群效果",
     "en": "Different investor groups prefer different payout levels: high-tax individuals → low payout; low-tax individuals → low-to-medium; tax-free institutions → medium; corporations → high payout. Once clienteles are satisfied, changing dividend policy creates no value.",
-    "zh": "不同投資族群偏好不同的發放水準：高稅率個人→低發放；低稅率個人→中低；免稅機構→中；公司法人→高發放。一旦各客群被滿足，再改股利政策也不會創造價值。"
+    "zh": "「客戶效果 (clientele effect)」：不同投資族群偏好不同的股利水準，公司會吸引到「口味相符」的股東群。\n\n大致的偏好分布：\n• 高稅率個人 → 偏好低股利（避免被課重稅）。\n• 低稅率個人 → 偏好低到中等股利。\n• 免稅機構（如退休基金）→ 偏好中等股利。\n• 公司法人 → 偏好高股利（公司間股利常有稅務優惠）。\n\n關鍵結論：市場上各種股利水準的「客戶」一旦都被滿足了，某家公司再改變股利政策也「創造不了額外價值」——因為只是換一批口味相符的股東來持有而已。"
    },
    {
     "t": "concept",
     "term_en": "Dividend smoothing",
     "term_zh": "股利平滑化",
     "en": "Firms set long-run target payout ratios and only partially adjust dividends toward the target, because only part of any earnings change is permanent. ΔDiv = s × (t·EPS₁ − Div₀), where t = target payout ratio and s = speed of adjustment (0 ≤ s ≤ 1).",
-    "zh": "公司會設定『長期目標發放率』，且只『部分調整』股利往目標走，因為盈餘變動只有一部分是長久的。股利變動＝s×(t·EPS₁−Div₀)，t＝目標發放率，s＝調整速度(0≤s≤1)。"
+    "zh": "「股利平滑 (dividend smoothing)」：公司不會讓股利跟著每年盈餘忽上忽下，而是設一個「長期目標發放率」，再慢慢往目標靠。\n\n為什麼要平滑？因為盈餘的變動只有「一部分是長久的」，另一部分是暫時的。貿然把暫時的高盈餘全發出去，之後發不出來被迫減股利，會被市場解讀成壞消息。\n\n調整公式：ΔDiv = s × (t × EPS₁ − Div₀)\n• t = 目標發放率，s = 調整速度 (0~1)。\n\n例如：目標發放率 t = 40%，今年 EPS₁ = $5（目標股利應為 $2），去年股利 Div₀ = $1.5，調整速度 s = 0.5。\nΔDiv = 0.5 × (0.4×5 − 1.5) = 0.5 × (2 − 1.5) = 0.5 × 0.5 = $0.25。\n所以今年只把股利從 $1.5 緩升到 $1.75，而非一次跳到 $2。",
+    "vars_zh": "t = 目標發放率；s = 調整速度(0≤s≤1)；EPS₁ = 本期每股盈餘；Div₀ = 上期股利。s 越大調整越快。"
    },
    {
     "t": "def",
     "term_en": "Stock dividend vs stock split",
     "term_zh": "股票股利 vs 股票分割",
     "en": "Stock dividend: pay extra shares (small <20–25%, large >20–25%); increases shares but total equity unchanged (shifts retained earnings to paid-in capital). Stock split: expressed as a ratio (e.g. 2-for-1 = 100% stock dividend), lowers the par value and price, returns price to a 'desirable trading range'.",
-    "zh": "股票股利：發放額外股數(小型<20~25%、大型>20~25%)；股數增加但股東權益總額不變(只是把保留盈餘轉到資本公積)。股票分割：用比率表示(如2配1＝100%股票股利)，降低面額與股價，把股價拉回『理想交易區間』。"
+    "zh": "股票股利 vs 股票分割——兩者都「只發股票、不發現金」，股東手上的總價值不變。\n\n股票股利 (stock dividend)：配發額外股數。\n• 小額 (<20~25%)、大額 (>20~25%) 之分。\n• 股數增加，但「股東權益總額不變」——只是把「保留盈餘」轉到「資本公積/實收資本」這個會計科目。\n\n股票分割 (stock split)：用比例表示，例如「1 拆 2 (2-for-1)」等同 100% 的股票股利。\n• 降低每股面值與股價，把股價拉回「理想交易區間」（太高的股價散戶不好買）。\n\n共同點：股數變多、每股價格等比下降，但公司總價值、你持股的總市值都不變——切披薩切更多片，披薩總量沒變。"
    }
   ],
   "key": "ch19"
@@ -331,14 +333,14 @@ window.LESSONS = [
     "term_zh": "選擇權基本定義",
     "badge": "必背",
     "en": "An option gives its owner the RIGHT (not obligation) to buy or sell an asset at a fixed price on/before a date. Strike/exercise price = the fixed price. Expiration date = maturity. Exercising = actually buying/selling the underlying.",
-    "zh": "選擇權給持有人『權利』(非義務)，可在到期日(或之前)以固定價格買或賣某資產。履約價(strike/exercise)＝那個固定價格；到期日＝maturity；執行(exercise)＝真的去買/賣標的。"
+    "zh": "選擇權 (option) 給「持有人」一個權利（但不是義務），可以在某個到期日「之前/當天」，用一個事先講好的固定價格，買進或賣出某項資產。\n\n幾個必背名詞：\n• 履約價/執行價 (strike / exercise price, E)：事先講好的那個固定買賣價格。\n• 到期日 (expiration date)：權利的最後期限。\n• 履約 (exercise)：真的去執行買進(買權)或賣出(賣權)的動作。\n\n關鍵字是「權利而非義務」：對你有利就行使，對你不利就放著讓它過期，最多損失當初付的權利金。\n\n買權 (call) = 用 E 買進的權利；賣權 (put) = 用 E 賣出的權利。"
    },
    {
     "t": "def",
     "term_en": "European vs American; moneyness",
     "term_zh": "歐式/美式；價內外",
     "en": "European = exercisable only at expiry; American = exercisable any time up to expiry. In-the-money = exercising gives positive payoff; At-the-money = zero (strike = spot); Out-of-the-money = exercising gives negative payoff.",
-    "zh": "歐式＝只能到期執行；美式＝到期前隨時可執行。價內(in-the-money)＝執行有正報酬；價平(at-the-money)＝零(履約價=現價)；價外(out-of-the-money)＝執行為負報酬。"
+    "zh": "兩組基本分類：\n\n歐式 vs 美式（差在「何時能行使」）：\n• 歐式 (European)：只能在「到期日當天」行使。\n• 美式 (American)：到期日「之前任何時候」都能行使，彈性較大。\n\n價內/價平/價外（moneyness，看「現在行使划不划算」，以買權為例）：\n• 價內 (in-the-money)：現在行使有正報酬（買權：股價 > 履約價）。\n• 價平 (at-the-money)：剛好打平（股價 = 履約價）。\n• 價外 (out-of-the-money)：現在行使會虧（買權：股價 < 履約價），當然不會行使。\n\n賣權的價內外方向相反：股價 < 履約價才是價內。"
    },
    {
     "t": "formula",
@@ -346,9 +348,9 @@ window.LESSONS = [
     "name_zh": "買權到期報酬",
     "latex": "\\text{Call payoff} = \\max(S_T - E,\\ 0)",
     "en": "A call gives the right to BUY at strike E. If the stock S_T is above E, the call is worth S_T − E; otherwise it expires worthless (0).",
-    "zh": "買權=以履約價E『買進』的權利。若到期股價 S_T>E，買權價值=S_T−E；否則作廢(0)。例：履約$100，股價$130 → 價值$30。",
+    "zh": "買權 (call) 給你「用履約價 E 買進」的權利。到期時的報酬看股價 S_T：\n\n買權報酬 = max(S_T − E, 0)。\n\n• 若到期股價 S_T > E：你用便宜的 E 買進、可用市價 S_T 賣出，賺 S_T − E。\n• 若 S_T ≤ E：市場上更便宜，何必用 E 買？放棄行使，報酬 = 0。\n\n例如：履約價 E = $50。到期股價 $70 → 報酬 = 70 − 50 = $20；到期股價 $40 → 報酬 = 0（不行使）。\n\n注意：這是「到期報酬」，還沒扣掉當初買買權付的權利金。看漲時買 call。",
     "vars_en": "S_T = stock price at expiry; E = exercise price.",
-    "vars_zh": "S_T＝到期股價；E＝履約價。"
+    "vars_zh": "S_T = 到期時的股價；E = 履約價。報酬永遠 ≥ 0（最差就是放棄、歸零）。"
    },
    {
     "t": "formula",
@@ -356,23 +358,23 @@ window.LESSONS = [
     "name_zh": "賣權到期報酬",
     "latex": "\\text{Put payoff} = \\max(E - S_T,\\ 0)",
     "en": "A put gives the right to SELL at strike E. If the stock S_T is below E, the put is worth E − S_T; otherwise it expires worthless (0).",
-    "zh": "賣權=以履約價E『賣出』的權利。若到期股價 S_T<E，賣權價值=E−S_T；否則作廢(0)。例：履約$50，股價$40 → 價值$10。",
+    "zh": "賣權 (put) 給你「用履約價 E 賣出」的權利。到期報酬：\n\n賣權報酬 = max(E − S_T, 0)。\n\n• 若到期股價 S_T < E：你能用較高的 E 把股票賣掉，賺 E − S_T。\n• 若 S_T ≥ E：直接用市價賣更好，放棄行使，報酬 = 0。\n\n例如：履約價 E = $50。到期股價 $30 → 報酬 = 50 − 30 = $20；到期股價 $60 → 報酬 = 0。\n\n賣權像「保險」：股價大跌時才賠你錢。看跌時買 put，或用來保護手中持股。",
     "vars_en": "S_T = stock price at expiry; E = exercise price.",
-    "vars_zh": "S_T＝到期股價；E＝履約價。"
+    "vars_zh": "S_T = 到期股價；E = 履約價。put 在股價低於 E 時才有價值。"
    },
    {
     "t": "concept",
     "term_en": "Selling (writing) options",
     "term_zh": "賣出(寫)選擇權",
     "en": "A call writer is OBLIGATED to deliver shares if the holder exercises; if S > E the writer loses (E − S). A put writer is obligated to BUY shares; if S < E the writer loses (S − E). The option market is a zero-sum game.",
-    "zh": "賣出買權者『有義務』在持有人執行時交出股票；若 S>E，賣方損失(E−S)。賣出賣權者有義務『買進』股票；若 S<E，賣方損失(S−E)。選擇權市場是零和遊戲。"
+    "zh": "「賣出（寫）選擇權」的一方，承擔的是「義務」，跟買方相反：\n\n• 賣出買權 (call writer)：若買方行使，你「有義務」用 E 交出股票。當 S > E 時你虧損 (E − S)（被迫用低價賣股）。\n\n• 賣出賣權 (put writer)：若買方行使，你「有義務」用 E 把股票買進。當 S < E 時你虧損 (S − E)（被迫用高價買股）。\n\n選擇權市場是「零和遊戲」：買方賺的，正好是賣方賠的；雙方損益相加為零（不算手續費）。\n\n賣方收的是權利金，賺的是「對方沒行使」時的權利金；但一旦行情大幅不利，賣方損失可能很大。"
    },
    {
     "t": "concept",
     "term_en": "Protective put & covered call",
     "term_zh": "保護性賣權與掩護性買權",
     "en": "Protective put = buy stock + buy put (floors your downside). The same payoff can be built from buy a call + buy a risk-free zero-coupon bond. Covered call = own stock + sell a call.",
-    "zh": "保護性賣權＝買股票＋買賣權(替下檔設保護)。同樣的報酬也可用『買買權＋買無風險零息債券(面額=履約價)』組出。掩護性買權＝持有股票＋賣出買權。"
+    "zh": "兩種常見的「股票 + 選擇權」組合策略：\n\n保護性賣權 (Protective put) = 買股票 + 買賣權。\n• 賣權像保險，替你的持股設下「下檔保護」：股價大跌時，賣權的獲利補回股票的虧損。\n• 神奇的是，這個組合的報酬，也能用「買一個買權 + 買一張無風險零息債券」複製出來（這正是買賣權平價的雛形）。\n\n掩護性買權 (Covered call) = 持有股票 + 賣出買權。\n• 你手上有股票，再賣一個買權收權利金，增加收益。\n• 代價是：若股價大漲超過履約價，上檔獲利被「鎖住」（股票被以 E 買走），放棄了大漲的空間。\n\n一句話：保護性賣權=買保險防跌；掩護性買權=收租金、但讓出上漲空間。"
    },
    {
     "t": "formula",
@@ -380,16 +382,16 @@ window.LESSONS = [
     "name_zh": "買賣權平價",
     "latex": "S_0 + P_0 = C_0 + \\frac{E}{(1+r)^t}",
     "en": "Buying stock + put has the same payoff as buying a call + risk-free bond with face value E. By no-arbitrage their costs are equal. Rearranging gives synthetic stock, synthetic T-bill, and covered-call relationships.",
-    "zh": "『買股票＋買賣權』與『買買權＋買面額E的無風險債券』報酬相同，依無套利原理成本必相等。移項可得合成股票、合成國庫券、掩護性買權等關係。例：S=$80、C=$6、E=$85、月利率0.5%、3個月 → P=−80+6+85/1.005³=$9.74。",
+    "zh": "買賣權平價 (Put-Call Parity) 是選擇權最重要的關係式：\n\nS₀ + P₀ = C₀ + E/(1+r)^t。\n\n意思：「買股票 + 買賣權」的到期報酬，跟「買買權 + 買一張面額為 E 的無風險債券」完全一樣。既然兩邊報酬相同，依「無套利原則」，今天的「成本」也必須相等。\n\n兩邊都驗一次到期報酬就懂：\n• 左邊（股票+賣權）：股價高時拿股票、股價低時靠賣權保底 E → 報酬 = max(S_T, E)。\n• 右邊（買權+債券）：債券到期拿回 E，加上買權 max(S_T−E,0) → 報酬 = max(S_T, E)。兩邊一致！\n\n把式子移項，可以「合成」出各種部位：\n• 合成股票：S₀ = C₀ − P₀ + E/(1+r)^t\n• 合成無風險債券、合成掩護性買權等。\n這也是套利與避險的基礎。",
     "vars_en": "S_0 stock; P_0 put; C_0 call; E/(1+r)^t = PV of strike.",
-    "vars_zh": "S_0股價；P_0賣權；C_0買權；E/(1+r)^t＝履約價現值。"
+    "vars_zh": "S₀ = 現股價；P₀ = 賣權價;C₀ = 買權價；E = 履約價；r = 無風險利率；t = 到期期間。E/(1+r)^t 是履約價的現值。"
    },
    {
     "t": "def",
     "term_en": "Intrinsic value & time value",
     "term_zh": "內含價值與時間價值",
     "en": "Option premium = intrinsic value + time value. Intrinsic value = immediate-exercise value: call max(S−E,0), put max(E−S,0). Time value = premium − intrinsic value. A call's value must satisfy max(S−E,0) ≤ C ≤ S.",
-    "zh": "選擇權權利金＝內含價值＋時間價值。內含價值＝立即執行的價值：買權 max(S−E,0)、賣權 max(E−S,0)。時間價值＝權利金−內含價值。買權價值界線：max(S−E,0)≤C≤S。"
+    "zh": "選擇權的權利金（市價）可以拆成兩塊：\n\n權利金 = 內含價值 (intrinsic value) + 時間價值 (time value)。\n\n內含價值 = 「現在立刻行使」能拿到的價值：\n• 買權：max(S − E, 0)；賣權：max(E − S, 0)。\n\n時間價值 = 權利金 − 內含價值，代表「未來還有時間、行情可能更有利」這份期待的價值。離到期越久、波動越大，時間價值越高；到期時時間價值歸零。\n\n買權的價值界限：max(S − E, 0) ≤ C ≤ S。\n• 下限是內含價值（不會比立刻行使還低）；上限是股價本身（買權再值錢也不會超過直接持有股票）。\n\n例如：股價 $55、履約價 $50、買權市價 $8 → 內含 $5、時間價值 $3。"
    },
    {
     "t": "concept",
@@ -397,7 +399,7 @@ window.LESSONS = [
     "term_zh": "影響選擇權價值的因素",
     "badge": "必背",
     "en": "Effect on CALL / PUT: Stock price +/−; Strike price −/+; Time to expiration +/+; Volatility +/+; Interest rate +/−. Higher volatility raises both because of greater chance of finishing in-the-money.",
-    "zh": "對『買權/賣權』的影響：股價 +/−；履約價 −/+；到期時間 +/+；波動率 +/+；利率 +/−。波動率越高，兩者價值都增加，因為更有機會變成價內。"
+    "zh": "影響選擇權價值的五大因素，務必記住對買權 (call) 與賣權 (put) 的方向（+ 表上升、− 表下降）：\n\n1. 股價 S↑：call +、put −。\n2. 履約價 E↑：call −、put +。\n3. 距到期時間 t↑：call +、put +（時間越長對雙方都越有利）。\n4. 波動率 σ↑：call +、put +。\n5. 無風險利率 r↑：call +、put −。\n\n重點直覺——波動率為何讓「買權和賣權都變貴」？因為波動越大，股價衝到「深價內」的機會越高；而下檔損失最多就是放棄、歸零（有保底）。上檔潛力放大、下檔有限，所以波動對兩種選擇權都是加分。"
    },
    {
     "t": "concept",
@@ -405,7 +407,7 @@ window.LESSONS = [
     "term_zh": "二項式與複製投資組合",
     "badge": "重點",
     "en": "With two possible future stock prices, you can replicate a call by buying Δ shares and borrowing. Δ (delta) = swing of call ÷ swing of stock. By no-arbitrage, the call price equals the cost of this replicating portfolio. Call delta > 0; put delta < 0.",
-    "zh": "當未來股價只有兩種可能時，可用『買 Δ 股股票＋借款』複製買權。Δ(delta)＝買權變動幅度÷股價變動幅度。依無套利，買權價格＝這個複製組合的成本。買權 delta>0；賣權 delta<0。範例：股價$50→$60或$40，Δ=10/(60−40)=½。",
+    "zh": "兩狀態（二項式）模型 + 複製投資組合：選擇權定價的核心邏輯。\n\n假設未來股價只有兩種可能（漲到 S(U) 或跌到 S(D)）。我們可以用「買 Δ 股股票 + 借一筆錢」來「複製」買權的報酬。\n\nΔ（避險比率/delta）= 買權報酬的變動 ÷ 股票價格的變動，也就是「一單位選擇權對應幾股股票」。\n\n依無套利原則：既然這個「複製組合」的未來報酬跟買權完全一樣，那今天買權的價格，就必須等於複製組合的成本。\n\ndelta 的方向：買權 delta > 0（股漲，買權跟著漲）；賣權 delta < 0（股漲，賣權跌）。\n\n例如：股票漲跌會讓買權報酬差 $20、股價差 $40，則 Δ = 20/40 = 0.5，代表每張買權相當於持有半股股票的曝險。",
     "vars_en": "Δ = (C_up − C_down)/(S_up − S_down).",
     "vars_zh": "Δ＝(買權上漲值−下跌值)/(股價上漲−下跌)。"
    },
@@ -415,9 +417,9 @@ window.LESSONS = [
     "name_zh": "風險中立機率",
     "latex": "q = \\frac{(1+r_f)\\,S_0 - S(D)}{S(U) - S(D)}",
     "en": "The risk-neutral 'up' probability q is backed out from today's stock price. Then the option value is V(0) = [q·V(U) + (1−q)·V(D)] / (1 + r_f).",
-    "zh": "風險中立『上漲機率』q 由今天股價反推。再用 V(0)＝[q·V(U)+(1−q)·V(D)]/(1+r_f) 算選擇權價值。範例：S=$50→$60/$40、r=10% → q=3/4，買權=(¾×$10+¼×$0)/1.1=$6.82。",
+    "zh": "風險中立評價法：先從「今天的股價」倒推出一個「風險中立機率 q」，再用它替選擇權定價。\n\nq = [(1+r_f)·S₀ − S(D)] / [S(U) − S(D)]。\n\n算出 q 後，選擇權今天的價值：\nV(0) = [q·V(U) + (1−q)·V(D)] / (1 + r_f)。\n\n注意：q 不是「真實的上漲機率」，而是一個「為了讓股票期望報酬剛好等於無風險利率」而設計出來的虛擬機率。妙處在於——在這個世界裡所有資產都用無風險利率折現，計算大幅簡化，且結果與複製組合法一致。\n\n步驟：(1) 用今天股價解出 q → (2) 把選擇權兩種到期值用 q 加權平均 → (3) 用無風險利率折現回今天。",
     "vars_en": "S(U), S(D) = up/down prices; r_f = risk-free rate.",
-    "vars_zh": "S(U)、S(D)＝上漲/下跌股價；r_f＝無風險利率。"
+    "vars_zh": "r_f = 無風險利率；S₀ = 現股價；S(U)、S(D) = 上漲/下跌後的股價；V(U)、V(D) = 對應的選擇權到期值。q 為風險中立(虛擬)機率。"
    },
    {
     "t": "formula",
@@ -425,9 +427,9 @@ window.LESSONS = [
     "name_zh": "Black-Scholes 買權公式",
     "latex": "C_0 = S\\,N(d_1) - E\\,e^{-Rt}N(d_2)",
     "en": "Black-Scholes prices a European call. d₁ = [ln(S/E) + (R + σ²/2)t] / (σ√t), and d₂ = d₁ − σ√t. N(d) = probability a standard normal is ≤ d (read from a table).",
-    "zh": "Black-Scholes 用來評價歐式買權。d₁＝[ln(S/E)+(R+σ²/2)t]/(σ√t)，d₂＝d₁−σ√t。N(d)＝標準常態分配累積機率(查表)。",
+    "zh": "Black-Scholes 模型替「歐式買權」定價，是連續時間版的選擇權公式。\n\nC₀ = S·N(d₁) − E·e^(−Rt)·N(d₂)。\n\n其中：\n• d₁ = [ln(S/E) + (R + σ²/2)t] / (σ√t)\n• d₂ = d₁ − σ√t\n• N(d) = 標準常態分配中「小於等於 d 的機率」（查表得到，介於 0~1）。\n\n怎麼理解這個式子？可粗略想成：S·N(d₁) 是「預期會拿到的股票價值」，E·e^(−Rt)·N(d₂) 是「預期要付出的履約價現值」，兩者相減就是買權今天的價值。\n\n輸入只要五個：股價 S、履約價 E、到期時間 t、波動率 σ、無風險利率 R。其中只有 σ 要估計，其餘都可直接觀察。",
     "vars_en": "S price; E strike; R risk-free; t years; σ² = variance of continuous returns.",
-    "vars_zh": "S股價；E履約價；R無風險利率；t年數；σ²＝連續報酬率變異數。"
+    "vars_zh": "S = 現股價；E = 履約價；R = 無風險利率；t = 到期時間；σ = 報酬波動率；N(·) = 標準常態累積機率(查表)。"
    },
    {
     "t": "concept",
@@ -435,14 +437,14 @@ window.LESSONS = [
     "term_zh": "股權與債權看成選擇權",
     "badge": "核心",
     "en": "Equity = a CALL on the firm's assets with strike E = face value of debt: shareholders get S − E only if firm value exceeds debt, else 0. Risky debt = risk-free debt MINUS a put: bondholders are like owning the firm and selling a call, i.e. own a riskless bond and have written a put to shareholders.",
-    "zh": "股權＝對公司資產的『買權』，履約價E＝負債面額：公司價值高於負債時股東得 S−E，否則為0。風險性債權＝無風險債券『減去』一個賣權：債權人相當於『持有公司並賣出買權』，也就是持有無風險債券並對股東賣出一個賣權。"
+    "zh": "用選擇權的眼光看公司的「股權」與「負債」——這是把選擇權應用到公司理財的關鍵洞見。\n\n股權 = 一個「以公司資產為標的、履約價 = 負債面額 E」的買權。\n• 到期（債務到期）時，若公司價值 > 負債，股東還掉債、拿走剩下的 (資產 − E)；若公司價值 < 負債，股東選擇放棄（公司交給債權人），報酬 = 0（有限責任）。這正是買權 max(資產 − E, 0) 的型態。\n\n風險性負債 = 無風險負債 − 一個賣權。\n• 換個角度：債權人就像「擁有公司資產，但賣了一個買權給股東」；或說「持有無風險債券，同時賣了一個賣權給股東」。股東違約時，等於行使了這個賣權，把虧損丟給債權人。\n\n這個觀點解釋了為何股東有時會「賭一把」——下一張卡片會講。"
    },
    {
     "t": "concept",
     "term_en": "Options view: mergers & capital budgeting",
     "term_zh": "選擇權觀點：併購與資本預算",
     "en": "Diversification-only mergers lower asset-return volatility → lower the call (equity) value → transfer wealth from stockholders to bondholders (so not in shareholders' interest). In a highly levered firm, stockholders may even prefer a low- or negative-NPV project if it raises volatility, because higher volatility raises equity (call) value at bondholders' expense.",
-    "zh": "純為分散風險的併購會降低資產報酬波動率→降低買權(股權)價值→把財富從股東轉給債權人(故不利股東)。在高度舉債的公司，股東甚至可能偏好低/負 NPV 但高風險的計畫，因為波動率上升會提高股權(買權)價值，但犧牲債權人。"
+    "zh": "用選擇權觀點看「併購」與「資本預算」，會得到反直覺的結論：\n\n1. 純為「分散風險」的併購：合併讓資產報酬的波動率下降 → 股權（買權）價值因此下降 → 財富從股東移轉給債權人（債券變更安全）。所以單純分散風險的併購「對股東不利」。\n\n2. 高度槓桿公司的「賭徒行為」：因為股權是買權、而買權「波動越大越值錢」，所以高負債公司的股東，可能會偏好「高風險甚至負 NPV」的專案——只要它能拉高波動率，就能墊高股權(買權)的價值，代價由債權人承擔。\n\n核心：把股權當買權，就能理解股東與債權人之間的「風險誘因衝突」——股東愛波動，債權人怕波動。"
    }
   ],
   "key": "ch22"
@@ -461,7 +463,7 @@ window.LESSONS = [
     "term_en": "Executive stock options (ESOs)",
     "term_zh": "高階主管認股權(ESO)",
     "en": "Firms grant options to executives because: they align executives' interests with shareholders; let the firm lower base pay; put pay at risk rather than guaranteeing it; and are tax-efficient (at-the-money ESOs are not taxable income to the employee when granted). They are valued with Black-Scholes.",
-    "zh": "公司給主管認股權的原因：使主管利益與股東一致；可壓低底薪；讓薪酬與績效連動(把薪酬置於風險)而非保證給付；且具租稅效率(發放時為價平選擇權，對員工不算應稅所得)。用 Black-Scholes 評價。"
+    "zh": "高管股票選擇權 (ESO)：公司發給高階主管的買權，常作為薪酬的一部分。公司為什麼愛用？\n\n1. 利益綁定：股價漲，主管才賺得到，把主管的利益跟股東綁在一起。\n2. 降低底薪：用選擇權當誘因，公司可以少付固定現金薪水、保留現金。\n3. 報酬承擔風險：不是保證給的獎金，而是「股價要表現好才有價值」，逼主管努力。\n4. 租稅效率：發放當下若是「平價 (at-the-money)」，對員工而言不算當期應稅所得。\n\n評價方式：因為 ESO 本質就是買權，所以用 Black-Scholes 模型來估它的價值。"
    },
    {
     "t": "concept",
@@ -469,14 +471,14 @@ window.LESSONS = [
     "term_zh": "用實質選擇權評價新創",
     "badge": "觀念",
     "en": "A start-up's value can be the value of the OPTION to expand. Even if a pilot project has negative NPV, the option to roll out many more units if it succeeds can have large value. Value with Black-Scholes (S = PV of expansion's future cash flows, E = cost to expand) and add it to the base NPV.",
-    "zh": "新創的價值可視為『擴張選擇權』的價值。即使試點計畫 NPV 為負，但若成功後可大量複製展店，這個『未來擴張的選擇權』可能價值很高。用 Black-Scholes 評價(S＝擴張未來現金流現值、E＝擴張成本)，再加到基本 NPV 上。"
+    "zh": "把新創公司「當成實質選擇權」評價：一家新創的價值，往往來自「未來可以擴張的選擇權」，而不是現在的獲利。\n\n關鍵想法：就算試水溫的試驗性專案 (pilot) 本身 NPV 是負的，但「如果成功、就大量複製推廣」的這個「擴張選擇權」可能價值很高，足以扭轉整體決策。\n\n怎麼算？用 Black-Scholes：\n• S（標的價格）= 擴張後未來現金流的「現值」。\n• E（履約價）= 擴張所需投入的成本。\n算出這個擴張選擇權的價值後，再「加回」基礎專案的 NPV。\n\n例如：試驗專案 NPV = −$200 萬，但擴張選擇權價值 = $900 萬 → 整體 = −200 + 900 = +$700 萬，值得做。這就是「先試小、成功再放大」的彈性價值。"
    },
    {
     "t": "def",
     "term_en": "Warrants",
     "term_zh": "認購權證",
     "en": "Warrants are call options issued by the COMPANY itself, giving the holder the right to buy newly issued shares directly from the firm at a fixed price. They have longer maturities than exchange-traded options and are often attached to bonds (bond-with-warrants); the loan agreement states if they are detachable.",
-    "zh": "認購權證是『由公司本身發行』的買權，給持有人以固定價格直接向公司買『新發行股票』的權利。比交易所掛牌選擇權的到期日長，常附在債券上(附認購權證之債券)；契約會註明是否可分離單獨賣出。"
+    "zh": "認股權證 (warrant)：由「公司本身」發行的買權，給持有人「直接向公司」用固定價格買進「新發行股票」的權利。\n\n和交易所掛牌的選擇權比，權證有兩個特色：\n1. 存續期間更長（常是數年）。\n2. 常「附在公司債上」一起發行（附認股權證債券 bond-with-warrants）；債券契約會載明權證能不能「分離 (detachable)」單獨買賣。\n\n關鍵差別在「誰發行、行使後股票哪裡來」：一般買權是投資人之間互相買賣既有股票；權證是「公司印新股」給你——這會牽涉到稀釋（下一張卡片）。"
    },
    {
     "t": "concept",
@@ -484,7 +486,7 @@ window.LESSONS = [
     "term_zh": "權證 vs 買權：稀釋",
     "badge": "重點",
     "en": "Call options are issued by exchanges/investors; exercising one just transfers existing shares — total shares outstanding don't change. A warrant is issued by the company; exercising it forces the firm to ISSUE NEW shares, increasing shares outstanding and DILUTING existing equity. Factors affecting price are the same direction as for calls.",
-    "zh": "買權由交易所/投資人發行，執行只是移轉『現有股票』，公司流通在外股數不變。認購權證由公司發行，執行時公司要『發行新股』，使股數增加、稀釋現有股權。影響權證價格的因素方向與買權相同。"
+    "zh": "權證 vs 一般買權的核心差異：「稀釋 (dilution)」。\n\n一般買權：由交易所/投資人發行。行使時只是「既有股票」在市場上易手，公司流通在外股數「不變」。\n\n認股權證：由公司發行。行使時公司必須「發行新股」交給持有人 → 流通在外股數「增加」→ 原股東的持股比例與每股價值被「稀釋」。\n\n例如：原本 1000 股，200 張權證全部行使後變 1200 股，每位原股東的權益被攤薄。\n\n至於影響價格的因素（股價、履約價、波動率…），權證和買權的「方向相同」；差別只在權證多了稀釋這個扣分項，所以同條件下權證價值較低。"
    },
    {
     "t": "formula",
@@ -492,16 +494,16 @@ window.LESSONS = [
     "name_zh": "權證價值(調整稀釋)",
     "latex": "\\text{Warrant} = \\frac{\\#}{\\#+\\#_w}\\times \\text{Call}",
     "en": "A warrant's gain is less than an identical call's because of dilution. The warrant price equals the call price times the ratio of original shares to total shares after all warrants are exercised.",
-    "zh": "因為稀釋，權證的獲利小於相同條件的買權。權證價格＝買權價格×[原股數/(原股數+權證數)]。範例：4,000,000股、500,000權證 → 比例8/9，權證=(8/9)×Call。",
+    "zh": "因為行使權證會稀釋股權，所以「權證的獲利」會比「條件相同的買權」少一些。\n\n權證價值 = 買權價值 × 原始股數 / (原始股數 + 權證張數)。\n\n也就是用「稀釋比例」把買權的價值打個折。\n\n例如：公司原有 1000 股，發行 200 張權證，條件相同的買權值 $10，則\n權證 = 10 × 1000 / (1000 + 200) = 10 × 0.8333 ≈ $8.33。\n\n直覺：行使後股數從 1000 變 1200，你的獲利被「分母變大」攤薄，所以權證一定比同條件買權便宜。",
     "vars_en": "# = original shares; #_w = number of warrants.",
-    "vars_zh": "#＝原股數；#_w＝權證數。"
+    "vars_zh": "# = 原始流通股數；#_w = 權證張數。比例 #/(#+#_w) < 1，所以權證價值低於同條件買權。"
    },
    {
     "t": "def",
     "term_en": "Convertible bonds",
     "term_zh": "可轉換公司債",
     "en": "A convertible bond lets the holder convert it into stock before maturity. Once converted, the bond/debt CEASES to exist and becomes equity (set by a conversion ratio). Contrast with bond-with-warrants: there the warrant is exercised separately and the original bond still exists (and warrant can be sold separately).",
-    "zh": "可轉換公司債讓債權人在到期前可轉換成股票。一旦轉換，『債權就消失』、變成股權(由轉換比率決定)。對比附認股權債券：權證是『單獨拿出來執行』，原本的債權仍存在(且權證可分開賣出)。"
+    "zh": "可轉換公司債 (convertible bond)：讓持有人在到期前，依「轉換比率」把債券轉換成股票的債券。\n\n關鍵特性：一旦「轉換」，原本的「債務就消失」、變成股權。等於債權人變股東。\n\n務必和「附認股權證債券」分清楚：\n• 可轉債：轉換後「債券沒了」，整張變成股票。\n• 附權證債券：權證是「另外」行使的，行使後「原債券仍然存在」（若可分離，權證還能單獨拿去市場賣）。\n\n例如：轉換比率 = 20，表示一張可轉債可換 20 股。若轉換，這張債就註銷、換成 20 股股票。"
    },
    {
     "t": "formula",
@@ -509,16 +511,16 @@ window.LESSONS = [
     "name_zh": "可轉債的價值",
     "latex": "V_{CB} = \\max(\\text{Straight bond},\\ \\text{Conversion}) + \\text{Option value}",
     "en": "A convertible has three parts: (1) Straight bond value = PV of coupons + principal (a minimum/floor). (2) Conversion value = conversion ratio × current stock price (also a floor). (3) Option (waiting) value. The CB value exceeds both floors by the option value.",
-    "zh": "可轉債有三部分：(1) 純粹債券價值＝債息與本金折現(下限)；(2) 轉換價值＝轉換比率×現股價(下限)；(3) 選擇權(等待)價值。可轉債價值＝兩個下限取大者＋選擇權價值。轉換價格＝面額/轉換比率。",
+    "zh": "可轉債的價值由三個部分組成：\n\nV_CB = max(純債券價值, 轉換價值) + 選擇權(等待)價值。\n\n三塊拆解：\n1. 純債券價值 (straight bond value)：把票息和本金折現，當作「就算不轉換、它至少是張債券」的價值——這是一個「地板(下限)」。\n2. 轉換價值 (conversion value) = 轉換比率 × 目前股價，代表「現在馬上轉換」能拿到的股票市值——這是「另一個地板」。\n3. 選擇權價值 = 「保留等待、未來再決定要不要轉」的時間價值。\n\n可轉債的實際價值，會「高於兩個地板的較大者」，高出來的部分就是選擇權價值。\n\n例如：純債券值 $900、轉換價值 $1050，市價 $1120 → 它至少值 max(900,1050)=$1050，多出的 $70 就是選擇權(時間)價值。",
     "vars_en": "Straight bond & conversion value are floors; option value = time value.",
-    "vars_zh": "純債與轉換價值為下限；選擇權價值＝時間價值。"
+    "vars_zh": "純債券價值與轉換價值都是『下限(地板)』；可轉債價值 = 兩地板取大 + 選擇權(時間)價值。"
    },
    {
     "t": "concept",
     "term_en": "Why issue warrants & convertibles",
     "term_zh": "為何發行權證與可轉債",
     "en": "Matching cash flows: young risky growth firms get a lower initial interest rate. Risk synergy: the option component self-adjusts for hard-to-evaluate project risk (riskier project → more valuable option). Agency cost: the equity component reduces bondholder wealth expropriation versus straight debt. In an efficient market, convertibles are neither cheaper nor more expensive than other instruments.",
-    "zh": "配合現金流量：年輕高風險成長公司可用較低的初始利率發行。風險綜效：選擇權成份會依計畫風險自動調整(計畫越冒險、選擇權越值錢)。代理成本：相較一般負債，可轉債的權益成份能降低對債權人財富的剝奪。在效率市場中，可轉債既不會比其他工具便宜、也不會更貴。"
+    "zh": "公司為什麼要發行權證與可轉債？三個主要理由：\n\n1. 配合現金流 (matching cash flows)：年輕、高風險的成長型公司現金流前期較弱。因為這些工具內含選擇權價值，可以用「較低的初始利率」發行，減輕早期付息壓力。\n\n2. 風險綜效 (risk synergy)：當專案風險「難以評估」時，內含的選擇權成分會「自我調整」——專案越有風險，選擇權越值錢。這讓發行雙方比較不會因為錯估風險而吃大虧。\n\n3. 降低代理成本 (agency cost)：股權成分讓債權人也能分享公司上行的好處，減少「股東犧牲債權人」的財富掠奪問題，比純債券更能緩和股東與債權人的衝突。\n\n重要提醒：在效率市場中，可轉債「既不會比較便宜、也不會比較貴」——它的好處在上述三點，而不是「省利息」。"
    }
   ],
   "key": "ch23_24"
@@ -537,14 +539,14 @@ window.LESSONS = [
     "term_en": "Net working capital (NWC)",
     "term_zh": "淨營運資金(NWC)",
     "en": "NWC = Current assets − Current liabilities. It measures short-term liquidity — the firm's ability to meet near-term obligations. Current assets convert to cash within a year (cash, marketable securities, A/R, inventory); current liabilities require payment within a year (A/P, accrued wages/taxes, notes payable).",
-    "zh": "淨營運資金＝流動資產−流動負債，衡量短期流動性(公司週轉短期負債的能力)。流動資產一年內可變現(現金、有價證券、應收帳款、存貨)；流動負債一年內需付款(應付帳款、應付薪資/稅、應付票據)。"
+    "zh": "淨營運資金 (NWC) = 流動資產 − 流動負債，是衡量公司「短期流動性」的指標，也就是「能不能順利付掉近期到期的帳」。\n\n流動資產：一年內可變現的東西，例如現金、有價證券、應收帳款 (A/R)、存貨。\n流動負債：一年內要付掉的義務，例如應付帳款 (A/P)、應付薪資/稅、短期票據。\n\nNWC > 0 通常代表短期償債較安全；NWC 太低甚至為負，可能週轉吃緊。\n\n例如：流動資產 $500 萬、流動負債 $300 萬 → NWC = $200 萬，表示扣掉短期要還的，還有 $200 萬的緩衝。"
    },
    {
     "t": "concept",
     "term_en": "What increases / decreases cash",
     "term_zh": "什麼會增加/減少現金",
     "en": "Cash increases when: long-term debt rises (issue bonds), equity rises (issue stock), fixed assets fall (sell assets), current liabilities rise, or non-cash current assets fall (collect A/R, sell inventory). The opposite movements decrease cash.",
-    "zh": "現金增加：長期負債增加(發債)、權益增加(發股)、固定資產減少(賣資產)、流動負債增加、非現金流動資產減少(收回應收、賣存貨)。相反方向則使現金減少。"
+    "zh": "什麼動作會讓「現金增加」？記住這份清單（資金來源）：\n\n現金「增加」：\n• 舉借長期負債（發債）。\n• 發行股票（增加股權）。\n• 出售固定資產（固定資產減少）。\n• 流動負債增加（例如延後付款、增加應付帳款）。\n• 非現金流動資產減少（收回應收帳款、賣掉存貨）。\n\n現金「減少」：以上反向操作——還債、買回股票、買固定資產、付掉應付帳款、增加存貨/放帳給客戶。\n\n口訣：「負債或股權變多、資產變少 → 現金進來」；反之現金出去。判斷現金流向時，這是最快的檢查法。"
    },
    {
     "t": "formula",
@@ -552,9 +554,9 @@ window.LESSONS = [
     "name_zh": "營運循環",
     "latex": "\\text{Operating cycle} = \\text{Inventory period} + \\text{A/R period}",
     "en": "The operating cycle is the time from arrival of inventory until cash is collected from receivables. Inventory period = time to order, produce, and sell. A/R period = time to collect cash from credit sales.",
-    "zh": "營運循環＝從『存貨進來』到『收到應收帳款現金』的時間。存貨期間＝下單、生產、賣出所需時間；應收帳款期間＝收回賒銷現金所需時間。",
+    "zh": "營運週期 (operating cycle) = 存貨期間 + 應收帳款期間。\n\n它衡量「從存貨進來，到最後收到貨款」這一整段時間。拆成兩段：\n• 存貨期間：從訂貨、生產到賣出所花的時間。\n• 應收帳款期間 (A/R period)：賣出後（賒銷）到實際收到現金的時間。\n\n例如：存貨期間 50 天 + 應收期間 30 天 = 營運週期 80 天，代表一批貨從進倉到收到錢，平均要 80 天。\n\n營運週期越長，資金被「卡在營運流程」裡的時間越久，越需要週轉資金。",
     "vars_en": "Inventory period = 365 / inventory turnover; A/R period = 365 / receivables turnover.",
-    "vars_zh": "存貨期間＝365/存貨週轉率；應收期間＝365/應收週轉率。"
+    "vars_zh": "存貨期間 = 365 / 存貨週轉率；應收期間 = 365 / 應收帳款週轉率。"
    },
    {
     "t": "formula",
@@ -562,16 +564,16 @@ window.LESSONS = [
     "name_zh": "現金循環",
     "latex": "\\text{Cash cycle} = \\text{Operating cycle} - \\text{A/P period}",
     "en": "The cash cycle starts when cash is PAID for materials and ends when cash is COLLECTED from receivables. A/P period = how long the firm can delay paying suppliers.",
-    "zh": "現金循環＝從『付現買料』到『收回應收現金』。＝營運循環−應付帳款期間。應付期間＝公司能延後付款給供應商的時間。範例：營運循環168天、應付期間39天 → 現金循環129天。",
+    "zh": "現金週期 (cash cycle) = 營運週期 − 應付帳款期間。\n\n它衡量「從『付現金買原料』那一刻起，到『收到客戶貨款』為止」公司現金真正被卡住的時間。\n\n為什麼要減掉應付期間？因為公司向供應商進貨通常可以「先欠著、晚點付」，這段賒帳時間（應付帳款期間）等於供應商先幫你墊資，所以要從營運週期裡扣掉。\n\n例如：營運週期 80 天，應付帳款期間 40 天 → 現金週期 = 80 − 40 = 40 天。公司只需自籌 40 天的週轉資金。\n\n現金週期越短越好；甚至可能為負（先收到客戶錢、才付供應商），代表用供應商的錢在做生意，週轉效率極高。",
     "vars_en": "A/P period = 365 / payables turnover.",
-    "vars_zh": "應付期間＝365/應付週轉率。"
+    "vars_zh": "應付帳款期間 = 365 / 應付帳款週轉率，代表公司可延遲付款給供應商的天數。"
    },
    {
     "t": "def",
     "term_en": "Two elements of short-term policy",
     "term_zh": "短期政策的兩個構面",
     "en": "(1) Size of investment in current assets — measured as current assets relative to operating revenue. (2) Financing of current assets — measured as the proportion of short-term to long-term debt.",
-    "zh": "(1) 流動資產投資的規模——以『流動資產/營業收入』衡量；(2) 流動資產的融資方式——以『短期負債/長期負債』比例衡量。"
+    "zh": "短期財務政策由兩個要素構成：\n\n1. 流動資產的「投資規模」：公司要持有多少流動資產（現金、存貨、應收等），通常用「流動資產相對於營收」的比例來衡量。比例高 = 持有較多流動資產。\n\n2. 流動資產的「融資方式」：用多少短期負債、多少長期負債來支應流動資產，看「短期負債占的比例」。\n\n這兩個要素各有「彈性 vs 緊縮」兩種取向（下一張卡片詳述）。投資面決定「持有多少」，融資面決定「拿什麼錢來養」。"
    },
    {
     "t": "concept",
@@ -579,7 +581,7 @@ window.LESSONS = [
     "term_zh": "彈性 vs 限制性政策",
     "badge": "重點",
     "en": "Flexible (investment): high current-assets-to-sales, large cash/securities, large inventory, liberal credit (high A/R). Restrictive: low ratios, little cash, small inventory, no credit sales. Financing: flexible = low proportion of short-term debt; restrictive = high proportion of short-term debt.",
-    "zh": "彈性(投資面)：流動資產對銷售比高、保留大量現金/有價證券、大量存貨、寬鬆授信(高應收)。限制性：各比率低、少現金、少存貨、不賒銷。融資面：彈性＝短期負債比例低；限制性＝短期負債比例高。"
+    "zh": "彈性 (flexible) vs 緊縮 (restrictive) 政策的對比：\n\n投資面（持有多少流動資產）：\n• 彈性：流動資產/銷售比高、留大量現金與有價證券、囤大量存貨、給客戶寬鬆賒銷（應收帳款多）。\n• 緊縮：各項比例都低、現金少、存貨少、幾乎不賒銷。\n\n融資面（用什麼錢養流動資產）：\n• 彈性：短期負債「比例低」（多用長期、穩定的資金）。\n• 緊縮：短期負債「比例高」（成本通常較低，但展期/週轉風險高）。\n\n簡記：彈性=寬鬆、安全、成本高；緊縮=精簡、省成本、風險高。實務上是在兩者間取平衡。"
    },
    {
     "t": "concept",
@@ -587,21 +589,21 @@ window.LESSONS = [
     "term_zh": "持有成本 vs 短缺成本",
     "badge": "重點",
     "en": "Carrying costs RISE with investment in current assets (opportunity cost of low returns; warehousing cost). Shortage costs FALL with investment (order/trading costs; lost sales, lost goodwill, production disruption). The optimal level of current assets (CA*) is the minimum of the total-cost curve. If carrying costs low / shortage costs high → flexible policy; if carrying costs high / shortage costs low → restrictive policy.",
-    "zh": "持有成本『隨』流動資產投資增加而上升(低報酬的機會成本、倉儲成本)。短缺成本『隨』投資增加而下降(訂購/交易成本、失去銷售、商譽、生產中斷)。最適流動資產(CA*)＝總成本曲線的最低點。持有成本低/短缺成本高→彈性政策；持有成本高/短缺成本低→限制性政策。"
+    "zh": "持有成本 vs 短缺成本——決定「最適流動資產水準」的兩股力量：\n\n• 持有成本 (carrying costs)：隨流動資產「增加」而「上升」。包括資金被低報酬資產佔住的機會成本、倉儲成本等。持有越多，這個成本越高。\n\n• 短缺成本 (shortage costs)：隨流動資產「增加」而「下降」。包括頻繁下單/交易的成本，以及缺貨、流失銷售、商譽受損、生產中斷等代價。持有越多，越不會短缺，這成本越低。\n\n最適流動資產水準 CA*：落在「持有成本 + 短缺成本」總成本曲線的「最低點」。\n\n政策選擇：\n• 持有成本低、短缺成本高 → 多備一點划算 → 採「彈性」政策。\n• 持有成本高、短缺成本低 → 精簡較好 → 採「緊縮」政策。"
    },
    {
     "t": "concept",
     "term_en": "Cash budget",
     "term_zh": "現金預算",
     "en": "A cash budget is the primary tool of short-run financial planning. It records estimated cash receipts (from sales, after the collection lag) and cash disbursements (A/P payments, wages/taxes, capital expenditures, long-term financing). Net cash flow and a minimum cash balance reveal the financing surplus or deficit each period.",
-    "zh": "現金預算是短期財務規劃的主要工具，記錄『現金收入估計』(來自銷售，扣掉收款落差)與『現金支出』(付應付帳款、薪資/稅、資本支出、長期融資)。由淨現金流量與最低現金餘額，算出每期的融資剩餘或不足。"
+    "zh": "現金預算 (cash budget)：短期財務規劃「最主要的工具」，用來預估每一期會缺錢還是多錢。\n\n它記錄兩邊：\n• 現金「收入」：來自銷售，但要扣掉「收款延遲」——賒銷的錢常隔月才收到，所以當期現金收入未必等於當期銷售額。\n• 現金「支出」：付供應商 (應付帳款)、薪資與稅、資本支出、長期融資相關支出等。\n\n把收入減支出得到「淨現金流」，再對照公司設定的「最低現金餘額」，就能看出每一期是「資金有餘」還是「資金不足」，提前安排借款或投資。\n\n精神：先把未來幾期的現金進出攤開來看，避免臨時週轉開天窗。"
    },
    {
     "t": "def",
     "term_en": "Short-term financing sources",
     "term_zh": "短期融資來源",
     "en": "To finance a temporary cash deficit: unsecured loans (e.g. a bank line of credit); secured loans (using A/R or inventory as collateral); other sources (banker's acceptances, commercial paper).",
-    "zh": "用來支應暫時性現金不足：無擔保借款(如銀行信用額度)、有擔保借款(以應收帳款或存貨作擔保)、其他來源(銀行承兌匯票、商業本票)。"
+    "zh": "當公司出現「暫時性的現金不足」，可用的短期融資來源有三類：\n\n1. 無擔保借款 (unsecured)：不需抵押品，例如向銀行申請的「信用額度 (line of credit)」。\n\n2. 有擔保借款 (secured)：拿資產當抵押，常見以「應收帳款」或「存貨」作為擔保品向銀行借款。\n\n3. 其他來源：例如銀行承兌匯票 (banker's acceptances)、商業本票 (commercial paper)。\n\n選擇關鍵：信用好、規模大的公司能用較便宜的無擔保或商業本票；信用較弱的則可能需要拿應收/存貨來擔保。"
    }
   ],
   "key": "ch26"
@@ -621,21 +623,21 @@ window.LESSONS = [
     "term_zh": "持有現金的動機",
     "badge": "必背",
     "en": "Speculative motive — hold cash to seize unexpected opportunities. Precautionary motive — hold cash for emergencies. Transaction motive — hold cash to pay day-to-day bills. There is a trade-off between the opportunity cost of holding cash and the transaction cost of converting securities to cash.",
-    "zh": "投機動機——握有現金以掌握突發機會；預防動機——以防緊急狀況；交易動機——支付日常帳單。需在『持有現金的機會成本』與『把有價證券變現的交易成本』間取捨。"
+    "zh": "公司為什麼要「持有現金」？三大動機（凱因斯的經典分類）：\n\n1. 投機動機 (speculative)：手上留現金，以便「突然出現好機會」時能立刻把握（如趁低價進貨、併購）。\n\n2. 預防動機 (precautionary)：留現金「以防萬一」，應付突發的緊急狀況。\n\n3. 交易動機 (transaction)：留現金支付「日常營運的帳單」（薪水、貨款等）。\n\n但持有現金有取捨：現金太多有「機會成本」（報酬低）；現金太少又得頻繁變賣證券換現金，產生「交易成本」。最適現金部位就在這兩者之間取得平衡。"
    },
    {
     "t": "def",
     "term_en": "Float",
     "term_zh": "浮差(float)",
     "en": "Book (ledger) balance = cash shown on the firm's books. Available (collected) balance = cash the bank shows as spendable. Float = available balance − book balance, the net effect of checks still clearing through the banking system.",
-    "zh": "帳面餘額(book/ledger)＝公司帳上現金；可用餘額(available/collected)＝銀行顯示可動用的現金。浮差(float)＝可用餘額−帳面餘額，反映支票還在銀行體系『清算中』的淨效果。"
+    "zh": "浮存 (float) 與兩種「餘額」的差別：\n\n• 帳面(分類帳)餘額 (book/ledger balance)：公司「自己帳上」記錄的現金。\n• 可用(已收妥)餘額 (available/collected balance)：銀行認定你「現在真正能動用」的現金。\n\n浮存 = 可用餘額 − 帳面餘額，反映「還在銀行系統裡清算中的支票」造成的淨差額。\n\n為什麼會有差？因為支票從開立到真正清算、入帳要花時間。在這段時間裡，公司帳上和銀行端看到的金額會不一樣，這個時間差就是浮存的來源。"
    },
    {
     "t": "concept",
     "term_en": "Disbursement vs collection float",
     "term_zh": "支出浮差 vs 收款浮差",
     "en": "Disbursement float: checks the firm WRITES decrease its book balance but not yet its available balance. Collection float: checks the firm RECEIVES increase book balance but not yet available balance. Float size depends on dollar amount and time delay.",
-    "zh": "支出浮差：公司『開出』的支票會減少帳面餘額，但尚未減少可用餘額。收款浮差：公司『收到』的支票會增加帳面餘額，但尚未增加可用餘額。浮差大小取決於金額與時間延遲。"
+    "zh": "兩種浮存方向相反，要分清楚：\n\n• 支付浮存 (disbursement float)：公司「開出去」的支票，已讓「帳面餘額」減少，但對方還沒兌現，所以「可用餘額」還沒被扣。這段期間公司實際還能動用這筆錢 → 對公司「有利」。\n\n• 收款浮存 (collection float)：公司「收到」的支票，已讓「帳面餘額」增加，但還沒清算完成，所以「可用餘額」還不能用 → 對公司「不利」。\n\n浮存大小取決於兩件事：金額多大、時間延遲多久。\n\n實務目標：盡量「拉長」支付浮存（晚點被扣）、「縮短」收款浮存（快點能用），讓可動用資金最大化。"
    },
    {
     "t": "formula",
@@ -643,23 +645,23 @@ window.LESSONS = [
     "name_zh": "浮差衡量(延遲)",
     "latex": "\\text{Delay} = \\text{Mailing} + \\text{Processing} + \\text{Availability}",
     "en": "Total delay = mailing time + processing delay + availability delay. Average daily float = (delay days × amount) ÷ days in period.",
-    "zh": "總延遲＝郵寄時間＋處理延遲＋可用延遲。平均每日浮差＝(延遲天數×金額)÷期間天數。範例：3+1+1=5天、$1000、30天 → 平均每日浮差＝5×$1000/30＝$166.67。",
+    "zh": "衡量浮存要先算「總延遲」：\n\n總延遲 = 郵寄時間 + 處理延遲 + 可用性延遲。\n• 郵寄時間：支票寄送的天數。\n• 處理延遲：收到後內部作業、存入銀行的時間。\n• 可用性延遲：銀行收到後，款項變成可動用所需的清算時間。\n\n平均每日浮存 = (延遲天數 × 金額) ÷ 期間天數。\n\n例如：一張 $10,000 的支票需 4 天清算，以這 4 天計算，平均每日浮存 = (4 × 10,000) / 4 = $10,000。\n\n降低收款浮存的方法，多半就是設法縮短上述三段延遲（如就近設收款點、加速內部處理）。",
     "vars_en": "Average daily float = (delay × amount)/days.",
-    "vars_zh": "平均每日浮差＝(延遲×金額)/天數。"
+    "vars_zh": "總延遲 = 郵寄 + 處理 + 可用性三段時間相加；平均每日浮存 = (延遲 × 金額) / 期間天數。"
    },
    {
     "t": "concept",
     "term_en": "Credit and receivables",
     "term_zh": "信用與應收帳款",
     "en": "Granting credit generally increases sales but creates the cost of bad debts (customers who don't pay). Credit management weighs the trade-off between extra sales and the cost of granting credit.",
-    "zh": "提供信用通常會增加銷售，但帶來壞帳成本(顧客不還錢)。信用管理就是在『增加的銷售』與『提供信用的成本』之間做取捨。"
+    "zh": "信用（賒銷）與應收帳款管理的核心是一個「取捨」：\n\n提供賒銷（讓客戶先拿貨、之後再付款）通常能「增加銷售」——客戶更願意買。\n\n但代價是「呆帳成本」：總有一些客戶最後不付錢。\n\n所以信用管理就是在「多賺的銷售」與「授信帶來的成本（呆帳、資金被佔用）」之間做權衡：放得太寬，呆帳吃掉利潤；收得太緊，又流失生意。\n\n目標是找到讓「增額利潤 − 授信成本」最大的信用政策。"
    },
    {
     "t": "def",
     "term_en": "Components of credit policy",
     "term_zh": "信用政策的組成",
     "en": "(1) Terms of sale — credit period, cash discount & discount period, type of credit instrument. (2) Credit analysis — distinguishing 'good' payers from 'bad' (likely-to-default) customers. (3) Collection policy — effort spent collecting receivables.",
-    "zh": "(1) 銷售條件——授信期間、現金折扣與折扣期間、信用工具類型；(2) 信用分析——分辨會付款的『好』客戶與會違約的『壞』客戶；(3) 收款政策——花在催收應收帳款的努力。"
+    "zh": "信用政策由三個要素組成：\n\n1. 銷售條件 (terms of sale)：\n   • 信用期：給客戶多少天付款。\n   • 現金折扣與折扣期：例如「2/10, net 30」= 10 天內付款打 98 折，否則 30 天內全額付清。\n   • 信用工具的種類（賒帳、票據等）。\n\n2. 信用分析 (credit analysis)：分辨「好客戶」（會準時付款）與「壞客戶」（很可能違約），決定要不要放帳、放多少。\n\n3. 收款政策 (collection policy)：花多少力氣去催收應收帳款（提醒、催繳、委外）。\n\n這三項一起決定了公司賒銷的鬆緊與風險。"
    }
   ],
   "key": "ch27_28"
@@ -679,21 +681,21 @@ window.LESSONS = [
     "term_zh": "收購的三種基本形式",
     "badge": "必背",
     "en": "(1) Merger or Consolidation — merger: one firm absorbs another (acquirer keeps its name, target ceases); consolidation: a brand-new firm is created. (2) Acquisition of Stock — buy the target's voting stock (a tender offer is a public offer to shareholders). (3) Acquisition of Assets — buy all the target's assets.",
-    "zh": "(1) 合併或創設合併——合併：一家吸收另一家(主併保留名稱、被併消滅)；創設合併：成立全新公司；(2) 股票收購——買被併公司有表決權股票(公開收購 tender offer 是直接向股東公開出價)；(3) 資產收購——買下被併公司全部資產。"
+    "zh": "收購的三種基本形式：\n\n1. 合併 (Merger) 或 新設合併 (Consolidation)：\n   • 合併：一家公司「吸收」另一家，存續公司保留名稱，被併公司消失。\n   • 新設合併：兩家都消失，「重新成立一家全新公司」。\n\n2. 收購股權 (Acquisition of Stock)：直接買下目標公司的「有投票權股票」。常以「公開收購 (tender offer)」進行——公開向全體股東喊價買股。\n\n3. 收購資產 (Acquisition of Assets)：買下目標公司的「全部資產」，而不是買它的股票。\n\n三種方式在「是否需股東表決、是否留下少數股東、稅務」上各有差異（後面卡片詳述）。"
    },
    {
     "t": "concept",
     "term_en": "Stock vs asset acquisition trade-offs",
     "term_zh": "股票 vs 資產收購的取捨",
     "en": "Stock acquisition: no shareholder vote needed, deal directly with shareholders; but if target managers resist it costs more, and a minority can hold out (target not fully absorbed). Asset acquisition: leaves no minority shareholders; but requires a formal target shareholder vote.",
-    "zh": "股票收購：不需股東會表決、可直接與股東交易；但若被併經理人抵抗成本會更高，且少數股東可能不賣(無法完全吸收)。資產收購：不會留下少數股東；但需要被併公司股東會正式表決。"
+    "zh": "收購「股權」vs 收購「資產」的取捨：\n\n收購股權 (stock acquisition)：\n• 優點：不需要目標公司開股東會表決，可「直接向股東」買。\n• 缺點：若目標管理層抵抗，成本會墊高；而且可能有「少數股東不肯賣」而僵持（hold out），導致無法 100% 完全吸收。\n\n收購資產 (asset acquisition)：\n• 優點：買的是資產，「不會留下少數股東」的問題。\n• 缺點：需要目標公司「正式的股東會表決」通過，程序較繁複；資產過戶手續也較多。\n\n簡記：買股權免表決但可能卡少數股東；買資產沒少數股東但要表決。"
    },
    {
     "t": "def",
     "term_en": "Horizontal / vertical / conglomerate",
     "term_zh": "水平/垂直/複合收購",
     "en": "Horizontal — acquirer and target in the same industry. Vertical — firms at different steps of the same production process. Conglomerate — the two firms are unrelated.",
-    "zh": "水平收購——主併與被併在『同一產業』；垂直收購——位於『同一生產流程不同階段』；複合式收購——兩家公司『不相關』。"
+    "zh": "依「收購雙方的業務關係」分三類：\n\n• 水平併購 (Horizontal)：收購方與目標在「同一產業」（如兩家手機廠合併）。目的常是擴大市占、規模經濟。\n\n• 垂直併購 (Vertical)：兩家位於「同一生產流程的上下游」（如車廠併購輪胎廠）。目的是整合供應鏈、降低交易成本。\n\n• 複合(集團)併購 (Conglomerate)：兩家業務「互不相關」（如食品公司併購保險公司）。目的常是分散或進入新領域。\n\n這三類也對應不同的綜效來源與反托拉斯（公平競爭）審查強度——水平併購最容易被盯上。"
    },
    {
     "t": "formula",
@@ -701,16 +703,16 @@ window.LESSONS = [
     "name_zh": "綜效",
     "latex": "\\text{Synergy} = V_{AB} - (V_A + V_B)",
     "en": "Synergy exists when the combined firm is worth more than the sum of the two stand-alone firms. It can be valued by the incremental cash flows: ΔCF = ΔRevenue − ΔCost − ΔTaxes − ΔCapital requirement, discounted appropriately.",
-    "zh": "綜效＝合併後價值 − (主併+被併各自價值)。當合併後價值大於兩家獨立價值之和時，就有綜效。可用增額現金流量評價：ΔCF＝Δ收入−Δ成本−Δ稅−Δ資本需求，再折現。",
+    "zh": "綜效 (synergy)：當「合併後的公司價值」大於「兩家獨立公司價值之和」時，就存在綜效。\n\nSynergy = V_AB − (V_A + V_B)。\n\n綜效是併購「真正創造價值」的來源；沒有綜效的併購，只是把兩塊錢併成兩塊錢，對股東沒好處。\n\n綜效可用「增額現金流」來評價：\nΔCF = Δ收入 − Δ成本 − Δ稅 − Δ資本需求，再用合適的折現率折現。\n\n例如：A 公司獨立值 $500、B 公司獨立值 $100，合併後整體值 $650，則綜效 = 650 − (500+100) = $50。這 $50 就是合併額外創造的價值。",
     "vars_en": "V_AB combined value; V_A, V_B stand-alone values.",
-    "vars_zh": "V_AB＝合併後價值；V_A、V_B＝各自獨立價值。"
+    "vars_zh": "V_AB = 合併後公司價值；V_A、V_B = 兩家各自獨立的價值。綜效 > 0 才值得併。"
    },
    {
     "t": "concept",
     "term_en": "Sources of synergy",
     "term_zh": "綜效的來源",
     "en": "Revenue enhancement (marketing gains, strategic benefits, monopoly power); Cost reduction (economies of scale/scope, vertical integration, technology transfer, complementary resources, removing weak managers); Tax gains (use net operating losses, more debt capacity → bigger tax shield, absorb surplus funds); Reduced capital requirements (eliminate duplicate facilities).",
-    "zh": "收入提升(行銷利益、策略利益、獨佔力)；成本降低(規模/範疇經濟、垂直整合、技術移轉、互補資源、汰除無能經理人)；租稅利益(運用淨營業損失、增加舉債能力→更大抵稅、消化多餘資金)；降低資本需求(消除重複設施)。"
+    "zh": "綜效的四大來源（考試常考分類）：\n\n1. 收入增強 (Revenue enhancement)：行銷綜效、策略性利益、市場壟斷力（提高訂價能力）。\n\n2. 成本降低 (Cost reduction)：規模/範疇經濟、垂直整合、技術移轉、互補資源、撤換無能的經理人。\n\n3. 稅負利得 (Tax gains)：利用被併公司的「淨營業損失 (NOL)」抵稅、提高負債能力→更大的利息稅盾、消化多餘資金。\n\n4. 降低資本需求 (Reduced capital requirements)：合併後可裁撤重複的廠房、設備等，少投資也能運作。\n\n記憶法：收入↑、成本↓、稅↓、資本需求↓——四個方向都讓增額現金流變好。"
    },
    {
     "t": "concept",
@@ -718,7 +720,7 @@ window.LESSONS = [
     "term_zh": "EPS 成長可能是會計幻覺",
     "badge": "重點",
     "en": "If a merger creates no synergy, any rise in EPS is just an artifact of combining a high-P/E firm with a low-P/E firm — not real growth. In an efficient market ('smart' investors), the combined value is just the sum of the two, the P/E falls, and per-share value is unchanged.",
-    "zh": "若併購無綜效，EPS 上升只是『高本益比公司併低本益比公司』的會計假象，不是真成長。在效率市場(聰明投資人)中，合併後價值只是兩者相加、本益比下降、每股真實價值不變。"
+    "zh": "「EPS 成長」可能只是會計假象，這是併購最經典的陷阱：\n\n如果一樁併購「沒有任何綜效」，但合併後每股盈餘 (EPS) 卻上升了，那這個上升不是真的成長，只是「高本益比 (P/E) 公司併購低本益比公司」所產生的算術效果。\n\n在效率市場（投資人夠精明）下會發生什麼？\n• 合併後的總價值就只是兩家之和（因為沒綜效）。\n• 合併後公司的 P/E 會「下降」。\n• 每股價值「不變」。\n\n換句話說，EPS 雖然帳面變漂亮，但因為 P/E 同步下滑，股價並不會因此上漲。真正能讓股東變富的只有「綜效」，不是 EPS 的數字遊戲。"
    },
    {
     "t": "concept",
@@ -726,7 +728,7 @@ window.LESSONS = [
     "term_zh": "分散與共同保險效果",
     "badge": "重點",
     "en": "Unsystematic risk can be diversified away by a merger, but shareholders can diversify more cheaply themselves, so risk reduction is not a benefit to them. With debt, a merger reduces bankruptcy probability — the coinsurance effect transfers wealth FROM stockholders TO bondholders.",
-    "zh": "非系統風險可藉合併分散掉，但股東自己分散更便宜，所以『降低風險對股東不是好處』。當兩家都有負債時，合併降低破產機率——『共同保險效果』把財富從股東轉移給債權人。"
+    "zh": "分散風險與「共同保險效果」——兩個常被誤會成併購好處的東西：\n\n1. 分散非系統風險：合併確實能分散掉一些非系統性風險，但「股東自己在股市分散投資的成本更低」，不需要公司花大錢併購來代勞。所以「為了分散風險而併購」對股東「不是好處」。\n\n2. 共同保險效果 (coinsurance effect)：當公司有負債時，合併會降低整體破產機率，讓「既有債券變得更安全、更值錢」。但這份好處是「從股東移轉給債權人」——債券增值的代價由股東承擔。\n\n兩點的共同結論：單純為了「降低風險」而併購，受惠的往往不是股東。"
    },
    {
     "t": "formula",
@@ -734,23 +736,23 @@ window.LESSONS = [
     "name_zh": "現金併購的 NPV",
     "latex": "\\text{NPV} = \\text{Synergy} - \\text{Premium}",
     "en": "For a cash offer: NPV to acquirer = Synergy − Premium, where Premium = Cash paid − V_B. Equivalently NPV = (V_B + Synergy) − Cash.",
-    "zh": "現金併購：對主併的 NPV＝綜效−溢價，溢價＝付出現金−被併獨立價值V_B。等價於 NPV＝(V_B＋綜效)−現金。範例：綜效$100、溢價$50 → NPV＝$50。",
+    "zh": "現金併購對「收購方」的 NPV：\n\nNPV = 綜效 − 溢價，其中 溢價 = 支付的現金 − V_B。\n（等價寫法：NPV = (V_B + 綜效) − 支付現金。）\n\n白話：你付出去的錢，超過目標公司「原本獨立價值 V_B」的部分叫溢價；只有當你創造的「綜效」大於「溢價」時，這樁併購對收購方才划算。\n\n例如：B 獨立值 $100、綜效 $50，A 付現金 $130。\n溢價 = 130 − 100 = $30；NPV = 綜效 − 溢價 = 50 − 30 = +$20，值得做。\n但若 A 付到 $160，溢價 = $60 > 綜效 $50，NPV = −$10，反而是「買貴了」、傷害收購方股東。",
     "vars_en": "Premium = cash paid − V_B.",
-    "vars_zh": "溢價＝付出現金−V_B。"
+    "vars_zh": "溢價 = 支付現金 − V_B（目標獨立價值）；只有綜效 > 溢價，收購方才獲利。"
    },
    {
     "t": "concept",
     "term_en": "Cash vs stock acquisition",
     "term_zh": "現金 vs 換股收購",
     "en": "With a stock offer, the target's shareholders end up owning a fraction of the combined firm, so the cost depends on that fraction × combined value. Firms are more likely to pay with stock when their own shares are OVERVALUED; hence the acquirer's stock price usually FALLS on announcement of a stock-for-stock deal.",
-    "zh": "換股收購時，被併股東最後持有合併後公司的一部分，所以成本＝該比例×合併後價值。公司在『自家股價被高估』時較傾向用股票支付；因此宣布換股交易時，主併股價通常『下跌』。"
+    "zh": "用「現金」還是「股票」支付，差別很大：\n\n現金併購：付固定金額現金，目標股東拿錢走人，跟合併後公司的好壞無關。\n\n股票併購（換股）：目標股東換得「合併後公司的一部分股權」，所以收購的真實成本 = 那個持股比例 × 合併後公司價值，會隨合併後表現浮動。\n\n關鍵訊號：公司比較會在「自家股價被高估」時，選擇用股票支付（等於用『貴的貨幣』付帳）。因此市場常把「換股併購」解讀為「收購方認為自己股價偏高」的訊號——\n\n結果：宣布換股併購時，收購方的股價「通常會下跌」。"
    },
    {
     "t": "def",
     "term_en": "Friendly vs hostile; tender offer & proxy fight",
     "term_zh": "善意 vs 敵意；公開收購與委託書爭奪",
     "en": "Friendly merger: both managements are receptive. Hostile merger: the acquirer tries to gain control without target management's approval, usually via a tender offer (public offer to shareholders) or a proxy fight (battle for shareholder votes).",
-    "zh": "善意合併：雙方經營層都接受。敵意合併：主併在被併經營層不同意下取得控制權，通常透過公開收購(直接向股東出價)或委託書爭奪(爭取股東投票)。"
+    "zh": "友善 vs 敵意併購，以及兩種敵意手段：\n\n• 友善併購 (friendly)：雙方管理層都樂意、坐下來談。\n\n• 敵意併購 (hostile)：收購方在「未經目標管理層同意」下，硬要取得控制權。常用兩種手段：\n   1. 公開收購 (tender offer)：跳過管理層，「直接向股東」公開喊價買股。\n   2. 委託書爭奪戰 (proxy fight)：爭取「股東的投票委託權」，在股東會上改組董事會、奪取控制權。\n\n簡記：敵意併購 = 繞過管理層，要嘛直接買股東的股(tender offer)，要嘛搶股東的票(proxy fight)。"
    },
    {
     "t": "def",
@@ -758,21 +760,21 @@ window.LESSONS = [
     "term_zh": "防禦戰術",
     "badge": "重點",
     "en": "Before being in play: corporate charter amendments (classified/staggered board, supermajority voting), golden parachutes (costly management packages on takeover), poison pills (let existing holders buy shares cheaply). After in play: targeted repurchase/greenmail, standstill agreements, white knight (friendly buyer), leveraged recapitalization, exclusionary self-tenders, asset restructuring (sell 'crown jewels').",
-    "zh": "被鎖定『前』：修改公司章程(分期改選董事、超級多數決)、金降落傘(被併時給經營層優渥條件以提高成本)、毒藥丸(讓現有股東以低價買股)。被鎖定『後』：針對性買回/綠票訛詐(greenmail)、停止協議、白衣騎士(友善買主)、槓桿資本重組、排除性自我收購、資產重組(賣掉『皇冠上的珠寶』)。"
+    "zh": "目標公司的防禦戰術，分「被盯上前」與「被盯上後」：\n\n被盯上「之前」的預防措施：\n• 公司章程修訂：分期(交錯)改選董事會 (staggered board)、超級多數決 (supermajority)，讓收購方難以一次掌控。\n• 黃金降落傘 (golden parachute)：被併時給管理層高額補償，墊高收購成本。\n• 毒藥丸 (poison pill)：讓現有股東能以超低價大量認股，稀釋收購方、墊高成本。\n\n已被盯上「之後」的反制：\n• 標定回購/綠郵 (greenmail)：溢價向收購者買回持股請他走人。\n• 停戰協議 (standstill)、找白衣騎士 (white knight 友善買家)。\n• 槓桿資本重組 (leveraged recap)、排除性自我收購、出售「皇冠上的珠寶 (crown jewels)」核心資產讓自己變得沒吸引力。"
    },
    {
     "t": "concept",
     "term_en": "Have mergers added value?",
     "term_zh": "併購有創造價值嗎？",
     "en": "Target shareholders earn excess returns (more in a tender offer than a straight merger, partly because target managers resist and push the price up). Bidding-firm shareholders earn a small excess return in a tender offer but roughly none in a straight merger.",
-    "zh": "被併公司股東有超額報酬(公開收購比直接合併賺更多，部分因被併經理人抵抗把價格抬高)。主併公司股東在公開收購中只有小幅超額報酬，直接合併幾乎沒有。"
+    "zh": "併購到底有沒有創造價值？實證結果（誰賺到超額報酬）：\n\n• 目標公司股東：賺到「明顯的超額報酬」。其中「公開收購」賺得比「一般合併」更多——部分原因是目標管理層的抵抗，反而把收購價格往上推高了。\n\n• 收購方股東：在「公開收購」中只賺到「少少的」超額報酬；在「一般合併」中則「幾乎沒有」超額報酬。\n\n總結：併購的好處大多被「目標公司股東」拿走；收購方股東往往沒佔到便宜，甚至在出價過高時受損。這也呼應前面「別付過高溢價」的教訓。"
    },
    {
     "t": "def",
     "term_en": "Taxes, accounting, LBO",
     "term_zh": "稅務、會計、槓桿收購",
     "en": "Tax-free acquisition: sellers are treated as exchanging old shares for new of equal value → no capital gain/loss. Taxable: capital gain = price − original investment is taxed. Purchase method: acquired assets at fair value; excess paid over fair value = goodwill. LBO (going private): a cash offer financed with large debt; value comes from the debt tax shield and improved efficiency from concentrated ownership incentives.",
-    "zh": "免稅收購：賣方視為以舊股換等值新股→無資本利得/損失。應稅：資本利得＝價格−原始投資，需課稅。購買法：被併資產以公允價值入帳，超過公允價值的部分＝商譽。槓桿收購(下市)：以大量負債融資的現金收購；價值來自負債抵稅與『集中所有權誘因→提高效率』。"
+    "zh": "併購的稅務、會計與 LBO：\n\n稅務：\n• 免稅併購：賣方被視為「用舊股換等值新股」，當下不認列資本利得或損失。\n• 應稅併購：賣方須就「售價 − 原始投資成本」的資本利得課稅。\n\n會計（購買法 purchase method）：取得的資產以「公允價值」入帳；支付價格「超過公允價值」的部分認列為「商譽 (goodwill)」。\n\n槓桿收購 (LBO，下市/going private)：用「大量負債」融資的現金收購。價值來源有二——\n1. 負債的「利息稅盾」。\n2. 股權集中後，經營者誘因改善帶來的「效率提升」。"
    },
    {
     "t": "def",
@@ -780,7 +782,7 @@ window.LESSONS = [
     "term_zh": "分割/出售",
     "badge": "重點",
     "en": "Sell-off: sell a division to another company (shareholders' firm gets cash; no longer controlled by same shareholders). Equity carve-out: create a new firm from a subsidiary and sell a minority stake to the public via IPO (parent receives cash). Spin-off: create a new firm from a subsidiary and DISTRIBUTE its shares to existing parent shareholders (no cash to shareholders; still controlled by the same shareholders).",
-    "zh": "出售(sell-off)：把部門賣給別家公司(公司收到現金；不再由同一群股東控制)。分割上市(equity carve-out)：把子公司獨立成新公司並透過 IPO 賣少數股權給大眾(母公司收到現金)。分割(spin-off)：把子公司獨立成新公司，並把股份『分配』給原母公司股東(股東不收現金；仍由同一群股東控制)。"
+    "zh": "分割/處分 (divestitures) 的三種方式，差別在「公司拿不拿到現金、還是不是原股東控制」：\n\n• 出售 (Sell-off)：把一個部門「賣給另一家公司」。公司(股東的公司)拿到「現金」；該部門不再由原股東控制。\n\n• 股權分拆 (Equity carve-out)：把子公司獨立，透過 IPO「向大眾出售少數股權」。母公司收到「現金」，但仍保有多數控制權。\n\n• 分割 (Spin-off)：把子公司獨立，並把其股票「直接分配給原母公司股東」。股東「沒拿到現金」，且該公司「仍由相同的股東控制」，只是變成獨立掛牌。\n\n對照記憶：出售=賣掉換現金、易主；carve-out=賣少數股權換現金、不易主；spin-off=不換現金、股票分給原股東。"
    }
   ],
   "key": "ch29"
